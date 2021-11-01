@@ -1,8 +1,13 @@
-import {Component} from "react";
-import {EasyFormProps} from "./EasyFormProps";
+import {useReducer} from "react";
+import {easyFormReducer, easyFormReducerInitialState} from "../Data/EasyFormReducer";
 
-export class EasyForm extends Component<EasyFormProps> {
-    render() {
-        return null;
-    }
+export function EasyForm() {
+    const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
+
+    return <div>
+        Easy Form
+    </div>
 }
+
+
+
