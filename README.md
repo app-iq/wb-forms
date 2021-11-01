@@ -67,12 +67,7 @@ a library that make your life easier
 
 
 
-**State** 
-
-    {
-        configuration : Configuration;
-        state: State;
-    }
+**State**
 
 
     {

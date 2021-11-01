@@ -1,17 +1,18 @@
-import React, {ReactElement, useReducer} from "react";
+import React, {ReactElement, useEffect, useReducer} from "react";
 import {easyFormReducer, easyFormReducerInitialState} from "../Data/EasyFormReducer";
+import {SetupActions} from "../Actions/SetupAction";
 
 export function EasyForm({children}: { children: ReactElement[] | ReactElement }) {
     const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
 
-    children = Array.isArray(children) ? children : [children];
+    const childrenArr = Array.isArray(children) ? children : [children];
+    useEffect(() => {
+        childrenArr.forEach(c => dispatch(SetupActions.initializeField(c.props.name)));
+    },[childrenArr]);
 
     return <div>
         {
-            children.map(c => {
-                const Component = c.type;
-                return <Component key={c.props.name} {...c.props} />
-            })
+            children
         }
     </div>
 }
