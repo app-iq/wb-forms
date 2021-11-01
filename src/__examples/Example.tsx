@@ -1,3 +1,9 @@
+import {EasyForm} from "../Root/EasyForm";
+import {DefaultTextField} from "../DefaultComponents/DefaultTextField";
+
 export function SimpleExample() {
-    return <h1>TOBE DONE</h1>;
+    return <EasyForm>
+        <DefaultTextField name={'username'}/>
+        <DefaultTextField name={'password'}/>
+    </EasyForm>;
 }
