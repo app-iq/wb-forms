@@ -1,5 +1,5 @@
 import {EasyForm} from "../Root/EasyForm";
-import DefaultTextField from "../DefaultComponents/DefaultTextField";
+import DefaultTextField from "../Components/DefaultTextField";
 import {FieldGroup} from "../Field/FieldGroup";
 
 export function SimpleExample() {

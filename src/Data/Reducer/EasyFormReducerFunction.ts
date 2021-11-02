@@ -1,7 +1,7 @@
 import {EasyFormAction} from "../Actions/EasyFormAction";
 import {SetupAction, SetupActionType} from "../Actions/Setup/SetupAction";
 import {StateActionType} from "../Actions/State/StateAction";
-import {FieldState} from "../Field/FieldState";
+import {FieldState} from "../../Field/FieldState";
 import {InitializePayload} from "../Actions/Setup/Payload";
 
 

@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {DispatchContext} from "../Context/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "./FieldState";
-import {StateActions} from "../Actions/State/StateActions";
+import {StateActions} from "../Data/Actions/State/StateActions";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;

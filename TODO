@@ -2,8 +2,8 @@ TODO :
 
 
     *
-    *
-    *
+    * Defaults Injection && Default Provider
+    * Service Injection &&  ServiceProvider
     * validate unique field names (log warning or throw exception)
     * [DONE] basic field component
     * [DONE] fields render service
