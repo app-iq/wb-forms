@@ -1,6 +1,6 @@
 import {easyFormReducerInitialState, EasyFormReducerState} from "../../Data/Reducer/EasyFormReducer";
 import {SetupActions} from "../../Data/Actions/Setup/SetupActions";
-import {FieldState} from "../../Field/FieldState";
+import {FieldState} from "../../Data/Types/FieldState";
 import {setupReducer} from "../../Data/Reducer/SetupReducer";
 
 describe('SetupReducer', () => {

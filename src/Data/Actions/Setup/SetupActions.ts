@@ -1,4 +1,4 @@
-import {FieldState} from "../../../Field/FieldState";
+import {FieldState} from "../../Types/FieldState";
 import {SetupAction, SetupActionType} from "./SetupAction";
 import {InitializePayload} from "./Payload";
 

@@ -1,15 +1,16 @@
-import React, {ReactElement, useEffect, useReducer} from "react";
+import React, {useEffect, useReducer} from "react";
 import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
 import {FieldsContext} from "../Context/FieldsContext";
 import {DispatchContext} from "../Context/DispatchContext";
-import {ServiceContext} from "../Context/ServiceContext";
-import {defaultServices} from "../Services/DefaultServices";
+import {useService} from "../Context/ServiceContext";
 import {FieldProps} from "../Field/FieldProps";
-import {FieldState} from "../Field/FieldState";
+import {FieldState} from "../Data/Types/FieldState";
 import {easyFormDefaults, EasyFormDefaults} from "../Defaults/EasyFormDefaults";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
+import {FieldsRenderService} from "../Services/Protocol/FieldsRenderService";
+import {EasyFormProps} from "./EasyFormProps";
 
-export function EasyForm({children}: { children: ReactElement[] | ReactElement }) {
+export function EasyForm({children}: EasyFormProps) {
     const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
 
     useEffect(() => {
@@ -18,20 +19,16 @@ export function EasyForm({children}: { children: ReactElement[] | ReactElement }
         childrenArr.forEach(c => dispatch(SetupActions.initializeField(c.props.name, buildField(c.props, easyFormDefaults))));
     }, [children]);
 
-    //TODO : setup services from props
-    let services = defaultServices;
+    const fieldsRenderService = useService<FieldsRenderService>('fieldsRenderService')();
 
-    const fieldsRenderService = services.fieldsRenderService;
+    return <DispatchContext.Provider value={dispatch}>
+        <FieldsContext.Provider value={state.fields}>
+            {
+                fieldsRenderService.render(children)
+            }
+        </FieldsContext.Provider>
+    </DispatchContext.Provider>
 
-    return <ServiceContext.Provider value={services}>
-        <DispatchContext.Provider value={dispatch}>
-            <FieldsContext.Provider value={state.fields}>
-                {
-                    fieldsRenderService.render(children)
-                }
-            </FieldsContext.Provider>
-        </DispatchContext.Provider>
-    </ServiceContext.Provider>
 }
 
 

@@ -27,7 +27,7 @@ export class DefaultFieldsRenderService implements FieldsRenderService {
         }
 
         return groups.map((group, index) => {
-            return <div data-easyform-group={index}>
+            return <div key={index} data-easyform-group={index}>
                 {group}
             </div>
         });

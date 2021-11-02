@@ -1,4 +1,4 @@
-import {ValueSelector} from "./ValueSelector";
+import {ValueSelector} from "../../Field/ValueSelector";
 
 export interface FieldState {
     //general properties

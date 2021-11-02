@@ -1,4 +1,4 @@
-import {FieldState} from "../../../Field/FieldState";
+import {FieldState} from "../../Types/FieldState";
 import {FieldPayload} from "../Field/FieldAction";
 
 export interface InitializePayload extends FieldPayload {

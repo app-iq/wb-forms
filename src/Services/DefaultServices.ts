@@ -1,6 +1,6 @@
-import {Services} from "../Context/ServiceContext";
 import {DefaultFieldsRenderService} from "./DefaultImplementation/DefaultFieldsRenderService";
+import {Services} from "./Services";
 
-export const defaultServices : Services = {
-    fieldsRenderService : new DefaultFieldsRenderService()
+export const defaultServices: Services = {
+    fieldsRenderService: () => new DefaultFieldsRenderService()
 }

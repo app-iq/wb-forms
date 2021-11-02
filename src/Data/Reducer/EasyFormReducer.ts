@@ -1,5 +1,5 @@
 import {EasyFormAction} from "../Actions/EasyFormAction";
-import {FieldState} from "../../Field/FieldState";
+import {FieldState} from "../Types/FieldState";
 import {setupReducer} from "./SetupReducer";
 import {fieldReducer} from "./FieldReducer";
 

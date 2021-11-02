@@ -1,23 +1,22 @@
 import React, {useContext} from "react";
-import {FieldsRenderService} from "../Services/Protocol/FieldsRenderService";
+import {defaultServices} from "../Services/DefaultServices";
+import {ServiceCallback, Services} from "../Services/Services";
 
-export interface Services {
-    fieldsRenderService: FieldsRenderService;
-}
+export const ServiceContext = React.createContext<Services>(defaultServices);
+export const ServiceProvider = ServiceContext.Provider;
 
-export const ServiceContext = React.createContext<Services>(undefined as any);
-
-
-export function useService<T>(service: keyof Services): T {
+export function useService<T>(service: keyof Services): ServiceCallback<T> {
     const services = useContext(ServiceContext);
-    return services[service] as any as T;
+    return services[service] as ServiceCallback<any>;
 }
 
 export function withService<T>(Component: any, serviceName: keyof Services, injectPropName?: string) {
     return function (props: any) {
         const service = useService<T>(serviceName);
         const toInjectPropName = injectPropName ?? serviceName;
-        //TODO : CHECK IF toInjectPropName property key is not used
+        if (props[toInjectPropName]) {
+            console.warn(`${toInjectPropName} prop is already passed to the component , try to use different prop name for the injected service`);
+        }
         const injectedProps = {...props, [toInjectPropName]: service};
         return <Component {...injectedProps}/>
     }
