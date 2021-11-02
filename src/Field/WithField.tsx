@@ -2,8 +2,8 @@ import {useField} from "./Hooks";
 import {useContext} from "react";
 import {DispatchContext} from "../Context/DispatchContext";
 import {StateActions} from "../Actions/StateAction";
-import {Field} from "../Data/EasyFormReducer";
 import {FieldProps} from "./FieldProps";
+import {Field} from "./Field";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;

@@ -4,7 +4,9 @@ TODO :
     *
     *
     *
-    *
+    * validate unique field names (log warning or throw exception)
     * [DONE] basic field component
+    * [DONE] fields render service
+    * [DONE] basic services context
     * [DONE] simple fields rendering
     * [DONE] initialize reducer

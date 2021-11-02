@@ -1,14 +1,8 @@
 import {EasyFormAction} from "../Actions/EasyFormAction";
-import {SetupActionType} from "../Actions/SetupAction";
+import {InitializePayload, SetupAction, SetupActionType} from "../Actions/SetupAction";
 import {StateActionType} from "../Actions/StateAction";
-import {FieldConfiguration} from "../Field/FieldConfiguration";
-import {FieldState} from "../Field/FieldState";
+import {Field} from "../Field/Field";
 
-
-export interface Field {
-    configuration: FieldConfiguration;
-    state: FieldState;
-}
 
 export type Fields = { [fieldName: string]: Field }
 
@@ -21,18 +15,14 @@ export const easyFormReducerInitialState: EasyFormReducerState = {
 };
 
 
-export type EasyFormReducer = (state: EasyFormReducerState, action: EasyFormAction<any, any>) => EasyFormReducerState;
+export type EasyFormReducerFunction = (state: EasyFormReducerState, action: EasyFormAction<any, any>) => EasyFormReducerState;
 
 
-export const easyFormReducer: EasyFormReducer = (state, action) => {
+export const easyFormReducer: EasyFormReducerFunction = (state, action) => {
     const fields = {...state.fields};
     switch (action.type) {
         case SetupActionType.INITIALIZE_FIELD:
-            fields[action.payload] = {
-                configuration: {name: action.payload, valueSelector: null as any},
-                state: {value: ''}
-            };
-            return {...state, fields: fields};
+            return initializeField(state, action);
         case StateActionType.CHANGE_VALUE:
             let toChangeField = fields[action.payload.fieldName];
             if (toChangeField === undefined) {
@@ -40,9 +30,16 @@ export const easyFormReducer: EasyFormReducer = (state, action) => {
             }
             fields[action.payload.fieldName] = {
                 ...toChangeField,
-                state: {...toChangeField.state, value: action.payload.value}
+                value: action.payload.value
             };
             return {...state, fields: fields};
     }
     return state;
 };
+
+
+function initializeField(state: EasyFormReducerState, action: SetupAction<InitializePayload>): EasyFormReducerState {
+    const fields = {...state.fields};
+    fields[action.payload.name] = {...action.payload.field};
+    return {...state, fields: fields};
+}
