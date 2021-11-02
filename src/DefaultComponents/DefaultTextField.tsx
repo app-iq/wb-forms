@@ -1,16 +1,15 @@
 import {FieldProps} from "../Field/FieldProps";
-import {useField} from "../Field/Hooks";
-import {StateActions} from "../Actions/StateAction";
-import {useContext} from "react";
-import {DispatchContext} from "../Context/DispatchContext";
+import {withField, WithFieldProps} from "../Field/WithField";
 
-export function DefaultTextField({name}: FieldProps) {
-    const field = useField(name);
-    const dispatch = useContext(DispatchContext);
-    if (field === undefined) {
-        console.log('field not initialized yet');
-        return null;
-    }
-    return <input name={name} placeholder={name} value={field.state.value}
-                  onChange={e => dispatch(StateActions.changeValue(name , e.target.value))}/>
+interface Props extends FieldProps , WithFieldProps{
 }
+
+function DefaultTextField(props : Props) {
+    const {field , handleChange} = props;
+    return <input name={field.configuration.name}
+                  value={field.state.value}
+                  onChange={handleChange}/>
+}
+
+
+export default withField(DefaultTextField);
