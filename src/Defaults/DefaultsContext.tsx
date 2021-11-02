@@ -10,8 +10,8 @@ export function useDefaults(): Defaults {
 }
 
 
-export function WithDefaults(Component: any) {
-    return function Component(props: any) {
+export function withDefaults(Component: any) {
+    return function Wrapper(props: any) {
         const defaults = useDefaults();
         return <Component {...props} defaults={defaults}/>
     }
