@@ -1,15 +1,16 @@
 import React, {useContext} from "react";
+import {FieldsRenderService} from "../Services/Protocol/FieldsRenderService";
 
 export interface Services {
-
+    fieldsRenderService : FieldsRenderService;
 }
 
 export const ServiceContext = React.createContext<Services>(undefined as any);
 
 
-export function useService<T>(service: keyof Services) {
+export function useService<T>(service: keyof Services) : T{
     const services = useContext(ServiceContext);
-    return services[service] as T;
+    return services[service] as any as T;
 }
 
 export function withService<T>(Component: any, serviceName: keyof Services, injectPropName?: string) {
