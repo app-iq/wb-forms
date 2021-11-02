@@ -9,7 +9,7 @@ import {Defaults} from "../Defaults/EasyFormDefaults";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {FieldsRenderService} from "../Services/Protocol/FieldsRenderService";
 import {EasyFormProps} from "./EasyFormProps";
-import {useDefaults} from "../Defaults/DefaultContext";
+import {useDefaults} from "../Defaults/DefaultsContext";
 
 export function EasyForm({children}: EasyFormProps) {
     const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
