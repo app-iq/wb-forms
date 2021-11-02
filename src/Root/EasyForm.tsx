@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect, useReducer} from "react";
-import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducerFunction";
+import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
 import {FieldsContext} from "../Context/FieldsContext";
 import {DispatchContext} from "../Context/DispatchContext";
 import {ServiceContext} from "../Context/ServiceContext";

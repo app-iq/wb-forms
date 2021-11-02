@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {DispatchContext} from "../Context/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "./FieldState";
-import {StateActions} from "../Data/Actions/State/StateActions";
+import {FieldActions} from "../Data/Actions/Field/FieldActions";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
@@ -19,7 +19,7 @@ export function withField(Component: any) {
             return null;
         }
 
-        let onChange: any = (e: any) => dispatch(StateActions.changeValue(name, e.target.value));
+        let onChange: any = (e: any) => dispatch(FieldActions.changeValue(name, e.target.value));
 
         const toInjectProps: WithFieldProps = {
             handleChange: onChange,

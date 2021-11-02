@@ -1,4 +1,4 @@
-import {easyFormReducer, easyFormReducerInitialState, EasyFormReducerState} from "../../Data/Reducer/EasyFormReducerFunction";
+import {easyFormReducer, easyFormReducerInitialState, EasyFormReducerState} from "../../Data/Reducer/EasyFormReducer";
 import {SetupActions} from "../../Data/Actions/Setup/SetupActions";
 import {FieldState} from "../../Field/FieldState";
 
