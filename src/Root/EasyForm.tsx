@@ -1,13 +1,13 @@
 import React, {ReactElement, useEffect, useReducer} from "react";
 import {easyFormReducer, easyFormReducerInitialState} from "../Data/EasyFormReducerFunction";
-import {SetupActions} from "../Actions/SetupAction";
 import {FieldsContext} from "../Context/FieldsContext";
 import {DispatchContext} from "../Context/DispatchContext";
 import {ServiceContext} from "../Context/ServiceContext";
 import {defaultServices} from "../Services/DefaultServices";
 import {FieldProps} from "../Field/FieldProps";
-import {Field} from "../Field/Field";
+import {FieldState} from "../Field/FieldState";
 import {easyFormDefaults, EasyFormDefaults} from "../Defaults/EasyFormDefaults";
+import {SetupActions} from "../Actions/Setup/SetupActions";
 
 export function EasyForm({children}: { children: ReactElement[] | ReactElement }) {
     const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
@@ -35,7 +35,7 @@ export function EasyForm({children}: { children: ReactElement[] | ReactElement }
 }
 
 
-function buildField(props: FieldProps, defaults: EasyFormDefaults): Field {
+function buildField(props: FieldProps, defaults: EasyFormDefaults): FieldState {
     return {
         name: props.name,
         valueSelector: props.valueSelector ?? defaults.valueSelector,

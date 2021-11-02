@@ -1,5 +1,4 @@
-import {ValueSelector} from "../Field/Field";
-import {textValueSelector} from "../Field/ValueSelector";
+import {textValueSelector, ValueSelector} from "../Field/ValueSelector";
 
 export interface EasyFormDefaults {
     fieldValue: string;

@@ -1,6 +1,6 @@
-export type ValueSelector = (e: any) => any;
+import {ValueSelector} from "./ValueSelector";
 
-export interface Field {
+export interface FieldState {
     //general properties
     name: string;
 

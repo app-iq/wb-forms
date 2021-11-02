@@ -4,20 +4,7 @@ import {FieldGroup} from "../Field/FieldGroup";
 
 export function SimpleExample() {
     return <EasyForm>
-        <FieldGroup>
-            <DefaultTextField name={'username'}/>
-            <DefaultTextField name={'password'}/>
-        </FieldGroup>
-        <DefaultTextField name={'username'}/>
-        <DefaultTextField name={'password'}/>
-        <FieldGroup>
-            <DefaultTextField name={'username'}/>
-            <DefaultTextField name={'password'}/>
-        </FieldGroup>
-        <FieldGroup>
-            <DefaultTextField name={'username'}/>
-        </FieldGroup>
-        <DefaultTextField name={'username'}/>
+        <DefaultTextField name={'username'} initialValue={'ali faris'}/>
         <DefaultTextField name={'password'}/>
     </EasyForm>;
 }

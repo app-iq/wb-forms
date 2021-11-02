@@ -1,4 +1,4 @@
-import {ValueSelector} from "./Field";
+import {ValueSelector} from "./ValueSelector";
 
 export interface FieldProps {
     name: string;

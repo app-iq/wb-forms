@@ -1,10 +1,11 @@
 import {EasyFormAction} from "../Actions/EasyFormAction";
-import {InitializePayload, SetupAction, SetupActionType} from "../Actions/SetupAction";
-import {StateActionType} from "../Actions/StateAction";
-import {Field} from "../Field/Field";
+import {SetupAction, SetupActionType} from "../Actions/Setup/SetupAction";
+import {StateActionType} from "../Actions/State/StateAction";
+import {FieldState} from "../Field/FieldState";
+import {InitializePayload} from "../Actions/Setup/Payload";
 
 
-export type Fields = { [fieldName: string]: Field }
+export type Fields = { [fieldName: string]: FieldState }
 
 export interface EasyFormReducerState {
     fields: Fields;
@@ -24,11 +25,11 @@ export const easyFormReducer: EasyFormReducerFunction = (state, action) => {
         case SetupActionType.INITIALIZE_FIELD:
             return initializeField(state, action);
         case StateActionType.CHANGE_VALUE:
-            let toChangeField = fields[action.payload.fieldName];
+            let toChangeField = fields[action.payload.name];
             if (toChangeField === undefined) {
                 return state;
             }
-            fields[action.payload.fieldName] = {
+            fields[action.payload.name] = {
                 ...toChangeField,
                 value: action.payload.value
             };

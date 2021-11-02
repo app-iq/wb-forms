@@ -1,13 +1,13 @@
 import {useField} from "./Hooks";
 import {useContext} from "react";
 import {DispatchContext} from "../Context/DispatchContext";
-import {StateActions} from "../Actions/StateAction";
 import {FieldProps} from "./FieldProps";
-import {Field} from "./Field";
+import {FieldState} from "./FieldState";
+import {StateActions} from "../Actions/State/StateActions";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
-    field: Field;
+    field: FieldState;
     dispatch: any;
 }
 
