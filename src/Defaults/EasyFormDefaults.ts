@@ -1,11 +1,11 @@
 import {textValueSelector, ValueSelector} from "../Field/ValueSelector";
 
-export interface EasyFormDefaults {
+export interface Defaults {
     fieldValue: string;
     valueSelector: ValueSelector;
 }
 
-export const easyFormDefaults: EasyFormDefaults = {
+export const easyFormDefaults: Defaults = {
     fieldValue: '',
     valueSelector: textValueSelector
 };

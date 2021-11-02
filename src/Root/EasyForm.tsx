@@ -5,19 +5,20 @@ import {DispatchContext} from "../Context/DispatchContext";
 import {useService} from "../Context/ServiceContext";
 import {FieldProps} from "../Field/FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
-import {easyFormDefaults, EasyFormDefaults} from "../Defaults/EasyFormDefaults";
+import {Defaults} from "../Defaults/EasyFormDefaults";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {FieldsRenderService} from "../Services/Protocol/FieldsRenderService";
 import {EasyFormProps} from "./EasyFormProps";
+import {useDefaults} from "../Defaults/DefaultContext";
 
 export function EasyForm({children}: EasyFormProps) {
     const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
 
+    const defaults = useDefaults();
     useEffect(() => {
         const childrenArr = Array.isArray(children) ? children : [children];
-        //TODO : make easyFormDefaults injectable
-        childrenArr.forEach(c => dispatch(SetupActions.initializeField(c.props.name, buildField(c.props, easyFormDefaults))));
-    }, [children]);
+        childrenArr.forEach(c => dispatch(SetupActions.initializeField(c.props.name, buildField(c.props, defaults))));
+    }, [children, defaults]);
 
     const fieldsRenderService = useService<FieldsRenderService>('fieldsRenderService')();
 
@@ -28,11 +29,10 @@ export function EasyForm({children}: EasyFormProps) {
             }
         </FieldsContext.Provider>
     </DispatchContext.Provider>
-
 }
 
 
-function buildField(props: FieldProps, defaults: EasyFormDefaults): FieldState {
+function buildField(props: FieldProps, defaults: Defaults): FieldState {
     return {
         name: props.name,
         valueSelector: props.valueSelector ?? defaults.valueSelector,
