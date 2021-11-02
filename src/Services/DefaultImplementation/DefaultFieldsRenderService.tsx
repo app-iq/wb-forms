@@ -1,6 +1,6 @@
 import {FieldsRenderService} from "../Protocol/FieldsRenderService";
 import React, {ReactElement} from "react";
-import {FieldGroup} from "../../Field/FieldGroup";
+import {GroupContainer} from "../../Form/GroupContainer";
 
 export class DefaultFieldsRenderService implements FieldsRenderService {
 
@@ -10,7 +10,7 @@ export class DefaultFieldsRenderService implements FieldsRenderService {
         const childrenArr = Array.isArray(children) ? children : [children];
         let currentGroup: ReactElement[] | ReactElement = [];
         for (let element of childrenArr) {
-            if (element.type === FieldGroup) {
+            if (element.type === GroupContainer) {
                 if (currentGroup.length > 0) {
                     groups.push(currentGroup);
                 }

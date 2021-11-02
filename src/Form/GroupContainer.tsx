@@ -4,7 +4,7 @@ export interface FieldGroupProps {
     children: ReactElement[] | ReactElement;
 }
 
-export class FieldGroup extends React.Component<FieldGroupProps> {
+export class GroupContainer extends React.Component<FieldGroupProps> {
     render() {
         return <></>
     }

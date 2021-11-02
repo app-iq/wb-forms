@@ -1,6 +1,6 @@
 import {EasyForm} from "../Root/EasyForm";
 import DefaultTextField from "../Components/DefaultTextField";
-import {FieldGroup} from "../Field/FieldGroup";
+import {GroupContainer} from "../Form/GroupContainer";
 
 export function SimpleExample() {
     return <EasyForm>
