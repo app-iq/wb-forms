@@ -1,7 +1,7 @@
 import {EasyFormReducer, EasyFormReducerState} from "./EasyFormReducer";
 import {FieldAction, FieldActionType} from "../Actions/Field/FieldAction";
 import {FieldState} from "../Types/FieldState";
-import {SimpleFieldPayload} from "../Actions/Payload";
+import {SimpleFieldPayload} from "../Actions/Field/Payload";
 
 export const fieldReducer: EasyFormReducer<FieldAction<any>> = (state, action) => {
 

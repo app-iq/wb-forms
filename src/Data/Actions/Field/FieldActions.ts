@@ -1,5 +1,5 @@
 import {FieldAction, FieldActionType} from "./FieldAction";
-import {SimpleFieldPayload} from "../Payload";
+import {SimpleFieldPayload} from "./Payload";
 
 export class FieldActions {
     public static changeValue(fieldName: string, value: any): FieldAction<SimpleFieldPayload<any>> {
