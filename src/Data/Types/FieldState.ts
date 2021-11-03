@@ -1,4 +1,5 @@
 import {ValueSelector} from "../../Field/ValueSelector";
+import {FieldServices} from "../../Services/Services";
 
 export interface FieldState {
     //general properties
@@ -26,7 +27,9 @@ export interface FieldState {
 
     //collect
     skipCollect: boolean;
-    collectCallback: (field :FieldState) => any;
+    collectCallback: (field: FieldState) => any;
 
+
+    services: Partial<FieldServices>;
 
 }

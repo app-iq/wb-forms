@@ -23,6 +23,11 @@ export function buildFieldWithInitialState(props: FieldProps, defaults: Defaults
         skipCollect: props.skipCollect ?? false,
         collectCallback: props.collectCallback ?? (field => field.value),
 
-        
+
+        services: {
+            fieldValidator: props.fieldValidator,
+            changeHandler: props.changeHandler,
+        },
+
     }
 }

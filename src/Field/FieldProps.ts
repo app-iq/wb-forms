@@ -1,7 +1,8 @@
 import {ValueSelector} from "./ValueSelector";
 import {FieldState} from "../Data/Types/FieldState";
+import {FieldServices} from "../Services/Services";
 
-export interface FieldProps {
+export interface FieldProps extends Partial<FieldServices> {
     name: string;
     valueSelector?: ValueSelector;
     initialValue?: string;
