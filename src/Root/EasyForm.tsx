@@ -1,8 +1,8 @@
 import React, {useEffect, useReducer} from "react";
 import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
-import {FieldsContext} from "../Context/FieldsContext";
-import {DispatchContext} from "../Context/DispatchContext";
-import {useService} from "../Context/ServiceContext";
+import {FieldsContext} from "../Field/FieldsContext";
+import {DispatchContext} from "./DispatchContext";
+import {useService} from "../Services/ServiceContext";
 import {FieldProps} from "../Field/FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
 import {Defaults} from "../Defaults/EasyFormDefaults";

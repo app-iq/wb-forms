@@ -1,6 +1,6 @@
 import {useField} from "./Hooks";
 import {useContext} from "react";
-import {DispatchContext} from "../Context/DispatchContext";
+import {DispatchContext} from "../Root/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
 import {FieldActions} from "../Data/Actions/Field/FieldActions";

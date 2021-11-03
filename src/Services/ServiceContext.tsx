@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
-import {defaultServices} from "../Services/DefaultServices";
-import {ServiceCallback, Services} from "../Services/Services";
+import {defaultServices} from "./DefaultServices";
+import {ServiceCallback, Services} from "./Services";
 
 export const ServiceContext = React.createContext<Services>(defaultServices);
 export const ServiceProvider = ServiceContext.Provider;

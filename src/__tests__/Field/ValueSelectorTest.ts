@@ -10,4 +10,4 @@ describe('Value Selector' , () => {
         const value = checkboxValueSelector({target : {checked : true}});
         expect(value).toEqual(true);
     });
-})
+});
