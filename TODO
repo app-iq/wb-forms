@@ -1,19 +1,9 @@
 Categories:
 
-
-- Setup
-
-    * Field Initialization
-
-
-
-- Service Provider
-
-
-- Field Value
-
-
-- Field Validation
-
-
+- Form Rendering
+- Dynamic Reducers (passed to form)
+- Event
 - Submit
+- Dynamic Field
+- Decorators(withField)
+- Auto Upload Field

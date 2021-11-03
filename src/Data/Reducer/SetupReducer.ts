@@ -14,6 +14,9 @@ export const setupReducer: EasyFormReducer<SetupAction<any>> = (state, action) =
 
 function initializeField(state: EasyFormReducerState, action: SetupAction<InitializePayload>): EasyFormReducerState {
     const fields = {...state.fields};
+    if (fields[action.payload.name]) {
+        return state;
+    }
     fields[action.payload.name] = {...action.payload.field};
     return {...state, fields: fields};
 }

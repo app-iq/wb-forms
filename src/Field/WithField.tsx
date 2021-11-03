@@ -14,7 +14,8 @@ export interface WithFieldProps {
 }
 
 export function withField(Component: any) {
-    return function Wrapper({name, ...otherProps}: FieldProps) {
+    return function Wrapper(props: FieldProps) {
+        const name = props.name;
         const field = useField(name);
         const dispatch = useContext(DispatchContext);
         const fieldValidator = useFieldService<FieldValidator>('fieldValidator')(dispatch);
@@ -37,6 +38,6 @@ export function withField(Component: any) {
             field: field
         };
 
-        return <Component name={name} {...otherProps} {...toInjectProps}/>
+        return <Component name={name} {...toInjectProps}/>
     }
 }
