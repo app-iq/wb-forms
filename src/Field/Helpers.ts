@@ -7,6 +7,12 @@ export function buildFieldWithInitialState(props: FieldProps, defaults: Defaults
     return {
         name: props.name,
         valueSelector: props.valueSelector ?? defaults.valueSelector,
-        value: props.initialValue ?? defaults.fieldValue
+        value: props.initialValue ?? defaults.fieldValue,
+
+        validationRules: props.validationRules ?? undefined,
+        skipValidation: props.skipValidation ?? false,
+        validateOnChange: props.validateOnChange ?? true,
+        valid: props.initialValid ?? true
+
     }
 }

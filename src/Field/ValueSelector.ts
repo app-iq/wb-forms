@@ -1,5 +1,7 @@
-export type ValueSelector = (e: any) => any;
+import {FieldState} from "../Data/Types/FieldState";
 
-export const textValueSelector = (e: any) => e.target.value;
+export type ValueSelector = (e: any , field : FieldState) => any;
 
-export const checkboxValueSelector = (e: any) => e.target.checked;
+export const textValueSelector: ValueSelector = (e: any) => e.target.value;
+
+export const checkboxValueSelector : ValueSelector = (e: any) => e.target.checked;

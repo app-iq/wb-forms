@@ -7,7 +7,8 @@ describe('Setup Actions', () => {
         const field: FieldState = {
             name: 'test',
             value: 'xyz',
-            valueSelector: e => e
+            valueSelector: e => e,
+            valid: true, validateOnChange: true, skipValidation: false, validationRules: undefined
         };
         const action = SetupActions.initializeField('test', field);
         expect(action).toEqual({

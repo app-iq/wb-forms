@@ -8,6 +8,7 @@ function DefaultTextField(props: Props) {
     const {field, handleChange} = props;
     return <input name={field.name}
                   value={field.value}
+                  style={{color : field.valid === false ? 'red' : undefined}}
                   onChange={handleChange}/>
 }
 

@@ -8,4 +8,13 @@ export interface FieldState {
     //value properties
     value: any;
     valueSelector: ValueSelector;
+
+
+    //validation
+    valid: boolean;
+    validationRules: any;
+    skipValidation: boolean;
+    validateOnChange: boolean;
+
+
 }

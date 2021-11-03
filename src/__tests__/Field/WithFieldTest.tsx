@@ -3,6 +3,7 @@ import * as Hooks from "../../Field/Hooks";
 import {render, waitFor} from "@testing-library/react";
 import React from "react";
 import {FieldActions} from "../../Data/Actions/Field/FieldActions";
+import {buildMockField} from "../TestHelpers";
 
 
 const spy = jest.spyOn(Hooks, 'useField');
@@ -33,7 +34,7 @@ describe('WithField', () => {
 
 
     it('should inject WithFieldProps', async function () {
-        let fieldStateMock = {name: 'test', value: '', valueSelector: (e: any) => e};
+        let fieldStateMock = buildMockField();
         let dispatchMock = jest.fn();
         spy.mockReturnValue(fieldStateMock);
         useContextMock.mockReturnValue(dispatchMock);
@@ -54,7 +55,7 @@ describe('WithField', () => {
 
 
     it('should make handleChange dispatch changeValue action', async function () {
-        let fieldStateMock = {name: 'test', value: '', valueSelector: (e: any) => e};
+        let fieldStateMock = buildMockField();
         let dispatchMock = jest.fn();
         spy.mockReturnValue(fieldStateMock);
         useContextMock.mockReturnValue(dispatchMock);
@@ -68,4 +69,4 @@ describe('WithField', () => {
         await waitFor(() => expect(mockedComponent).toBeCalled());
     });
 
-})
+});
