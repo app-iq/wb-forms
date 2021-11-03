@@ -1,6 +1,6 @@
-import {SetupActions} from "../../Data/Actions/Setup/SetupActions";
-import {FieldState} from "../../Data/Types/FieldState";
-import {SetupActionType} from "../../Data/Actions/Setup/SetupAction";
+import {SetupActions} from "../../../Data/Actions/Setup/SetupActions";
+import {FieldState} from "../../../Data/Types/FieldState";
+import {SetupActionType} from "../../../Data/Actions/Setup/SetupAction";
 
 describe('Setup Actions', () => {
     it('should return initialize action', function () {

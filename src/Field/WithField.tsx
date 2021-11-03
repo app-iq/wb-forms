@@ -12,20 +12,23 @@ export interface WithFieldProps {
 }
 
 export function withField(Component: any) {
-    return function ({name}: FieldProps) {
+    return function Wrapper({name, ...otherProps}: FieldProps) {
         const field = useField(name);
         const dispatch = useContext(DispatchContext);
-        if (field === undefined) {
+
+        let isNotInitializedYet = field === undefined;
+        if (isNotInitializedYet) {
             return null;
         }
 
-        let onChange: any = (e: any) => dispatch(FieldActions.changeValue(name, e.target.value));
+        let onChange: any = (e: any) => dispatch(FieldActions.changeValue(name, field.valueSelector(e)));
 
         const toInjectProps: WithFieldProps = {
             handleChange: onChange,
             dispatch: dispatch,
             field: field
         };
-        return <Component {...toInjectProps}/>
+
+        return <Component name={name} {...otherProps} {...toInjectProps}/>
     }
 }

@@ -4,7 +4,6 @@ import {Defaults, easyFormDefaults} from "./EasyFormDefaults";
 const DefaultsContext = React.createContext<Defaults>(easyFormDefaults);
 const DefaultsProvider = DefaultsContext.Provider;
 
-
 export function useDefaults(): Defaults {
     return useContext(DefaultsContext);
 }
