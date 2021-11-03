@@ -6,6 +6,7 @@ import {FieldState} from "../Data/Types/FieldState";
 import {FieldActions} from "../Data/Actions/Field/FieldActions";
 import {useService} from "../Services/ServiceContext";
 import {FieldValidator} from "../Services/Protocol/FieldValidator";
+import React from "react";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
@@ -24,10 +25,19 @@ export function withField(Component: any) {
             return null;
         }
 
+        if (field.hidden) {
+            return <React.Fragment/>
+        }
+
         let onChange: any = (e: any) => {
+            //TODO : move to OnChangeService
+            if (field.readonly) {
+                return;
+            }
+
             dispatch(FieldActions.changeValue(name, field.valueSelector(e, field)));
             if (field.validateOnChange && !field.skipValidation && field.validationRules) {
-                dispatch(FieldActions.validate(name , fieldValidator.validate(field.value , field.validationRules)));
+                dispatch(FieldActions.validate(name, fieldValidator.validate(field.value, field.validationRules)));
             }
         };
 

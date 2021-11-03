@@ -9,4 +9,10 @@ export interface FieldProps {
     skipValidation?: boolean;
     validateOnChange?: boolean;
     initialValid?: boolean;
+
+
+    disableOnFormLoading?: boolean;
+    hidden?: boolean;
+    readonly?: boolean;
+    disabled?: boolean;
 }

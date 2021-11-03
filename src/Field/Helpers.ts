@@ -12,7 +12,14 @@ export function buildFieldWithInitialState(props: FieldProps, defaults: Defaults
         validationRules: props.validationRules ?? undefined,
         skipValidation: props.skipValidation ?? false,
         validateOnChange: props.validateOnChange ?? true,
-        valid: props.initialValid ?? true
+        valid: props.initialValid ?? true,
+
+
+        disableOnFormLoading : props.disableOnFormLoading ?? true,
+        disabled : props.disabled ?? false,
+        hidden : props.hidden ?? false,
+        readonly : props.readonly ?? false
+
 
     }
 }

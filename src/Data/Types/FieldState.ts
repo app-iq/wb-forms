@@ -17,4 +17,11 @@ export interface FieldState {
     validateOnChange: boolean;
 
 
+    //ui
+    disableOnFormLoading: boolean;
+    disabled: boolean;
+    readonly: boolean;
+    hidden: boolean;
+
+
 }
