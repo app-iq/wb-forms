@@ -1,4 +1,5 @@
 import {ValueSelector} from "./ValueSelector";
+import {FieldState} from "../Data/Types/FieldState";
 
 export interface FieldProps {
     name: string;
@@ -15,4 +16,9 @@ export interface FieldProps {
     hidden?: boolean;
     readonly?: boolean;
     disabled?: boolean;
+
+
+    skipCollect?: boolean;
+    collectCallback?: (field: FieldState) => any;
+
 }

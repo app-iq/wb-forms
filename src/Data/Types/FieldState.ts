@@ -24,4 +24,9 @@ export interface FieldState {
     hidden: boolean;
 
 
+    //collect
+    skipCollect: boolean;
+    collectCallback: (field :FieldState) => any;
+
+
 }

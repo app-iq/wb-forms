@@ -15,11 +15,14 @@ export function buildFieldWithInitialState(props: FieldProps, defaults: Defaults
         valid: props.initialValid ?? true,
 
 
-        disableOnFormLoading : props.disableOnFormLoading ?? true,
-        disabled : props.disabled ?? false,
-        hidden : props.hidden ?? false,
-        readonly : props.readonly ?? false
+        disableOnFormLoading: props.disableOnFormLoading ?? true,
+        disabled: props.disabled ?? false,
+        hidden: props.hidden ?? false,
+        readonly: props.readonly ?? false,
 
+        skipCollect: props.skipCollect ?? false,
+        collectCallback: props.collectCallback ?? (field => field.value),
 
+        
     }
 }
