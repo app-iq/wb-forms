@@ -32,4 +32,6 @@ export interface FieldState {
 
     services: Partial<FieldServices>;
 
+    [propertyName : string] : any;
+
 }
