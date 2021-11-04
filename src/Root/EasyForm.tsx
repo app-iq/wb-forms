@@ -1,30 +1,33 @@
-import React, {useEffect, useReducer} from "react";
+import React, {useEffect, useMemo, useReducer} from "react";
 import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
-import {FieldsContext} from "../Field/FieldsContext";
 import {DispatchContext} from "./DispatchContext";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
-import {FieldsRenderService} from "../Services/Protocol/FieldsRenderService";
 import {EasyFormProps} from "./EasyFormProps";
 import {useDefaults} from "../Defaults/DefaultsContext";
 import {buildFieldWithInitialState} from "../Field/Helpers";
-import {useService} from "../Services/Hooks";
+import {StateContext} from "./StateContext";
+import {ServiceContext} from "../Services/ServiceContext";
+import {DefaultServiceFactory} from "../Services/Services";
+import {FieldsContext} from "../Field/FieldsContext";
 
-export function EasyForm({children}: EasyFormProps) {
+export function EasyForm(props: EasyFormProps) {
+    const {children} = props;
     const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
 
-    const defaults = useDefaults();
-    useEffect(() => {
-        const childrenArr = Array.isArray(children) ? children : [children];
-        childrenArr.forEach(c => dispatch(SetupActions.initializeField(c.props.name, buildFieldWithInitialState(c.props, defaults))));
-    }, [children, defaults]);
+    const sf = useMemo(() => {
+        return props.serviceFactoryCallback ?
+            props.serviceFactoryCallback(dispatch, state, props) :
+            new DefaultServiceFactory(state, dispatch, props)
+    }, [state, dispatch, props]);
 
-    const fieldsRenderService = useService<FieldsRenderService>('fieldsRenderService')(dispatch);
 
     return <DispatchContext.Provider value={dispatch}>
-        <FieldsContext.Provider value={state.fields}>
-            {
-                fieldsRenderService.render(children)
-            }
-        </FieldsContext.Provider>
+        <StateContext.Provider value={state}>
+            <ServiceContext.Provider value={sf}>
+                <FieldsContext.Provider value={state.fields}>
+                    {children}
+                </FieldsContext.Provider>
+            </ServiceContext.Provider>
+        </StateContext.Provider>
     </DispatchContext.Provider>
 }

@@ -1,11 +1,13 @@
 import {useField} from "./Hooks";
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import {DispatchContext} from "../Root/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
-import {FieldValidator} from "../Services/Protocol/FieldValidator";
-import {ChangeHandler, ChangeHandlerCallbackOptions} from "../Services/Protocol/ChangeHandler";
-import {useFieldService} from "../Services/Hooks";
+import {useServiceFactory} from "../Services/Hooks";
+import {SetupActions} from "../Data/Actions/Setup/SetupActions";
+import {buildFieldWithInitialState} from "./Helpers";
+import {useDefaults} from "../Defaults/DefaultsContext";
+import {FieldActions} from "../Data/Actions/Field/FieldActions";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
@@ -18,10 +20,17 @@ export function withField(Component: any) {
         const name = props.name;
         const field = useField(name);
         const dispatch = useContext(DispatchContext);
-        const fieldValidator = useFieldService<FieldValidator>('fieldValidator')(dispatch);
-        const changeHandler = useFieldService<ChangeHandler, ChangeHandlerCallbackOptions>('changeHandler', field);
-
+        const serviceFactory = useServiceFactory();
+        const defaults = useDefaults();
+        const changeHandler = serviceFactory.createChangeHandler(name);
         let isNotInitializedYet = field === undefined;
+
+        useEffect(() => {
+            if (isNotInitializedYet) {
+                dispatch(SetupActions.initializeField(props.name, buildFieldWithInitialState(props, defaults)));
+            }
+        });
+
         if (isNotInitializedYet) {
             return null;
         }
@@ -30,7 +39,7 @@ export function withField(Component: any) {
             return <React.Fragment/>
         }
 
-        let onChange: any = (e: any) => changeHandler(dispatch, {state: field, validator: fieldValidator}).handle(e);
+        let onChange: any = (e: any) => changeHandler.handle(e);
 
         const toInjectProps: WithFieldProps = {
             handleChange: onChange,

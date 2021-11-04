@@ -1,6 +1,7 @@
 Categories:
 
 - Form Rendering
+- Dispatch Callback
 - Dynamic Reducers (passed to form)
 - Event
 - Submit
