@@ -7,6 +7,7 @@ import {useServiceFactory} from "../Services/Hooks";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {buildFieldWithInitialState} from "./Helpers";
 import {useDefaults} from "../Defaults/DefaultsContext";
+import {FieldActions} from "../Data/Actions/Field/FieldActions";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
@@ -25,11 +26,32 @@ export function withField(Component: any) {
         let isNotInitializedYet = field === undefined;
 
         useEffect(() => {
-            //TODO : handle prop update
             if (isNotInitializedYet) {
                 dispatch(SetupActions.initializeField(props.name, buildFieldWithInitialState(props, defaults)));
             }
-        });
+        } , [dispatch,defaults,isNotInitializedYet , props]);
+
+        useEffect(()=> {
+            if(!isNotInitializedYet){
+                //TODO : MOVE INTO ITS OWN SERVICE
+                const keys = Object.keys(props);
+                keys.forEach((key) => {
+                    const stateValue = field[key];
+                    if(stateValue === undefined){
+                        return;
+                    }
+                    const propsValue = props[key as keyof FieldProps];
+                    if(key === "name" && propsValue !== stateValue){
+                        console.warn('name cannot be changed');
+                        return;
+                    }
+                    if(propsValue !== stateValue && propsValue !== undefined){
+                        console.log('change' , props.name , key , propsValue);
+                        dispatch(FieldActions.changeProperty(props.name , key , propsValue));
+                    }
+                });
+            }
+        },[props , field , dispatch , isNotInitializedYet])
 
         if (isNotInitializedYet) {
             return null;

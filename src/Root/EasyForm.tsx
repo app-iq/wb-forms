@@ -9,7 +9,7 @@ import {FieldsContext} from "../Field/FieldsContext";
 
 export function EasyForm(props: EasyFormProps) {
     const {children} = props;
-    const reducer = useMemo(() => buildRootReducer(props.reducers ?? []) , [props.reducers]);
+    const reducer = useMemo(() => buildRootReducer(props.reducers ?? []), [props.reducers]);
     const [state, dispatch] = useReducer(reducer, easyFormReducerInitialState);
     const sf = useMemo(() => {
         return props.serviceFactoryCallback ?
@@ -19,12 +19,8 @@ export function EasyForm(props: EasyFormProps) {
 
     const getDispatch = props.getDispatch;
     const getState = props.getState;
-    useEffect(() => {
-        getDispatch?.(dispatch);
-    }, [getDispatch, dispatch]);
-    useEffect(() => {
-        getState?.(state);
-    }, [getState, state]);
+    useEffect(() => getDispatch?.(dispatch), [getDispatch, dispatch]);
+    useEffect(() => getState?.(state), [getState, state]);
 
     return <DispatchContext.Provider value={dispatch}>
         <StateContext.Provider value={state}>
