@@ -3,7 +3,9 @@ import {Defaults} from "../Defaults/EasyFormDefaults";
 import {FieldState} from "../Data/Types/FieldState";
 
 
-export function buildFieldWithInitialState(props: FieldProps, defaults: Defaults): FieldState {
+export type FieldInitializeFunc<Props> = (props: Props, defaults: Defaults) => FieldState;
+
+export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, defaults) => {
     return {
         name: props.name,
         valueSelector: props.valueSelector ?? defaults.valueSelector,
@@ -28,6 +30,5 @@ export function buildFieldWithInitialState(props: FieldProps, defaults: Defaults
             fieldValidator: props.fieldValidator,
             changeHandler: props.changeHandler,
         },
-
     }
 }

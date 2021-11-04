@@ -19,8 +19,6 @@ export interface FieldProps extends Partial<FieldServices> {
     disabled?: boolean;
 
 
-
-
     skipCollect?: boolean;
     collectCallback?: (field: FieldState) => any;
 
