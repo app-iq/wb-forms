@@ -2,14 +2,15 @@ Categories:
 
 - Dynamic Reducers (passed to form)
 - Default Props
-- Factory
+- Form Factory
 - OnChange Props (Field)
 - Event
 - Submit
 - Dynamic Field
 - Decorators(withField)
 - Auto Upload Field
-
+- Improve Naming & Structure
+- Testing
 
 
 - Examples

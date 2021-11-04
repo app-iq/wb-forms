@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useReducer} from "react";
-import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
+import {buildRootReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
 import {DispatchContext} from "./DispatchContext";
 import {EasyFormProps} from "./EasyFormProps";
 import {StateContext} from "./StateContext";
@@ -9,8 +9,8 @@ import {FieldsContext} from "../Field/FieldsContext";
 
 export function EasyForm(props: EasyFormProps) {
     const {children} = props;
-    const [state, dispatch] = useReducer(easyFormReducer, easyFormReducerInitialState);
-
+    const reducer = useMemo(() => buildRootReducer(props.reducers ?? []) , [props.reducers]);
+    const [state, dispatch] = useReducer(reducer, easyFormReducerInitialState);
     const sf = useMemo(() => {
         return props.serviceFactoryCallback ?
             props.serviceFactoryCallback(dispatch, state, props) :

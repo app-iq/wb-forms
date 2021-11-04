@@ -18,7 +18,10 @@ export const easyFormReducerInitialState: EasyFormReducerState = {
 export type EasyFormReducer<TAction extends EasyFormAction<any, any>> = (state: EasyFormReducerState, action: TAction) => EasyFormReducerState;
 
 
-export const easyFormReducer: EasyFormReducer<EasyFormAction<any, any>> = (state, action) => {
-    const reducers: EasyFormReducer<any>[] = [setupReducer, fieldReducer];
-    return reducers.reduce(((state, reduce) => reduce(state, action)), state);
-};
+export function buildRootReducer(reducers : EasyFormReducer<EasyFormAction<any, any>>[] = []) : EasyFormReducer<EasyFormAction<any, any>>{
+    return (state, action) => {
+        const allReducers: EasyFormReducer<any>[] = [setupReducer, fieldReducer].concat(reducers);
+        return allReducers.reduce(((state, reduce) => reduce(state, action)), state);
+    };
+}
+
