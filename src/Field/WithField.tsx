@@ -47,7 +47,6 @@ export function withField<Props extends FieldProps = FieldProps>(Component: any,
                         return;
                     }
                     if (propsValue !== stateValue && propsValue !== undefined) {
-                        console.log('change', props.name, key, propsValue);
                         dispatch(FieldActions.changeProperty(props.name, key, propsValue));
                     }
                 });
@@ -62,7 +61,7 @@ export function withField<Props extends FieldProps = FieldProps>(Component: any,
             return <React.Fragment/>
         }
 
-        let onChange: any = (e: any) => changeHandler.handle(e);
+        let onChange: any = (e: any) => changeHandler.handle(e , props.onValueChange);
 
         //todo : decide to inject passed props or not
         const toInjectProps: WithFieldProps = {

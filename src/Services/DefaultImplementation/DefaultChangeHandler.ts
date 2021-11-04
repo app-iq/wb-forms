@@ -14,13 +14,14 @@ export class DefaultChangeHandler extends FieldServiceBase implements ChangeHand
         this.fieldValidator = fieldValidator;
     }
 
-    handle(e: any): void {
+    handle(e: any, listener?: (newValue:any) => void): void {
         if (this.fieldState.readonly) {
             return;
         }
 
         let newValue = this.fieldState.valueSelector(e, this.fieldState);
         this.dispatch(FieldActions.changeValue(this.fieldState.name, newValue));
+        listener?.(newValue);
         if (this.shouldValidate()) {
             let validateAction = FieldActions.validate(this.fieldState.name, this.fieldValidator.validate(newValue, this.fieldState.validationRules));
             this.dispatch(validateAction);

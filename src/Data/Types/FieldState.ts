@@ -25,11 +25,6 @@ export interface FieldState {
     hidden: boolean;
 
 
-    //collect
-    skipCollect: boolean;
-    collectCallback: (field: FieldState) => any;
-
-
     services: Partial<FieldServices>;
 
     [propertyName : string] : any;

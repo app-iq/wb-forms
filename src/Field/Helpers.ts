@@ -22,10 +22,6 @@ export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, de
         hidden: props.hidden ?? false,
         readonly: props.readonly ?? false,
 
-        skipCollect: props.skipCollect ?? false,
-        collectCallback: props.collectCallback ?? (field => field.value),
-
-
         services: {
             fieldValidator: props.fieldValidator,
             changeHandler: props.changeHandler,

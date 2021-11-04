@@ -1,5 +1,4 @@
 import {ValueSelector} from "./ValueSelector";
-import {FieldState} from "../Data/Types/FieldState";
 import {FieldServices} from "../Services/Services";
 
 export interface FieldProps extends Partial<FieldServices> {
@@ -18,8 +17,5 @@ export interface FieldProps extends Partial<FieldServices> {
     readonly?: boolean;
     disabled?: boolean;
 
-
-    skipCollect?: boolean;
-    collectCallback?: (field: FieldState) => any;
-
+    onValueChange? : (newValue:any) => void;
 }
