@@ -1,10 +1,16 @@
 Categories:
 
-- Form Rendering
-- Dispatch Callback
 - Dynamic Reducers (passed to form)
+- Default Props
+- Factory
+- OnChange Props (Field)
 - Event
 - Submit
 - Dynamic Field
 - Decorators(withField)
 - Auto Upload Field
+
+
+
+- Examples
+- Implementation

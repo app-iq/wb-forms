@@ -1,10 +1,7 @@
 import React, {useEffect, useMemo, useReducer} from "react";
 import {easyFormReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
 import {DispatchContext} from "./DispatchContext";
-import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {EasyFormProps} from "./EasyFormProps";
-import {useDefaults} from "../Defaults/DefaultsContext";
-import {buildFieldWithInitialState} from "../Field/Helpers";
 import {StateContext} from "./StateContext";
 import {ServiceContext} from "../Services/ServiceContext";
 import {DefaultServiceFactory} from "../Services/Services";
@@ -20,6 +17,14 @@ export function EasyForm(props: EasyFormProps) {
             new DefaultServiceFactory(state, dispatch, props)
     }, [state, dispatch, props]);
 
+    const getDispatch = props.getDispatch;
+    const getState = props.getState;
+    useEffect(() => {
+        getDispatch?.(dispatch);
+    }, [getDispatch, dispatch]);
+    useEffect(() => {
+        getState?.(state);
+    }, [getState, state]);
 
     return <DispatchContext.Provider value={dispatch}>
         <StateContext.Provider value={state}>

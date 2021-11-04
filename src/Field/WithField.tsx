@@ -7,7 +7,6 @@ import {useServiceFactory} from "../Services/Hooks";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {buildFieldWithInitialState} from "./Helpers";
 import {useDefaults} from "../Defaults/DefaultsContext";
-import {FieldActions} from "../Data/Actions/Field/FieldActions";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
@@ -26,6 +25,7 @@ export function withField(Component: any) {
         let isNotInitializedYet = field === undefined;
 
         useEffect(() => {
+            //TODO : handle prop update
             if (isNotInitializedYet) {
                 dispatch(SetupActions.initializeField(props.name, buildFieldWithInitialState(props, defaults)));
             }
