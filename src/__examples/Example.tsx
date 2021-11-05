@@ -2,9 +2,8 @@ import DefaultTextField from "./Components/DefaultTextField";
 import React, {useEffect, useState} from "react";
 import {EasyForm} from "../Form/EasyForm";
 import {DispatchFunction} from "../Form/DispatchContext";
-import {useServiceFactory} from "../Services/Hooks";
 import {DefaultHttpSubmitOptions} from "../Services/DefaultImplementation/DefaultHttpSubmitService";
-import {useRootState} from "../Form/RootStateContext";
+import {Button} from "../Form/Button/Button";
 
 export function SimpleExample() {
 
@@ -37,20 +36,15 @@ export function SimpleExample() {
             <DefaultTextField name={'password'} validationRules={'^[0-9]{4,6}$'}/>
         </div>
 
-        <LoginButton/>
+        <Button render={(serviceFactory, dispatch, state) =>
+            <button disabled={state.form.loading}
+                    onClick={() => {
+                        const submitter = serviceFactory.createSubmitService();
+                        return submitter.submit();
+                    }}>
+                {state.form.loading ? 'Loading...' : 'LOGIN'}
+            </button>}
+        />
 
     </EasyForm>;
-}
-
-
-function LoginButton() {
-    const serviceFactory = useServiceFactory();
-    const rootState = useRootState();
-    return <button disabled={rootState.form.loading}
-                   onClick={() => {
-                       const submitter = serviceFactory.createSubmitService();
-                       return submitter.submit();
-                   }}>
-        {rootState.form.loading ? 'Loading...' : 'LOGIN'}
-    </button>
 }

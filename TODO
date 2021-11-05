@@ -1,10 +1,9 @@
 Categories:
 
-- withButton , withButton decorator
-- ButtonComponent
 - FileSelector
 - Improve Naming & Structure
 - Decorators(withField)
+- withButton decorator
 - Form Factory
 - FormHelper
 - Testing
