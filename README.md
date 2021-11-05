@@ -9,10 +9,7 @@ a library that make your life easier
 * Submitting
 * Customizable
 
-
-
 ### Architecture
-
 
     <ServiceProvider>
         <DispatchProvider>
@@ -30,8 +27,6 @@ a library that make your life easier
         </DispatchProvider>
     </ServiceProvider>
 
-
-
 **Configuration Provider**
 
     {
@@ -41,7 +36,6 @@ a library that make your life easier
 
         form: FormConfiguration;
     }
-
 
 **State Provider**
 
@@ -53,7 +47,7 @@ a library that make your life easier
         forms: FormState;
     }
 
-**Service Provider** 
+**Service Provider**
 
     {
         [serviceName : string] : Service as any;
@@ -65,10 +59,7 @@ a library that make your life easier
         [eventId : string] : Listener[];
     }
 
-
-
 **State**
-
 
     {
         fields : {

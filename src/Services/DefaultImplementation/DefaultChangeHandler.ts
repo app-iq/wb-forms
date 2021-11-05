@@ -7,8 +7,8 @@ import {FieldValidator} from "../Protocol/FieldValidator";
 export class DefaultChangeHandler implements ChangeHandler {
 
     private readonly fieldValidator: FieldValidator;
-    private readonly fieldState : FieldState;
-    private readonly dispatch : DispatchFunction;
+    private readonly fieldState: FieldState;
+    private readonly dispatch: DispatchFunction;
 
     constructor(dispatch: DispatchFunction, fieldState: FieldState, fieldValidator: FieldValidator) {
         this.fieldValidator = fieldValidator;
@@ -16,7 +16,7 @@ export class DefaultChangeHandler implements ChangeHandler {
         this.dispatch = dispatch;
     }
 
-    handle(e: any, listener?: (newValue:any) => void): void {
+    handle(e: any, listener?: (newValue: any) => void): void {
         if (this.fieldState.readonly) {
             return;
         }

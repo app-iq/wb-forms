@@ -12,7 +12,7 @@ export interface FormProps {
     getState?: (state: RootState) => void;
     reducers?: RootReducer<Action<any, any>>[];
     serviceOptions?: {
-        [serviceName : string] : any;
+        [serviceName: string]: any;
     }
 }
 

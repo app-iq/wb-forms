@@ -7,16 +7,14 @@ import {RootState} from "../../Data/Types/RootState";
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
 
     protected readonly dispatch: DispatchFunction;
-    protected readonly rootState : RootState;
+    protected readonly rootState: RootState;
     protected readonly options: TOptions;
 
-    public constructor(dispatch: DispatchFunction , rootState : RootState, options: any) {
+    public constructor(dispatch: DispatchFunction, rootState: RootState, options: any) {
         this.dispatch = dispatch;
         this.rootState = rootState;
         this.options = this.extractSubmitOptions(options);
     }
-
-    protected abstract extractSubmitOptions(options : any) : TOptions;
 
     submit(): Promise<void> {
         this.dispatch(SubmitActions.submitStart());
@@ -33,6 +31,8 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
                 .finally(() => this.onComplete());
         });
     }
+
+    protected abstract extractSubmitOptions(options: any): TOptions;
 
     protected abstract getSubmitPromise(): Promise<any>;
 

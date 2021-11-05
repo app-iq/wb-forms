@@ -43,7 +43,7 @@ export interface DefaultHttpSubmitOptions extends SubmitterOptionsBase {
 const defaults = {
     url: "/",
     method: "POST",
-    parseResponse: (response:Response) => response.json(),
+    parseResponse: (response: Response) => response.json(),
     buildBody: buildJsonBody,
     asQuery: [],
     keysMap: {}

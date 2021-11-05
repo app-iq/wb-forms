@@ -17,5 +17,5 @@ export interface FieldProps extends Partial<FieldServices> {
     readonly?: boolean;
     disabled?: boolean;
 
-    onValueChange? : (newValue:any) => void;
+    onValueChange?: (newValue: any) => void;
 }

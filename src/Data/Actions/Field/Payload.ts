@@ -9,6 +9,6 @@ export interface SimpleFieldPayload<T> extends FieldPayload {
 }
 
 export interface ChangePropertyPayload extends FieldPayload {
-    propertyName : keyof FieldState;
-    value : any;
+    propertyName: keyof FieldState;
+    value: any;
 }
