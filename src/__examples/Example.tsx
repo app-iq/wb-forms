@@ -1,25 +1,33 @@
 import DefaultTextField from "./Components/DefaultTextField";
 import React, {useEffect, useState} from "react";
-import {EasyForm} from "../Root/EasyForm";
-import {EasyFormReducer, Fields} from "../Data/Reducer/EasyFormReducer";
-import {EasyFormAction} from "../Data/Actions/EasyFormAction";
-import {DispatchFunction} from "../Root/DispatchContext";
+import {EasyForm} from "../Form/EasyForm";
+import {DispatchFunction} from "../Form/DispatchContext";
+import {useServiceFactory} from "../Services/Hooks";
+import {DefaultHttpSubmitOptions} from "../Services/DefaultImplementation/DefaultHttpSubmitService";
+import {useRootState} from "../Form/RootStateContext";
 
 export function SimpleExample() {
 
 
-
     const [dispatch, setDispatch] = useState<DispatchFunction | undefined>(undefined);
-    const [readonly , setReadonly] = useState(false);
+    const [readonly, setReadonly] = useState(false);
 
     useEffect(() => {
-        const id = setInterval(() =>  setReadonly(!readonly), 2000);
+        const id = setInterval(() => setReadonly(!readonly), 2000);
         return () => clearInterval(id);
     });
 
+    const submit: DefaultHttpSubmitOptions = {
+        onResponseStatus: (status, statusText) => console.log('onResponseStatus', status, statusText),
+        onSuccess: response => console.log('onSuccess', response),
+        onFail: error => console.log('onFail', error),
+        onComplete: () => console.log('onComplete'),
+        url: 'https://forms-webbox.free.beeceptor.com/test-post'
+    }
 
-    return <EasyForm reducers={[clearReducer]}
-                     getDispatch={dispatch => setDispatch(() => dispatch)}>
+    return <EasyForm getDispatch={dispatch => setDispatch(() => dispatch)} serviceOptions={{
+        submit
+    }}>
         <div>
             <span>Username</span>
             <DefaultTextField name={'username'} readonly={readonly} initialValue={'ali faris'}/>
@@ -29,22 +37,20 @@ export function SimpleExample() {
             <DefaultTextField name={'password'} validationRules={'^[0-9]{4,6}$'}/>
         </div>
 
-        <button onClick={() => dispatch?.({type: 'CLEAR', payload: undefined})}>
-            CLEAR
-        </button>
+        <LoginButton/>
+
     </EasyForm>;
 }
 
 
-const clearReducer: EasyFormReducer<EasyFormAction<any, any>> = (state, action) => {
-    if (action.type === 'CLEAR') {
-        const keys = Object.keys(state.fields);
-        const updatedFields = keys.reduce(((newFields: Fields, key) => {
-            newFields[key] = {...state.fields[key] , value : ''};
-            return newFields;
-        }), {});
-        console.log(updatedFields);
-        return {...state, fields: updatedFields};
-    }
-    return state;
+function LoginButton() {
+    const serviceFactory = useServiceFactory();
+    const rootState = useRootState();
+    return <button disabled={rootState.form.loading}
+                   onClick={() => {
+                       const submitter = serviceFactory.createSubmitService();
+                       return submitter.submit();
+                   }}>
+        {rootState.form.loading ? 'Loading...' : 'LOGIN'}
+    </button>
 }

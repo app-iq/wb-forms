@@ -1,9 +1,12 @@
 Categories:
 
 - Submit
+- Injectable Service Factory
+- ButtonComponent
 - Improve Naming & Structure
 - Decorators(withField)
 - Form Factory
+- FormHelper
 - Testing
 
 - Dynamic Field

@@ -1,17 +1,19 @@
-import {FieldServiceBase} from "../Protocol/Base/FieldServiceBase";
 import {ChangeHandler} from "../Protocol/ChangeHandler";
-import {DispatchFunction} from "../../Root/DispatchContext";
+import {DispatchFunction} from "../../Form/DispatchContext";
 import {FieldState} from "../../Data/Types/FieldState";
 import {FieldActions} from "../../Data/Actions/Field/FieldActions";
 import {FieldValidator} from "../Protocol/FieldValidator";
 
-export class DefaultChangeHandler extends FieldServiceBase implements ChangeHandler {
+export class DefaultChangeHandler implements ChangeHandler {
 
     private readonly fieldValidator: FieldValidator;
+    private readonly fieldState : FieldState;
+    private readonly dispatch : DispatchFunction;
 
     constructor(dispatch: DispatchFunction, fieldState: FieldState, fieldValidator: FieldValidator) {
-        super(dispatch, fieldState);
         this.fieldValidator = fieldValidator;
+        this.fieldState = fieldState;
+        this.dispatch = dispatch;
     }
 
     handle(e: any, listener?: (newValue:any) => void): void {

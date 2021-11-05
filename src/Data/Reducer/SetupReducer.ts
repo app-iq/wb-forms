@@ -1,8 +1,8 @@
-import {EasyFormReducer, EasyFormReducerState} from "./EasyFormReducer";
+import {RootReducer, RootState} from "./RootReducer";
 import {SetupAction, SetupActionType} from "../Actions/Setup/SetupAction";
 import {InitializePayload} from "../Actions/Setup/Payload";
 
-export const setupReducer: EasyFormReducer<SetupAction<any>> = (state, action) => {
+export const setupReducer: RootReducer<SetupAction<any>> = (state, action) => {
     switch (action.type) {
         case SetupActionType.INITIALIZE_FIELD:
             return initializeField(state, action);
@@ -12,7 +12,7 @@ export const setupReducer: EasyFormReducer<SetupAction<any>> = (state, action) =
 };
 
 
-function initializeField(state: EasyFormReducerState, action: SetupAction<InitializePayload>): EasyFormReducerState {
+function initializeField(state: RootState, action: SetupAction<InitializePayload>): RootState {
     const fields = {...state.fields};
     if (fields[action.payload.name]) {
         return state;

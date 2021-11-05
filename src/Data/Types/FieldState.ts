@@ -1,5 +1,5 @@
 import {ValueSelector} from "../../Field/ValueSelector";
-import {FieldServices} from "../../Services/Services";
+import {FieldServices} from "../../Services/ServiceFactory";
 
 export interface FieldState {
     //general properties

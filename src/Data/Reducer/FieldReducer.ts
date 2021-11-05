@@ -1,9 +1,9 @@
-import {EasyFormReducer, EasyFormReducerState} from "./EasyFormReducer";
+import {RootReducer, RootState} from "./RootReducer";
 import {FieldAction, FieldActionType} from "../Actions/Field/FieldAction";
 import {FieldState} from "../Types/FieldState";
 import {ChangePropertyPayload, FieldPayload, SimpleFieldPayload} from "../Actions/Field/Payload";
 
-export const fieldReducer: EasyFormReducer<FieldAction<any>> = (state, action) => {
+export const fieldReducer: RootReducer<FieldAction<any>> = (state, action) => {
 
     switch (action.type) {
         case FieldActionType.CHANGE_VALUE:
@@ -25,7 +25,7 @@ type  HandleFieldAction<TPayload extends FieldPayload> = (action: FieldAction<TP
 type  HandleSimpleFieldAction<TValue> = (action: FieldAction<SimpleFieldPayload<TValue>>) => HandleFieldChangeCallback;
 
 
-function updateFieldIfExists(state: EasyFormReducerState, action: FieldAction<any>, handleChange: HandleFieldChangeCallback): EasyFormReducerState {
+function updateFieldIfExists(state: RootState, action: FieldAction<any>, handleChange: HandleFieldChangeCallback): RootState {
     const fields = {...state.fields};
     let toChangeField = fields[action.payload.name];
     if (toChangeField === undefined) {

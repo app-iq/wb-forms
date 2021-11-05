@@ -1,16 +1,16 @@
 import React, {useEffect, useMemo, useReducer} from "react";
-import {buildRootReducer, easyFormReducerInitialState} from "../Data/Reducer/EasyFormReducer";
+import {buildRootReducer, rootReducerInitialState} from "../Data/Reducer/RootReducer";
 import {DispatchContext} from "./DispatchContext";
 import {EasyFormProps} from "./EasyFormProps";
-import {StateContext} from "./StateContext";
+import {RootStateContext} from "./RootStateContext";
 import {ServiceContext} from "../Services/ServiceContext";
-import {DefaultServiceFactory} from "../Services/Services";
+import {DefaultServiceFactory} from "../Services/ServiceFactory";
 import {FieldsContext} from "../Field/FieldsContext";
 
 export function EasyForm(props: EasyFormProps) {
     const {children} = props;
     const reducer = useMemo(() => buildRootReducer(props.reducers ?? []), [props.reducers]);
-    const [state, dispatch] = useReducer(reducer, easyFormReducerInitialState);
+    const [state, dispatch] = useReducer(reducer, rootReducerInitialState);
     const sf = useMemo(() => {
         return props.serviceFactoryCallback ?
             props.serviceFactoryCallback(dispatch, state, props) :
@@ -23,12 +23,12 @@ export function EasyForm(props: EasyFormProps) {
     useEffect(() => getState?.(state), [getState, state]);
 
     return <DispatchContext.Provider value={dispatch}>
-        <StateContext.Provider value={state}>
+        <RootStateContext.Provider value={state}>
             <ServiceContext.Provider value={sf}>
                 <FieldsContext.Provider value={state.fields}>
                     {children}
                 </FieldsContext.Provider>
             </ServiceContext.Provider>
-        </StateContext.Provider>
+        </RootStateContext.Provider>
     </DispatchContext.Provider>
 }
