@@ -1,15 +1,13 @@
 Categories:
 
-- OnChange Props (Field)
-- Form Factory
-- Event
 - Submit
-- Dynamic Field
-- Decorators(withField)
-- Auto Upload Field
 - Improve Naming & Structure
+- Decorators(withField)
+- Form Factory
 - Testing
 
+- Dynamic Field
+- Auto Upload Field
 
 - Examples
 - Implementation
