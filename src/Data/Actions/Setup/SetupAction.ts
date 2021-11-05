@@ -1,8 +1,8 @@
-import {EasyFormAction} from "../EasyFormAction";
+import {Action} from "../Action";
 
 export enum SetupActionType {
     INITIALIZE_FIELD = "INITIALIZE_FIELD"
 }
 
-export interface SetupAction<TPayload> extends EasyFormAction<SetupActionType, TPayload> {
+export interface SetupAction<TPayload> extends Action<SetupActionType, TPayload> {
 }

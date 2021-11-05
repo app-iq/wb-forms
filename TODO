@@ -1,12 +1,12 @@
 Categories:
 
-- FileSelector
 - Improve Naming & Structure
 - Decorators(withField)
 - withButton decorator
 - Form Factory
-- FormHelper
+- FormHelper (isValid)
 - Testing
+- Main Export
 
 - Dynamic Field
 - Auto Upload Field

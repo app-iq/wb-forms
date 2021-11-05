@@ -1,7 +1,8 @@
-import {RootReducer, RootState} from "./RootReducer";
+import {RootReducer} from "./RootReducer";
 import {FieldAction, FieldActionType} from "../Actions/Field/FieldAction";
 import {FieldState} from "../Types/FieldState";
 import {ChangePropertyPayload, FieldPayload, SimpleFieldPayload} from "../Actions/Field/Payload";
+import {RootState} from "../Types/RootState";
 
 export const fieldReducer: RootReducer<FieldAction<any>> = (state, action) => {
 
@@ -20,7 +21,6 @@ export const fieldReducer: RootReducer<FieldAction<any>> = (state, action) => {
 }
 
 type HandleFieldChangeCallback = (field: FieldState) => FieldState;
-
 type  HandleFieldAction<TPayload extends FieldPayload> = (action: FieldAction<TPayload>) => HandleFieldChangeCallback;
 type  HandleSimpleFieldAction<TValue> = (action: FieldAction<SimpleFieldPayload<TValue>>) => HandleFieldChangeCallback;
 

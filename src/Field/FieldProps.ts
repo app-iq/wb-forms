@@ -1,5 +1,5 @@
 import {ValueSelector} from "./ValueSelector";
-import {FieldServices} from "../Services/ServiceFactory";
+import {FieldServices} from "./FieldServices";
 
 export interface FieldProps extends Partial<FieldServices> {
     name: string;

@@ -1,6 +1,6 @@
 import {DispatchFunction} from "../../Form/DispatchContext";
 import {SubmitServiceBase, SubmitterOptionsBase} from "../Base/SubmitServiceBase";
-import {RootState} from "../../Data/Reducer/RootReducer";
+import {RootState} from "../../Data/Types/RootState";
 
 export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmitOptions> {
 

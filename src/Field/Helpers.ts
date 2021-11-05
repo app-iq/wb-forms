@@ -1,5 +1,5 @@
 import {FieldProps} from "./FieldProps";
-import {Defaults} from "../Defaults/EasyFormDefaults";
+import {Defaults} from "../Defaults/FormDefaults";
 import {FieldState} from "../Data/Types/FieldState";
 
 
@@ -17,8 +17,6 @@ export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, de
         valid: props.initialValid ?? true,
 
 
-        disableOnFormLoading: props.disableOnFormLoading ?? true,
-        disabled: props.disabled ?? false,
         hidden: props.hidden ?? false,
         readonly: props.readonly ?? false,
 

@@ -1,8 +1,8 @@
-import {ServiceFactory} from "../../Services/ServiceFactory";
+import {ServiceFactory} from "../../Services/ServiceFactory/ServiceFactory";
 import {DispatchFunction} from "../DispatchContext";
-import {RootState} from "../../Data/Reducer/RootReducer";
 import {withActionData, WithActionDataProps} from "../HOC";
 import {FunctionComponent} from "react";
+import {RootState} from "../../Data/Types/RootState";
 
 interface Props {
     render: (serviceFactory: ServiceFactory, dispatch: DispatchFunction, state: RootState) => any;

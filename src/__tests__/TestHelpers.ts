@@ -9,10 +9,9 @@ export function buildMockField(field?: Partial<FieldState>): FieldState {
         valid: true,
         validateOnChange: true,
         validationRules: undefined,
-        disableOnFormLoading: false,
         readonly: false,
         hidden: false,
-        disabled: false,
+        services: {},
         ...(field ?? {})
     };
 }

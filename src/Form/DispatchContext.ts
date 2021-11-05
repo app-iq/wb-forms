@@ -1,7 +1,7 @@
 import React from "react";
-import {EasyFormAction} from "../Data/Actions/EasyFormAction";
+import {Action} from "../Data/Actions/Action";
 
-export type DispatchFunction = (action: EasyFormAction<any, any>) => void;
+export type DispatchFunction = (action: Action<any, any>) => void;
 
 const defaultDispatch: DispatchFunction = () => {
     throw new Error("cannot find reducer");

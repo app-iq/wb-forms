@@ -5,7 +5,7 @@ export interface Defaults {
     valueSelector: ValueSelector;
 }
 
-export const easyFormDefaults: Defaults = {
+export const formDefaults: Defaults = {
     fieldValue: '',
     valueSelector: textValueSelector
 };

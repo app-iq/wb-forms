@@ -1,5 +1,5 @@
 import {useContext} from "react";
-import {ServiceContext} from "./ServiceContext";
+import {ServiceContext} from "../ServiceContext";
 
 export function useServiceFactory() {
     const serviceFactory = useContext(ServiceContext);

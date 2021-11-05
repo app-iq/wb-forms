@@ -1,22 +1,9 @@
-import {EasyFormAction} from "../Actions/EasyFormAction";
-import {FieldState} from "../Types/FieldState";
+import {Action} from "../Actions/Action";
 import {setupReducer} from "./SetupReducer";
 import {fieldReducer} from "./FieldReducer";
 import {submitReducer} from "./SubmitReducer";
+import {RootState} from "../Types/RootState";
 
-
-export type Fields = { [fieldName: string]: FieldState }
-
-export interface FormState {
-    loading: boolean;
-    error?: any;
-    response?: any;
-}
-
-export interface RootState {
-    fields: Fields;
-    form: FormState;
-}
 
 export const rootReducerInitialState: RootState = {
     fields: {},
@@ -26,16 +13,16 @@ export const rootReducerInitialState: RootState = {
 };
 
 
-export type RootReducer<TAction extends EasyFormAction<any, any>> = (state: RootState, action: TAction) => RootState;
+export type RootReducer<TAction extends Action<any, any>> = (state: RootState, action: TAction) => RootState;
 
 
-const baseReducers: RootReducer<EasyFormAction<any, any>>[] = [
+const baseReducers: RootReducer<Action<any, any>>[] = [
     setupReducer,
     fieldReducer,
     submitReducer
 ];
 
-export function buildRootReducer(reducers: RootReducer<EasyFormAction<any, any>>[] = []): RootReducer<EasyFormAction<any, any>> {
+export function buildRootReducer(reducers: RootReducer<Action<any, any>>[] = []): RootReducer<Action<any, any>> {
     return (state, action) => {
         const allReducers: RootReducer<any>[] = baseReducers.concat(reducers);
         return allReducers.reduce(((state, reduce) => reduce(state, action)), state);

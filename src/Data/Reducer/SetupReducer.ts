@@ -1,6 +1,7 @@
-import {RootReducer, RootState} from "./RootReducer";
+import {RootReducer} from "./RootReducer";
 import {SetupAction, SetupActionType} from "../Actions/Setup/SetupAction";
 import {InitializePayload} from "../Actions/Setup/Payload";
+import {RootState} from "../Types/RootState";
 
 export const setupReducer: RootReducer<SetupAction<any>> = (state, action) => {
     switch (action.type) {

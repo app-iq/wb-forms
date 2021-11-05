@@ -1,4 +1,4 @@
-import {EasyFormAction} from "../EasyFormAction";
+import {Action} from "../Action";
 import {FieldPayload} from "./Payload";
 
 export enum FieldActionType {
@@ -7,5 +7,5 @@ export enum FieldActionType {
     VALIDATE = "VALIDATE",
 }
 
-export interface FieldAction<TPayload extends FieldPayload> extends EasyFormAction<FieldActionType, TPayload> {
+export interface FieldAction<TPayload extends FieldPayload> extends Action<FieldActionType, TPayload> {
 }

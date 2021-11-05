@@ -1,5 +1,5 @@
 import {defaultInitializeFunc} from "../../Field/Helpers";
-import {easyFormDefaults} from "../../Defaults/EasyFormDefaults";
+import {formDefaults} from "../../Defaults/FormDefaults";
 
 describe('Helpers', () => {
 
@@ -7,7 +7,7 @@ describe('Helpers', () => {
         const valueSelector = jest.fn();
         const field = defaultInitializeFunc({
             name: 'test', valueSelector: valueSelector, initialValue: 'test-value'
-        }, easyFormDefaults);
+        }, formDefaults);
         expect(field).toEqual({
             name: 'test',
             value: 'test-value',
@@ -16,11 +16,11 @@ describe('Helpers', () => {
     });
 
     it('should build field with initial state using defaults', function () {
-        const field = defaultInitializeFunc({name: 'test'}, easyFormDefaults);
+        const field = defaultInitializeFunc({name: 'test'}, formDefaults);
         expect(field).toEqual({
             name: 'test',
-            value: easyFormDefaults.fieldValue,
-            valueSelector: easyFormDefaults.valueSelector
+            value: formDefaults.fieldValue,
+            valueSelector: formDefaults.valueSelector
         });
     });
 

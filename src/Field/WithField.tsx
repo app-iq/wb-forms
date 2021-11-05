@@ -3,7 +3,7 @@ import React, {useContext, useEffect} from "react";
 import {DispatchContext} from "../Form/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
-import {useServiceFactory} from "../Services/Hooks";
+import {useServiceFactory} from "../Services/ServiceFactory/Hooks";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {defaultInitializeFunc, FieldInitializeFunc} from "./Helpers";
 import {useDefaults} from "../Defaults/DefaultsContext";
@@ -15,6 +15,8 @@ export interface WithFieldProps {
     dispatch: any;
 }
 
+
+//todo : decide if better to be moved to Hooks file
 export function withField<Props extends FieldProps = FieldProps>(Component: any, initializeFieldFunc: FieldInitializeFunc<Props> = defaultInitializeFunc, defaultProps: Partial<Props> = {}) {
     return function Wrapper(props: Props) {
         props = {...props, ...defaultProps};
@@ -42,8 +44,9 @@ export function withField<Props extends FieldProps = FieldProps>(Component: any,
                         return;
                     }
                     const propsValue = props[key as keyof FieldProps];
-                    if (key === "name" && propsValue !== stateValue) {
-                        console.warn('name cannot be changed');
+                    const unUpdatableProperties: (keyof FieldState)[] = ["name", "services"]
+                    if (unUpdatableProperties.includes(key) && propsValue !== stateValue) {
+                        console.warn(`${key} cannot be changed`);
                         return;
                     }
                     if (propsValue !== stateValue && propsValue !== undefined) {
@@ -61,7 +64,7 @@ export function withField<Props extends FieldProps = FieldProps>(Component: any,
             return <React.Fragment/>
         }
 
-        let onChange: any = (e: any) => changeHandler.handle(e , props.onValueChange);
+        let onChange: any = (e: any) => changeHandler.handle(e, props.onValueChange);
 
         //todo : decide to inject passed props or not
         const toInjectProps: WithFieldProps = {

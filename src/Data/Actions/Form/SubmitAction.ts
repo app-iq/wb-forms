@@ -1,4 +1,4 @@
-import {EasyFormAction} from "../EasyFormAction";
+import {Action} from "../Action";
 
 export enum SubmitActionType {
     SUBMIT_START = "SUBMIT_START",
@@ -7,5 +7,5 @@ export enum SubmitActionType {
     SUBMIT_COMPLETE = "SUBMIT_COMPLETE"
 }
 
-export interface SubmitAction<TPayload> extends EasyFormAction<SubmitActionType, TPayload> {
+export interface SubmitAction<TPayload> extends Action<SubmitActionType, TPayload> {
 }

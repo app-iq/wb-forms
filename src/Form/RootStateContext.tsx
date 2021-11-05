@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
-import {rootReducerInitialState, RootState} from "../Data/Reducer/RootReducer";
+import {rootReducerInitialState} from "../Data/Reducer/RootReducer";
+import {RootState} from "../Data/Types/RootState";
 
 export const RootStateContext = React.createContext<RootState>(rootReducerInitialState);
 

@@ -2,7 +2,7 @@ import {SubmitService} from "../Protocol/SubmitService";
 import {DispatchFunction} from "../../Form/DispatchContext";
 import {SubmitActions} from "../../Data/Actions/Form/SubmitActions";
 import {FormActions} from "../../Data/Actions/Form/FormActions";
-import {RootState} from "../../Data/Reducer/RootReducer";
+import {RootState} from "../../Data/Types/RootState";
 
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
 

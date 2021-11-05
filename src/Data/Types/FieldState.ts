@@ -1,10 +1,9 @@
 import {ValueSelector} from "../../Field/ValueSelector";
-import {FieldServices} from "../../Services/ServiceFactory";
+import {FieldServices} from "../../Field/FieldServices";
 
 export interface FieldState {
     //general properties
     name: string;
-
 
     //value properties
     value: any;
@@ -19,14 +18,12 @@ export interface FieldState {
 
 
     //ui
-    disableOnFormLoading: boolean;
-    disabled: boolean;
     readonly: boolean;
     hidden: boolean;
 
 
     services: Partial<FieldServices>;
 
-    [propertyName : string] : any;
+    [propertyName: string]: any;
 
 }

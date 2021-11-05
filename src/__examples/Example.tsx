@@ -1,6 +1,6 @@
 import DefaultTextField from "./Components/DefaultTextField";
 import React, {useEffect, useState} from "react";
-import {EasyForm} from "../Form/EasyForm";
+import {Form} from "../Form/Form";
 import {DispatchFunction} from "../Form/DispatchContext";
 import {DefaultHttpSubmitOptions} from "../Services/DefaultImplementation/DefaultHttpSubmitService";
 import {Button} from "../Form/Button/Button";
@@ -24,7 +24,7 @@ export function SimpleExample() {
         url: 'https://forms-webbox.free.beeceptor.com/test-post'
     }
 
-    return <EasyForm getDispatch={dispatch => setDispatch(() => dispatch)} serviceOptions={{
+    return <Form getDispatch={dispatch => setDispatch(() => dispatch)} serviceOptions={{
         submit
     }}>
         <div>
@@ -46,5 +46,5 @@ export function SimpleExample() {
             </button>}
         />
 
-    </EasyForm>;
+    </Form>;
 }

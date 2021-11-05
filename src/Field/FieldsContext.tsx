@@ -1,4 +1,4 @@
 import React from "react";
-import {Fields} from "../Data/Reducer/RootReducer";
+import {FieldsState} from "../Data/Types/RootState";
 
-export const FieldsContext = React.createContext<Fields>({});
+export const FieldsContext = React.createContext<FieldsState>({});

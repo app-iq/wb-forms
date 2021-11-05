@@ -1,13 +1,13 @@
 import React, {useEffect, useMemo, useReducer} from "react";
 import {buildRootReducer, rootReducerInitialState} from "../Data/Reducer/RootReducer";
 import {DispatchContext} from "./DispatchContext";
-import {EasyFormProps} from "./EasyFormProps";
+import {FormProps} from "./FormProps";
 import {RootStateContext} from "./RootStateContext";
 import {ServiceContext} from "../Services/ServiceContext";
-import {DefaultServiceFactory} from "../Services/ServiceFactory";
 import {FieldsContext} from "../Field/FieldsContext";
+import {DefaultServiceFactory} from "../Services/ServiceFactory/DefaultServiceFactory";
 
-export function EasyForm(props: EasyFormProps) {
+export function Form(props: FormProps) {
     const {children} = props;
     const reducer = useMemo(() => buildRootReducer(props.reducers ?? []), [props.reducers]);
     const [state, dispatch] = useReducer(reducer, rootReducerInitialState);
