@@ -1,8 +1,8 @@
 Categories:
 
-- Submit
-- Injectable Service Factory
+- withButton , withButton decorator
 - ButtonComponent
+- FileSelector
 - Improve Naming & Structure
 - Decorators(withField)
 - Form Factory
