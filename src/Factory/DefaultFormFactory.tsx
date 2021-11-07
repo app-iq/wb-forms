@@ -1,5 +1,5 @@
 import {FormFactory} from "./FormFactory";
-import {FieldTypeMap, FormConfiguration} from "./FormFactoryConfigurationBase";
+import {FieldTypeMap, FormConfiguration} from "./DefaultFormFactoryConfiguration";
 import React, {ReactElement} from "react";
 import {FieldProps} from "../Field/FieldProps";
 import {Form} from "../Form/Form";

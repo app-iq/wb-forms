@@ -5,7 +5,7 @@ import {DispatchFunction} from "../Form/DispatchContext";
 import {DefaultHttpSubmitOptions} from "../Services/DefaultImplementation/DefaultHttpSubmitService";
 import {Button} from "../Form/Button/Button";
 import {DefaultFormFactory} from "../Factory/DefaultFormFactory";
-import {FieldTypeMap} from "../Factory/FormFactoryConfigurationBase";
+import {FieldTypeMap} from "../Factory/DefaultFormFactoryConfiguration";
 import DefaultDropdownField from "./Components/DefaultDropdownField";
 
 export function SimpleExample() {
