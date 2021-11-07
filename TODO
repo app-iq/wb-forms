@@ -1,8 +1,5 @@
 Categories:
 
-- Improve Naming & Structure
-- Decorators(withField)
-- withButton decorator
 - Form Factory
 - FormHelper (isValid)
 - Testing
@@ -11,5 +8,5 @@ Categories:
 - Dynamic Field
 - Auto Upload Field
 
-- Examples
-- Implementation
+- Examples , Builder App
+- Implementation Tailwindcss , Material UI , Semantic UI

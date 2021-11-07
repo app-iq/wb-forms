@@ -4,6 +4,9 @@ import {Form} from "../Form/Form";
 import {DispatchFunction} from "../Form/DispatchContext";
 import {DefaultHttpSubmitOptions} from "../Services/DefaultImplementation/DefaultHttpSubmitService";
 import {Button} from "../Form/Button/Button";
+import {DefaultFormFactory} from "../Factory/DefaultFormFactory";
+import {FieldTypeMap} from "../Factory/FormFactoryConfigurationBase";
+import DefaultDropdownField from "./Components/DefaultDropdownField";
 
 export function SimpleExample() {
 
@@ -23,6 +26,45 @@ export function SimpleExample() {
         onComplete: () => console.log('onComplete'),
         url: 'https://forms-webbox.free.beeceptor.com/test-post'
     }
+
+    // const types : FieldTypeMap = {
+    //     'text' : DefaultTextField,
+    //     'dropdown' : DefaultDropdownField
+    // }
+    // const formFactory = new DefaultFormFactory<FieldTypeMap>(types);
+    //
+    // return formFactory.create({
+    //     formConfig: {
+    //         serviceOptions: {
+    //             submit : submit
+    //         }
+    //     },
+    //     fieldConfig: {
+    //         username : {
+    //             fieldConfig : {
+    //                 name: 'username',
+    //                 initialValue : 'ali'
+    //             },
+    //             type: 'text'
+    //         },
+    //         password : {
+    //             fieldConfig : {
+    //                 name: 'password',
+    //                 validationRules : '^[0-9]{4}$'
+    //             },
+    //             type: 'text'
+    //         },
+    //
+    //         country : {
+    //             fieldConfig : {
+    //                 name: 'country',
+    //                 options : ["Iraq" , "Italy" , "Japan"]
+    //             },
+    //             type: 'dropdown'
+    //         },
+    //
+    //     }
+    // });
 
     return <Form getDispatch={dispatch => setDispatch(() => dispatch)} serviceOptions={{
         submit

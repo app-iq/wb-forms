@@ -18,4 +18,8 @@ export interface FieldProps extends Partial<FieldServices> {
     disabled?: boolean;
 
     onValueChange?: (newValue: any) => void;
+
+    value?: never;
+
+    [propName: string]: any;
 }

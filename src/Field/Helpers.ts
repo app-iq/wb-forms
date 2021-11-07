@@ -3,7 +3,7 @@ import {Defaults} from "../Defaults/FormDefaults";
 import {FieldState} from "../Data/Types/FieldState";
 
 
-export type FieldInitializeFunc<Props> = (props: Props, defaults: Defaults) => FieldState;
+export type FieldInitializeFunc<TProps extends FieldProps> = (props: TProps, defaults: Defaults) => FieldState;
 
 export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, defaults) => {
     return {

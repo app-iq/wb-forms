@@ -17,8 +17,8 @@ export interface WithFieldProps {
 
 
 //todo : decide if better to be moved to Hooks file
-export function withField<Props extends FieldProps = FieldProps>(Component: any, initializeFieldFunc: FieldInitializeFunc<Props> = defaultInitializeFunc, defaultProps: Partial<Props> = {}) {
-    return function Wrapper(props: Props) {
+export function withField(Component: any, initializeFieldFunc: FieldInitializeFunc<FieldProps> = defaultInitializeFunc, defaultProps: Partial<FieldProps> = {}) {
+    return function Wrapper(props: FieldProps) {
         props = {...props, ...defaultProps};
         const name = props.name;
         const field = useField(name);
@@ -73,6 +73,6 @@ export function withField<Props extends FieldProps = FieldProps>(Component: any,
             field: field
         };
 
-        return <Component name={name} {...toInjectProps}/>
+        return <Component {...props} {...toInjectProps} />
     }
 }
