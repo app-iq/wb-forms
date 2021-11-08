@@ -1,8 +1,8 @@
 import {useServiceFactory} from "../Services/ServiceFactory/Hooks";
-import {DispatchFunction, useDispatch} from "./DispatchContext";
+import {DispatchFunction} from "./DispatchContext";
 import {ServiceFactory} from "../Services/ServiceFactory/ServiceFactory";
 import {RootState} from "../Data/Types/RootState";
-import {useRootState} from "./Hooks";
+import {useDispatch, useRootState} from "./Hooks";
 import React from "react";
 
 export interface WithActionDataProps {

@@ -1,6 +1,5 @@
-import * as DispatchHooks from "../../Form/DispatchContext";
 import * as ServiceFactoryHooks from "../../Services/ServiceFactory/Hooks";
-import * as RootStateHooks from "../../Form/Hooks";
+import * as FormHooks from "../../Form/Hooks";
 import {withActionData, withRootState} from "../../Form/HOCs";
 import {configure} from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
@@ -10,8 +9,8 @@ import React from "react";
 configure({adapter: new Adapter()});
 
 const useServiceFactorySpy = jest.spyOn(ServiceFactoryHooks, 'useServiceFactory');
-const useRootStateSpy = jest.spyOn(RootStateHooks, 'useRootState');
-const useDispatchSpy = jest.spyOn(DispatchHooks, 'useDispatch');
+const useRootStateSpy = jest.spyOn(FormHooks, 'useRootState');
+const useDispatchSpy = jest.spyOn(FormHooks, 'useDispatch');
 
 
 describe('Form HOCs', () => {

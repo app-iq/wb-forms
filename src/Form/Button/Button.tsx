@@ -12,7 +12,7 @@ export interface ButtonProps extends Props {
     actionData: WithActionDataProps;
 }
 
-function _Button(props: ButtonProps) {
+export function _Button(props: ButtonProps) {
     return props.render(props.actionData.serviceFactory, props.actionData.dispatch, props.actionData.rootState);
 }
 

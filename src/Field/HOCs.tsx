@@ -1,12 +1,13 @@
 import {useField} from "./Hooks";
 import React, {useContext, useEffect} from "react";
-import {DispatchContext, useDispatch} from "../Form/DispatchContext";
+import {DispatchContext} from "../Form/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
 import {useServiceFactory} from "../Services/ServiceFactory/Hooks";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {defaultInitializeFunc, FieldInitializeFunc} from "./Helpers";
 import {useDefaults} from "../Defaults/Hooks";
+import {useDispatch} from "../Form/Hooks";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;

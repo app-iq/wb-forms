@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Action} from "../Data/Actions/Action";
 
 export type DispatchFunction = (action: Action<any, any>) => void;
@@ -10,6 +10,3 @@ const defaultDispatch: DispatchFunction = () => {
 export const DispatchContext = React.createContext<DispatchFunction>(defaultDispatch);
 
 
-export function useDispatch(){
-    return useContext(DispatchContext);
-}

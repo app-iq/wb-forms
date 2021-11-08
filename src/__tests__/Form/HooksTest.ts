@@ -1,4 +1,4 @@
-import {useRootState} from "../../Form/Hooks";
+import {useDispatch, useRootState} from "../../Form/Hooks";
 import React from "react";
 
 describe('Hooks', () => {
@@ -14,5 +14,14 @@ describe('Hooks', () => {
             .mockReturnValueOnce(mockedRootState);
         const rootState = useRootState();
         expect(rootState).toEqual(mockedRootState);
+    });
+
+
+    it('should return dispatch | useDispatch', function () {
+        const mockedDispatch = jest.fn();
+        jest.spyOn(React, "useContext")
+            .mockReturnValueOnce(mockedDispatch);
+        const rootState = useDispatch();
+        expect(rootState).toEqual(mockedDispatch);
     });
 });
