@@ -1,6 +1,6 @@
 import {useField} from "./Hooks";
 import React, {useContext, useEffect} from "react";
-import {DispatchContext} from "../Form/DispatchContext";
+import {DispatchContext, useDispatch} from "../Form/DispatchContext";
 import {FieldProps} from "./FieldProps";
 import {FieldState} from "../Data/Types/FieldState";
 import {useServiceFactory} from "../Services/ServiceFactory/Hooks";
@@ -15,12 +15,12 @@ export interface WithFieldProps {
 }
 
 
-export function HOCs(Component: any, initializeFieldFunc: FieldInitializeFunc = defaultInitializeFunc, defaultProps: Partial<FieldProps> = {}) {
+export function withField(Component: any, initializeFieldFunc: FieldInitializeFunc = defaultInitializeFunc, defaultProps: Partial<FieldProps> = {}) {
     return function Wrapper(props: FieldProps) {
         props = {...props, ...defaultProps};
         const name = props.name;
         const field = useField(name);
-        const dispatch = useContext(DispatchContext);
+        const dispatch = useDispatch();
         const serviceFactory = useServiceFactory();
         const defaults = useDefaults();
         const changeHandler = serviceFactory.createChangeHandler(name);

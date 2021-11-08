@@ -1,5 +1,5 @@
 import {FieldProps} from "../../Field/FieldProps";
-import {HOCs, WithFieldProps} from "../../Field/HOCs";
+import {withField, WithFieldProps} from "../../Field/HOCs";
 
 interface Props extends FieldProps, WithFieldProps {
     options : string[];
@@ -18,4 +18,4 @@ function DefaultDropdownField(props: Props) {
 }
 
 
-export default HOCs(DefaultDropdownField);
+export default withField(DefaultDropdownField);
