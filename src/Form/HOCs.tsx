@@ -28,6 +28,6 @@ export function withActionData(Component: any) {
 export function withRootState(Component: any) {
     return function Wrapper(props: any) {
         const formState = useRootState();
-        return <Component {...props} formState={formState}/>
+        return <Component {...props} rootState={formState}/>
     }
 }
