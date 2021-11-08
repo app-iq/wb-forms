@@ -1,7 +1,8 @@
 import {SetupActions} from "../../../Data/Actions/Setup/SetupActions";
 import {FieldState} from "../../../Data/Types/FieldState";
-import {SetupActionType} from "../../../Data/Actions/Setup/SetupAction";
+import {SetupAction, SetupActionType} from "../../../Data/Actions/Setup/SetupAction";
 import {buildMockField} from "../../TestHelpers";
+import {InitializePayload} from "../../../Data/Actions/Setup/Payload";
 
 describe('Setup Actions', () => {
     it('should return initialize action', function () {
@@ -12,12 +13,13 @@ describe('Setup Actions', () => {
             valid: true, validateOnChange: true, skipValidation: false, validationRules: undefined
         });
         const action = SetupActions.initializeField('test', field);
-        expect(action).toEqual({
+        const expected: SetupAction<InitializePayload> = {
             type: SetupActionType.INITIALIZE_FIELD,
             payload: {
                 name: 'test',
                 field: field
             }
-        });
+        };
+        expect(action).toEqual(expected);
     });
 })
