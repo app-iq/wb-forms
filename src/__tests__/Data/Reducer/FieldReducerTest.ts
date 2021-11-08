@@ -55,10 +55,15 @@ describe('FieldReducerTest', () => {
     });
 
 
-
     it('should return state when submitting action for non defined field', function () {
         const action = FieldActions.changeProperty('nonDefinedField', 'value', 'test-value');
         const newState = fieldReducer(initialState, action);
+        expect(newState).toEqual(initialState);
+    });
+
+
+    it('return same state form unknown action', function () {
+        const newState = fieldReducer(initialState, {type: 'UNKNOWN' as any, payload: undefined});
         expect(newState).toEqual(initialState);
     });
 

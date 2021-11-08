@@ -35,4 +35,10 @@ describe('FormReducer', () => {
         expect(newState).toEqual(expectedState);
     });
 
+
+    it('return same state form unknown action', function () {
+        const newState = formReducer(initialState, {type: 'UNKNOWN' as any, payload: undefined});
+        expect(newState).toEqual(initialState);
+    });
+
 });

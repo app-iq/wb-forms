@@ -18,4 +18,10 @@ describe('SetupReducer', () => {
         expect(newField).toEqual(field);
     });
 
+
+    it('return same state form unknown action', function () {
+        const newState = setupReducer(rootReducerInitialState, {type: 'UNKNOWN' as any, payload: undefined});
+        expect(newState).toEqual(rootReducerInitialState);
+    });
+
 });
