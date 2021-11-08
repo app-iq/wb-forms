@@ -3,10 +3,12 @@ import {Defaults} from "../Defaults/FormDefaults";
 import {FieldState} from "../Data/Types/FieldState";
 
 
-export type FieldInitializeFunc<TProps extends FieldProps> = (props: TProps, defaults: Defaults) => FieldState;
+export type FieldInitializeFunc = (props: FieldProps, defaults: Defaults) => FieldState;
 
-export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, defaults) => {
+export const defaultInitializeFunc: FieldInitializeFunc = (props, defaults) => {
+    const {onValueChange, changeHandler, fieldValidator, initialValid, initialValue, ...otherProps} = props;
     return {
+        ...otherProps,
         name: props.name,
         valueSelector: props.valueSelector ?? defaults.valueSelector,
         value: props.initialValue ?? defaults.fieldValue,
@@ -20,7 +22,7 @@ export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, de
         hidden: props.hidden ?? false,
         readonly: props.readonly ?? false,
 
-        clearValue : props.clearValue ?? defaults.clearValue,
+        clearValue: props.clearValue ?? defaults.clearValue,
 
         services: {
             fieldValidator: props.fieldValidator,

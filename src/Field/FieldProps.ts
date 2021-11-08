@@ -12,10 +12,8 @@ export interface FieldProps extends Partial<FieldServices> {
     initialValid?: boolean;
 
 
-    disableOnFormLoading?: boolean;
     hidden?: boolean;
     readonly?: boolean;
-    disabled?: boolean;
 
     onValueChange?: (newValue: any) => void;
 
