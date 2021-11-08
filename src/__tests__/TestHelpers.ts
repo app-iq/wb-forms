@@ -1,6 +1,7 @@
 import {FieldState} from "../Data/Types/FieldState";
+import {FormState} from "../Data/Types/RootState";
 
-export function buildMockField(field?: Partial<FieldState>): FieldState {
+export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
     return {
         name: 'test',
         value: '',
@@ -14,4 +15,14 @@ export function buildMockField(field?: Partial<FieldState>): FieldState {
         services: {},
         ...(field ?? {})
     };
+}
+
+
+export function buildMockFormState(form?: Partial<FormState>) : FormState {
+    return {
+        loading : false,
+        response : null,
+        error : null,
+        ...(form ?? {})
+    }
 }

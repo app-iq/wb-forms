@@ -1,12 +1,12 @@
 import {SetupActions} from "../../../Data/Actions/Setup/SetupActions";
 import {FieldState} from "../../../Data/Types/FieldState";
 import {SetupAction, SetupActionType} from "../../../Data/Actions/Setup/SetupAction";
-import {buildMockField} from "../../TestHelpers";
+import {buildMockFieldState} from "../../TestHelpers";
 import {InitializePayload} from "../../../Data/Actions/Setup/Payload";
 
 describe('Setup Actions', () => {
     it('should return initialize action', function () {
-        const field: FieldState = buildMockField({
+        const field: FieldState = buildMockFieldState({
             name: 'test',
             value: 'xyz',
             valueSelector: e => e,
