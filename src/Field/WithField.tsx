@@ -6,8 +6,8 @@ import {FieldState} from "../Data/Types/FieldState";
 import {useServiceFactory} from "../Services/ServiceFactory/Hooks";
 import {SetupActions} from "../Data/Actions/Setup/SetupActions";
 import {defaultInitializeFunc, FieldInitializeFunc} from "./Helpers";
-import {useDefaults} from "../Defaults/DefaultsContext";
 import {FieldActions} from "../Data/Actions/Field/FieldActions";
+import {useDefaults} from "../Defaults/Hooks";
 
 export interface WithFieldProps {
     handleChange: (e: any) => void;
