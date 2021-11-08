@@ -1,5 +1,5 @@
 import {FieldProps} from "../../Field/FieldProps";
-import {withField, WithFieldProps} from "../../Field/WithField";
+import {HOCs, WithFieldProps} from "../../Field/HOCs";
 
 interface Props extends FieldProps, WithFieldProps {
 }
@@ -13,4 +13,4 @@ function DefaultTextField(props: Props) {
 }
 
 
-export default withField(DefaultTextField);
+export default HOCs(DefaultTextField);

@@ -8,6 +8,8 @@ import {RegexBasedFieldValidator} from "../DefaultImplementation/RegexBasedField
 import {SubmitService} from "../Protocol/SubmitService";
 import {DefaultHttpSubmitService} from "../DefaultImplementation/DefaultHttpSubmitService";
 import {ServiceFactory} from "./ServiceFactory";
+import {StateUpdater} from "../Protocol/StateUpdater";
+import {DefaultStateUpdater} from "../DefaultImplementation/DefaultStateUpdater";
 
 export class DefaultServiceFactory implements ServiceFactory {
 
@@ -41,6 +43,10 @@ export class DefaultServiceFactory implements ServiceFactory {
 
     createSubmitService(): SubmitService {
         return new DefaultHttpSubmitService(this.dispatch, this.rootState, this.formProps.serviceOptions);
+    }
+
+    createStateUpdater(): StateUpdater {
+        return new DefaultStateUpdater(this.dispatch);
     }
 
 }

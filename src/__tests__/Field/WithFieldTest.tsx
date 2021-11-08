@@ -1,4 +1,4 @@
-import {withField, WithFieldProps} from "../../Field/WithField";
+import {HOCs, WithFieldProps} from "../../Field/HOCs";
 import * as Hooks from "../../Field/Hooks";
 import {render, waitFor} from "@testing-library/react";
 import React from "react";
@@ -27,7 +27,7 @@ describe('WithField', () => {
     it('should render null when field not initialized yet', async function () {
         spy.mockReturnValue(undefined as any);
         const mockedComponent = jest.fn(() => null);
-        const FieldComponent = withField(mockedComponent);
+        const FieldComponent = HOCs(mockedComponent);
         render(<FieldComponent name={'test'}/>);
         await waitFor(() => expect(mockedComponent).not.toBeCalled());
     });
@@ -39,7 +39,7 @@ describe('WithField', () => {
         spy.mockReturnValue(fieldStateMock);
         useContextMock.mockReturnValue(dispatchMock);
         const mockedComponent = jest.fn(() => <div/>);
-        const FieldComponent = withField(mockedComponent);
+        const FieldComponent = HOCs(mockedComponent);
         render(<FieldComponent name={'test'} initialValue={'ali'}/>);
         await waitFor(() => expect(mockedComponent).toBeCalled());
         const injectedProps: WithFieldProps = {
@@ -64,7 +64,7 @@ describe('WithField', () => {
             expect(dispatchMock).toBeCalledWith(FieldActions.changeValue('test', 'test-value'));
             return <div/>;
         });
-        const FieldComponent = withField(mockedComponent);
+        const FieldComponent = HOCs(mockedComponent);
         render(<FieldComponent name={'test'} initialValue={'ali'}/>);
         await waitFor(() => expect(mockedComponent).toBeCalled());
     });
