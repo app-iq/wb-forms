@@ -1,6 +1,6 @@
 import {ServiceFactory} from "../../Services/ServiceFactory/ServiceFactory";
 import {DispatchFunction} from "../DispatchContext";
-import {withActionData, WithActionDataProps} from "../HOC";
+import {withActionData, WithActionDataProps} from "../HOCs";
 import {FunctionComponent} from "react";
 import {RootState} from "../../Data/Types/RootState";
 

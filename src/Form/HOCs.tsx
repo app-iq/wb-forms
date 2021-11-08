@@ -1,9 +1,9 @@
 import {useServiceFactory} from "../Services/ServiceFactory/Hooks";
-import {useContext} from "react";
-import {DispatchContext, DispatchFunction} from "./DispatchContext";
-import {useRootState} from "./RootStateContext";
+import {DispatchFunction, useDispatch} from "./DispatchContext";
 import {ServiceFactory} from "../Services/ServiceFactory/ServiceFactory";
 import {RootState} from "../Data/Types/RootState";
+import {useRootState} from "./Hooks";
+import React from "react";
 
 export interface WithActionDataProps {
     serviceFactory: ServiceFactory;
@@ -14,7 +14,7 @@ export interface WithActionDataProps {
 export function withActionData(Component: any) {
     return function Wrapper(props: any) {
         const serviceFactory = useServiceFactory();
-        const dispatch = useContext(DispatchContext);
+        const dispatch = useDispatch();
         const rootState = useRootState();
         const toInjectProps: WithActionDataProps = {
             rootState: rootState,
@@ -22,5 +22,12 @@ export function withActionData(Component: any) {
             serviceFactory: serviceFactory
         }
         return <Component {...props} actionData={toInjectProps}/>
+    }
+}
+
+export function withRootState(Component: any) {
+    return function Wrapper(props: any) {
+        const formState = useRootState();
+        return <Component {...props} formState={formState}/>
     }
 }
