@@ -20,6 +20,8 @@ export const defaultInitializeFunc: FieldInitializeFunc<FieldProps> = (props, de
         hidden: props.hidden ?? false,
         readonly: props.readonly ?? false,
 
+        clearValue : props.clearValue ?? defaults.clearValue,
+
         services: {
             fieldValidator: props.fieldValidator,
             changeHandler: props.changeHandler,

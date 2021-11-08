@@ -16,7 +16,7 @@ export const formReducer: RootReducer<FormAction<any>> = (state, action) => {
 function clearFormValues(state: RootState): RootState {
     const keys = Object.keys(state.fields);
     const updatedFields = keys.reduce(((newFields: FieldsState, key) => {
-        newFields[key] = {...state.fields[key], value: ''};
+        newFields[key] = {...state.fields[key], value: state.fields[key].clearValue};
         return newFields;
     }), {});
     return {...state, fields: updatedFields}

@@ -12,6 +12,7 @@ export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
         validationRules: undefined,
         readonly: false,
         hidden: false,
+        clearValue : '',
         services: {},
         ...(field ?? {})
     };

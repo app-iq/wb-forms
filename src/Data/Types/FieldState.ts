@@ -22,6 +22,9 @@ export interface FieldState {
     hidden: boolean;
 
 
+    clearValue: any;
+
+
     services: Partial<FieldServices>;
 
     [propertyName: string]: any;
