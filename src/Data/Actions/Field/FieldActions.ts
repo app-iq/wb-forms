@@ -26,9 +26,9 @@ export class FieldActions {
         };
     }
 
-    public static validate(name: string, valid: boolean): FieldAction<SimpleFieldPayload<boolean>> {
+    public static changeValidationState(name: string, valid: boolean): FieldAction<SimpleFieldPayload<boolean>> {
         return {
-            type: FieldActionType.VALIDATE,
+            type: FieldActionType.SET_VALIDATION_STATE,
             payload: {
                 name: name,
                 value: valid

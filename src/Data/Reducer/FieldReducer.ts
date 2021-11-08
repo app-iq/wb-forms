@@ -10,7 +10,7 @@ export const fieldReducer: RootReducer<FieldAction<any>> = (state, action) => {
         case FieldActionType.CHANGE_VALUE:
             return updateFieldIfExists(state, action, handleValueChange(action));
 
-        case FieldActionType.VALIDATE:
+        case FieldActionType.SET_VALIDATION_STATE:
             return updateFieldIfExists(state, action, handleValidation(action));
 
         case FieldActionType.CHANGE_PROPERTY:
