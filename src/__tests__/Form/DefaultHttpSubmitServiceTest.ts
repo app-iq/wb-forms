@@ -6,7 +6,7 @@ import {
     httpSubmitOptionsDefaults
 } from "../../Services/DefaultImplementation/DefaultHttpSubmitService";
 import {RootState} from "../../Data/Types/RootState";
-import {buildMockFieldState} from "../TestHelpers";
+import {buildMockFieldState} from "../../Utils/TestHelpers";
 import {SubmitActions} from "../../Data/Actions/Form/SubmitActions";
 
 let mockFetch = jest.fn();

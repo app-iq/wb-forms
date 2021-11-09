@@ -8,18 +8,18 @@ import {FieldsContext} from "../../Field/FieldsContext";
 import {ServiceContext} from "../../Services/ServiceContext";
 import Enzyme, {mount} from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-import {DefaultServiceFactory} from "../../Services/ServiceFactory/DefaultServiceFactory";
 
 Enzyme.configure({adapter: new Adapter()})
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useReducer: jest.fn(),
+    useMemo: jest.fn()
+}));
 
 
 describe('FormTest', () => {
 
-    jest.mock('react', () => ({
-        ...jest.requireActual('react'),
-        useReducer: jest.fn(),
-        useMemo: jest.fn()
-    }));
 
     function setupMock(mockState: any = {
         fields: {},
@@ -68,37 +68,3 @@ describe('FormTest', () => {
         mount(<Form><DummyComponent/></Form>);
     });
 });
-
-
-describe('FormTest-WithoutMock' , () => {
-    it('should use passed service factory', async function () {
-        const mockServiceFactory = {};
-        const DummyComponent = () => {
-            const serviceFactory = useContext(ServiceContext);
-            expect(serviceFactory).toEqual(mockServiceFactory);
-            return null;
-        }
-        mount(<Form serviceFactoryCallback={jest.fn().mockReturnValue(mockServiceFactory)}><DummyComponent /></Form>);
-    });
-
-    it('should use default service factory', async function () {
-        const DummyComponent = () => {
-            const serviceFactory = useContext(ServiceContext);
-            expect(serviceFactory).toBeInstanceOf(DefaultServiceFactory);
-            return null;
-        }
-        mount(<Form><DummyComponent /></Form>);
-    });
-
-    it('should call getDispatch,getState', async function () {
-        const DummyComponent = () => {
-            return null;
-        }
-        const mockGetDispatch = jest.fn();
-        const mockGetState = jest.fn();
-        mount(<Form getState={mockGetState} getDispatch={mockGetDispatch}><DummyComponent /></Form>);
-        expect(mockGetDispatch).toBeCalled();
-        expect(mockGetState).toBeCalled();
-    });
-
-})

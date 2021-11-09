@@ -1,6 +1,6 @@
 import {SubmitActions} from "../../../Data/Actions/Form/SubmitActions";
 import {RootState} from "../../../Data/Types/RootState";
-import {buildMockFormState} from "../../TestHelpers";
+import {buildMockFormState} from "../../../Utils/TestHelpers";
 import {submitReducer} from "../../../Data/Reducer/SubmitReducer";
 
 const initialState: RootState = {

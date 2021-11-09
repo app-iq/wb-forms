@@ -3,6 +3,7 @@ import {setupReducer} from "./SetupReducer";
 import {fieldReducer} from "./FieldReducer";
 import {submitReducer} from "./SubmitReducer";
 import {RootState} from "../Types/RootState";
+import {formReducer} from "./FormReducer";
 
 
 export const rootReducerInitialState: RootState = {
@@ -19,7 +20,8 @@ export type RootReducer<TAction extends Action<any, any>> = (state: RootState, a
 const baseReducers: RootReducer<Action<any, any>>[] = [
     setupReducer,
     fieldReducer,
-    submitReducer
+    submitReducer,
+    formReducer
 ];
 
 export function buildRootReducer(reducers: RootReducer<Action<any, any>>[] = []): RootReducer<Action<any, any>> {

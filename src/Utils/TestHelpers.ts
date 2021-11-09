@@ -1,6 +1,7 @@
 import {FieldState} from "../Data/Types/FieldState";
 import {FormState} from "../Data/Types/RootState";
 
+
 export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
     return {
         name: 'test',
@@ -13,7 +14,10 @@ export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
         readonly: false,
         hidden: false,
         clearValue : '',
-        services: {},
+        services: {
+            fieldValidator : undefined,
+            changeHandler : undefined
+        },
         ...(field ?? {})
     };
 }

@@ -2,10 +2,10 @@ import {withField, WithFieldProps} from "../../Field/HOCs";
 import * as Hooks from "../../Field/Hooks";
 import * as ServiceHooks from "../../Services/ServiceFactory/Hooks";
 import * as DefaultsHooks from "../../Defaults/Hooks";
-import * as DispatchHooks from "../../Form/DispatchContext";
+import * as FormHooks from "../../Form/Hooks";
 import {render, waitFor} from "@testing-library/react";
 import React from "react";
-import {buildMockFieldState} from "../TestHelpers";
+import {buildMockFieldState} from "../../Utils/TestHelpers";
 
 
 //TODO : CLEANUP TESTS
@@ -13,7 +13,7 @@ import {buildMockFieldState} from "../TestHelpers";
 const fieldHooksSpy = jest.spyOn(Hooks, 'useField');
 const serviceFactorySpy = jest.spyOn(ServiceHooks, 'useServiceFactory');
 const defaultsHooksSpy = jest.spyOn(DefaultsHooks, 'useDefaults');
-const dispatchHooksSpy = jest.spyOn(DispatchHooks, 'useDispatch');
+const dispatchHooksSpy = jest.spyOn(FormHooks, 'useDispatch');
 
 
 describe('WithField', () => {

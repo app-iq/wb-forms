@@ -1,7 +1,7 @@
 import {SetupActions} from "../../../Data/Actions/Setup/SetupActions";
 import {FieldState} from "../../../Data/Types/FieldState";
 import {SetupAction, SetupActionType} from "../../../Data/Actions/Setup/SetupAction";
-import {buildMockFieldState} from "../../TestHelpers";
+import {buildMockFieldState} from "../../../Utils/TestHelpers";
 import {InitializePayload} from "../../../Data/Actions/Setup/Payload";
 
 describe('Setup Actions', () => {

@@ -2,7 +2,7 @@ import {rootReducerInitialState} from "../../../Data/Reducer/RootReducer";
 import {SetupActions} from "../../../Data/Actions/Setup/SetupActions";
 import {FieldState} from "../../../Data/Types/FieldState";
 import {setupReducer} from "../../../Data/Reducer/SetupReducer";
-import {buildMockFieldState} from "../../TestHelpers";
+import {buildMockFieldState} from "../../../Utils/TestHelpers";
 import {RootState} from "../../../Data/Types/RootState";
 
 describe('SetupReducer', () => {

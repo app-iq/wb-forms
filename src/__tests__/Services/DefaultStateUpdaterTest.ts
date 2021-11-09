@@ -1,5 +1,5 @@
 import {DefaultStateUpdater} from "../../Services/DefaultImplementation/DefaultStateUpdater";
-import {buildMockFieldState} from "../TestHelpers";
+import {buildMockFieldState} from "../../Utils/TestHelpers";
 import {FieldActions} from "../../Data/Actions/Field/FieldActions";
 
 describe('DefaultStateUpdater', () => {

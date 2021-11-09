@@ -1,5 +1,5 @@
 import {DefaultChangeHandler} from "../../Services/DefaultImplementation/DefaultChangeHandler";
-import {buildMockFieldState} from "../TestHelpers";
+import {buildMockFieldState} from "../../Utils/TestHelpers";
 import {FieldActions} from "../../Data/Actions/Field/FieldActions";
 import {FieldState} from "../../Data/Types/FieldState";
 
