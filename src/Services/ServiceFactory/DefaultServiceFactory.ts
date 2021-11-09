@@ -42,7 +42,7 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createSubmitService(): SubmitService {
-        return new DefaultHttpSubmitService(this.dispatch, this.rootState, this.formProps.serviceOptions);
+        return new DefaultHttpSubmitService(this.dispatch, this.rootState, this.formProps.serviceOptions ?? {});
     }
 
     createStateUpdater(): StateUpdater {
