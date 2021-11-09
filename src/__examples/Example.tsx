@@ -4,16 +4,13 @@ import {Form} from "../Form/Form";
 import {DispatchFunction} from "../Form/DispatchContext";
 import {DefaultHttpSubmitOptions} from "../Services/DefaultImplementation/DefaultHttpSubmitService";
 import {Button} from "../Form/Button/Button";
-import {DefaultFormFactory} from "../Factory/DefaultFormFactory";
-import {FieldTypeMap} from "../Factory/DefaultFormFactoryConfiguration";
-import DefaultDropdownField from "./Components/DefaultDropdownField";
 
 export function SimpleExample() {
 
 
     const [dispatch, setDispatch] = useState<DispatchFunction | undefined>(undefined);
     const [readonly, setReadonly] = useState(false);
-    const [dummyValue , setDummyValue] = useState<string  | undefined>(undefined);
+    const [dummyValue, setDummyValue] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         setTimeout(() => setDummyValue('dummy value'), 3000);
@@ -67,7 +64,6 @@ export function SimpleExample() {
     //
     //     }
     // });
-
 
 
     return <Form getDispatch={dispatch => setDispatch(() => dispatch)} serviceOptions={{

@@ -3,7 +3,7 @@ import React from "react";
 import {Defaults} from "./FormDefaults";
 
 export interface WithDefaultsProps {
-    defaults : Defaults;
+    defaults: Defaults;
 }
 
 export function withDefaults(Component: any) {

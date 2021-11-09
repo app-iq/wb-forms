@@ -38,9 +38,9 @@ describe('DefaultStateUpdater', () => {
         console.warn = jest.fn();
         const updater = new DefaultStateUpdater(dispatchMock);
         const state = buildMockFieldState({
-            name: 'test', dummyValue : 'test'
+            name: 'test', dummyValue: 'test'
         });
-        updater.update(state, {name: 'test', dummyValue : undefined});
+        updater.update(state, {name: 'test', dummyValue: undefined});
         expect(dispatchMock).toBeCalledTimes(0);
         expect(console.warn).not.toBeCalled();
     });

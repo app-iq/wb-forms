@@ -2,7 +2,7 @@ import {FieldProps} from "../../Field/FieldProps";
 import {withField, WithFieldProps} from "../../Field/HOCs";
 
 interface Props extends FieldProps, WithFieldProps {
-    options : string[];
+    options: string[];
 }
 
 function DefaultDropdownField(props: Props) {

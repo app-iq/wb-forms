@@ -244,11 +244,10 @@ describe('DefaultHttpSubmitService', () => {
     it('should build form data (buildFormData)', async function () {
         const data = buildFormData(rootState, {});
         const expected = new FormData();
-        expected.append('username' , rootState.fields.username.value);
-        expected.append('password' , rootState.fields.password.value);
+        expected.append('username', rootState.fields.username.value);
+        expected.append('password', rootState.fields.password.value);
         expect(data).toEqual(expected);
     });
-
 
 
     it('should use keyMaps in query params', async function () {

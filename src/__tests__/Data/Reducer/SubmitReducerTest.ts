@@ -57,7 +57,7 @@ describe('SubmitReducerTest', () => {
 
 
     it('return same state form unknown action', function () {
-        const newState = submitReducer(initialState , {type : 'UNKNOWN' as any , payload : undefined});
+        const newState = submitReducer(initialState, {type: 'UNKNOWN' as any, payload: undefined});
         expect(newState).toEqual(initialState);
     });
 

@@ -19,7 +19,7 @@ describe('Defaults Hooks', () => {
     describe('useDefaults', () => {
 
         it('should return field', function () {
-            const mockedDefaults: Defaults = {fieldValue : '' , clearValue : '-' , valueSelector: e => e};
+            const mockedDefaults: Defaults = {fieldValue: '', clearValue: '-', valueSelector: e => e};
             useContextMock.mockReturnValue(mockedDefaults);
             const field = useDefaults();
             expect(field).toEqual(mockedDefaults);

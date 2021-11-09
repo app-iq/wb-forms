@@ -13,21 +13,21 @@ export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
         validationRules: undefined,
         readonly: false,
         hidden: false,
-        clearValue : '',
+        clearValue: '',
         services: {
-            fieldValidator : undefined,
-            changeHandler : undefined
+            fieldValidator: undefined,
+            changeHandler: undefined
         },
         ...(field ?? {})
     };
 }
 
 
-export function buildMockFormState(form?: Partial<FormState>) : FormState {
+export function buildMockFormState(form?: Partial<FormState>): FormState {
     return {
-        loading : false,
-        response : null,
-        error : null,
+        loading: false,
+        response: null,
+        error: null,
         ...(form ?? {})
     }
 }
