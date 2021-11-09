@@ -11,21 +11,36 @@ export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmi
     }
 
     protected getSubmitPromise(): Promise<any> {
-        const buildBody = this.options.buildBody ?? defaults.buildBody;
+        const buildBody = this.options.buildBody ?? httpSubmitOptionsDefaults.buildBody;
+        let asQueryList = this.options.asQuery ?? httpSubmitOptionsDefaults.asQuery;
         let request: RequestInit = {
-            method: this.options.method ?? defaults.method,
-            body: buildBody(this.rootState, this.options.keysMap ?? defaults.keysMap!, this.options.asQuery ?? defaults.asQuery!),
+            method: this.options.method ?? httpSubmitOptionsDefaults.method,
+            body: buildBody(this.rootState, this.options.keysMap ?? httpSubmitOptionsDefaults.keysMap, asQueryList),
         };
-        const url = this.options.url ?? defaults.url ?? "";
+        const url = this.buildUrl();
         request = this.options.initRequest ? this.options.initRequest(request, this.rootState) : request;
-        const parseResponse = this.options.parseResponse ?? defaults.parseResponse;
-        return fetch(url, request)
+        const parseResponse = this.options.parseResponse ?? httpSubmitOptionsDefaults.parseResponse;
+        return fetch(url.toString(), request)
             .then(response => {
                 this.options.onResponseStatus?.(response.status, response.statusText, this.dispatch);
                 return parseResponse(response);
             });
     }
 
+    private buildUrl(): URL {
+        let asQueryList = this.options.asQuery ?? httpSubmitOptionsDefaults.asQuery;
+        asQueryList = ["GET", "DELETE"].includes(this.options.method ?? '') ? Object.keys(this.rootState.fields) : asQueryList;
+        const url = new URL(this.options.url ?? httpSubmitOptionsDefaults.url ?? "");
+        const params = asQueryList.reduce((acc, fieldName) => {
+            const field = this.rootState.fields[fieldName];
+            if (field) {
+                acc[this.options.keysMap?.[fieldName] ?? fieldName] = field.value;
+            }
+            return acc;
+        }, {} as any);
+        url.search = new URLSearchParams(params).toString();
+        return url;
+    }
 }
 
 
@@ -40,7 +55,7 @@ export interface DefaultHttpSubmitOptions extends SubmitterOptionsBase {
     keysMap?: { [fieldName: string]: string };
 }
 
-const defaults = {
+export const httpSubmitOptionsDefaults = {
     url: "/",
     method: "POST",
     parseResponse: (response: Response) => response.json(),

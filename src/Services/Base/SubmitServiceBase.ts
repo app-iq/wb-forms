@@ -22,13 +22,14 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
             this.getSubmitPromise()
                 .then((response) => {
                     this.onSuccess(response);
+                    this.onComplete();
                     resolve();
                 })
                 .catch((e) => {
                     this.onFail(e);
+                    this.onComplete();
                     reject();
-                })
-                .finally(() => this.onComplete());
+                });
         });
     }
 
