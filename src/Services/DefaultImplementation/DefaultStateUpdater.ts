@@ -15,11 +15,9 @@ export class DefaultStateUpdater implements StateUpdater {
         const keys = Object.keys(props);
         keys.forEach((key) => {
             const stateValue = field[key];
-            if (stateValue === undefined) {
-                return;
-            }
             const propsValue = props[key as keyof FieldProps];
-            const unUpdatableProperties: (keyof FieldState)[] = ["name", "services"]
+            let servicesKeys = (field && typeof field === "object") ? Object.keys(field.services) : [];
+            const unUpdatableProperties: (keyof FieldState)[] = ["name", "services"].concat(servicesKeys);
             if (unUpdatableProperties.includes(key) && propsValue !== stateValue) {
                 console.warn(`${key} cannot be changed`);
                 return;
@@ -28,7 +26,6 @@ export class DefaultStateUpdater implements StateUpdater {
                 this.dispatch(FieldActions.changeProperty(props.name, key, propsValue));
             }
         });
-
     }
 
 }

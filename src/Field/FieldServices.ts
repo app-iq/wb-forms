@@ -7,6 +7,6 @@ import {ServiceFactory} from "../Services/ServiceFactory/ServiceFactory";
 export type ServiceCallback<TService> = (dispatch: DispatchFunction, state: RootState, serviceFactory: ServiceFactory) => TService
 
 export interface FieldServices {
-    fieldValidator: ServiceCallback<FieldValidator>;
-    changeHandler: ServiceCallback<ChangeHandler>;
+    fieldValidator: ServiceCallback<FieldValidator> | undefined;
+    changeHandler: ServiceCallback<ChangeHandler> | undefined;
 }

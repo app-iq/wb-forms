@@ -8,4 +8,21 @@ Categories:
 
 
 - Examples , Builder App
+
+Examples:
+- DefaultProvider
+- ServiceProvider
+- CustomServiceFactory
+- LoginForm
+- RegisterForm
+- CustomReducer
+- GetState,GetDispatch
+- Factory Example
+
+BuilderApp:
+
+- Factory Base Builder
+
+
+
 - Implementation Tailwindcss , Material UI , Semantic UI

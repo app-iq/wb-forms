@@ -13,8 +13,10 @@ export function SimpleExample() {
 
     const [dispatch, setDispatch] = useState<DispatchFunction | undefined>(undefined);
     const [readonly, setReadonly] = useState(false);
+    const [dummyValue , setDummyValue] = useState<string  | undefined>(undefined);
 
     useEffect(() => {
+        setTimeout(() => setDummyValue('dummy value'), 3000);
         const id = setInterval(() => setReadonly(!readonly), 2000);
         return () => clearInterval(id);
     });
@@ -66,12 +68,14 @@ export function SimpleExample() {
     //     }
     // });
 
+
+
     return <Form getDispatch={dispatch => setDispatch(() => dispatch)} serviceOptions={{
         submit
     }}>
         <div>
             <span>Username</span>
-            <DefaultTextField name={'username'} readonly={readonly} initialValue={'ali faris'}/>
+            <DefaultTextField name={'username'} dummyValue={dummyValue} readonly={readonly} initialValue={'ali faris'}/>
         </div>
         <div>
             <span>Password</span>
