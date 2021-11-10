@@ -16,14 +16,14 @@ export class DefaultChangeHandler implements ChangeHandler {
         this.dispatch = dispatch;
     }
 
-    handle(e: any, listener?: (newValue: any) => void): void {
+    handle(e: any, listener?: (newValue: any, dispatch: DispatchFunction) => void): void {
         if (this.fieldState.readonly) {
             return;
         }
 
         let newValue = this.fieldState.valueSelector(e, this.fieldState);
         this.dispatch(FieldActions.changeValue(this.fieldState.name, newValue));
-        listener?.(newValue);
+        listener?.(newValue, this.dispatch);
         if (this.shouldValidate()) {
             let validateAction = FieldActions.changeValidationState(this.fieldState.name, this.fieldValidator.validate(newValue, this.fieldState.validationRules));
             this.dispatch(validateAction);

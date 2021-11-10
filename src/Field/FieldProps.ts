@@ -1,5 +1,6 @@
 import {ValueSelector} from "./ValueSelector";
 import {FieldServices} from "./FieldServices";
+import {DispatchFunction} from "../Form/DispatchContext";
 
 export interface FieldProps extends Partial<FieldServices> {
     name: string;
@@ -15,7 +16,7 @@ export interface FieldProps extends Partial<FieldServices> {
     hidden?: boolean;
     readonly?: boolean;
 
-    onValueChange?: (newValue: any) => void;
+    onValueChange?: (newValue: any , dispatch : DispatchFunction) => void;
 
 
     clearValue?: any;

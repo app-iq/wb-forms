@@ -5,11 +5,14 @@ interface Props extends FieldProps, WithFieldProps {
     options: string[];
 }
 
-function DefaultDropdownField(props: Props) {
+function Dropdown(props: Props) {
     const {field, handleChange} = props;
     return <select name={field.name}
                    value={field.value}
-                   style={{color: !field.valid ? 'red' : undefined}}
+                   style={{
+                       display: 'block',
+                       color: !field.valid ? 'red' : undefined
+                   }}
                    onChange={handleChange}>
         {
             props.options.map(o => <option key={o} value={o}>{o}</option>)
@@ -18,4 +21,4 @@ function DefaultDropdownField(props: Props) {
 }
 
 
-export default withField(DefaultDropdownField);
+export default withField(Dropdown);

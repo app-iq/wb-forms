@@ -15,6 +15,9 @@ export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmi
         let asQueryList = this.options.asQuery ?? httpSubmitOptionsDefaults.asQuery;
         let request: RequestInit = {
             method: this.options.method ?? httpSubmitOptionsDefaults.method,
+            headers: {
+                'Content-Type': this.options.contentType ?? httpSubmitOptionsDefaults.contentType
+            },
             body: buildBody(this.rootState, this.options.keysMap ?? httpSubmitOptionsDefaults.keysMap, asQueryList),
         };
         const url = this.buildUrl();
@@ -47,6 +50,7 @@ export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmi
 export interface DefaultHttpSubmitOptions extends SubmitterOptionsBase {
     url?: string;
     method?: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
+    contentType?: string;
     initRequest?: (request: RequestInit, rootState: RootState) => RequestInit;
     parseResponse?: (response: Response) => Promise<any>;
     onResponseStatus?: (status: number, statusText: string, dispatch: DispatchFunction) => void;
@@ -61,7 +65,8 @@ export const httpSubmitOptionsDefaults = {
     parseResponse: (response: Response) => response.json(),
     buildBody: buildJsonBody,
     asQuery: [],
-    keysMap: {}
+    keysMap: {},
+    contentType : 'application/json'
 }
 
 

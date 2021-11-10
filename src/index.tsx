@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {SimpleExample} from "./__examples/Example";
+import {SimpleExample} from "./__examples/ExamplesPage";
 
 ReactDOM.render(
     <React.StrictMode>

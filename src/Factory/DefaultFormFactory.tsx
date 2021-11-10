@@ -3,6 +3,7 @@ import {FieldTypeMap, FormConfiguration} from "./DefaultFormFactoryConfiguration
 import React, {ReactElement} from "react";
 import {FieldProps} from "../Field/FieldProps";
 import {Form} from "../Form/Form";
+import {Button} from "../Form/Button/Button";
 
 export class DefaultFormFactory<TFieldTypeMap extends FieldTypeMap, TFieldProps extends FieldProps = FieldProps, TExtraOptions = any>
     implements FormFactory<FormConfiguration<TFieldTypeMap, TFieldProps, TExtraOptions>> {
@@ -18,6 +19,9 @@ export class DefaultFormFactory<TFieldTypeMap extends FieldTypeMap, TFieldProps 
         return <Form {...formProps}>
             {
                 this.renderFields(configuration)
+            }
+            {
+                this.renderButton()
             }
         </Form>;
     }
@@ -36,6 +40,16 @@ export class DefaultFormFactory<TFieldTypeMap extends FieldTypeMap, TFieldProps 
             const type = fields[key].type;
             return this.getFieldElement(type, fieldProps);
         });
+    }
+
+    protected renderButton(): any {
+        return <Button render={serviceFactory => {
+            return <button onClick={async e => {
+                e.preventDefault();
+                const submit = serviceFactory.createSubmitService();
+                await submit.submit();
+            }}>Submit</button>
+        }}/>;
     }
 
 

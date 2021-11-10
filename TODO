@@ -1,32 +1,23 @@
 Categories:
 
-
-- OnChange receive dispatch
-
+- Cleanups
 - docs website
 
-- Dynamic Field
-- Auto Upload Field
-
-- Examples , Builder App
-
 Examples:
-- DefaultProvider
-- ServiceProvider
-- CustomServiceFactory
 - LoginForm
 - RegisterForm
-- CustomReducer
+- FormFactory
+- DefaultProvider
 - GetState,GetDispatch
-- Factory Example
+- CustomReducer
+- CustomServiceFactory
 
 
-BuilderApp:
-
-- Factory Base Builder
-
-
+Extensions:
 
 - wbox-forms-tailwindcss
 - wbox-forms-material-ui
 - wbox-forms-semantic-ui
+
+- Dynamic Field
+- Auto Upload Field
