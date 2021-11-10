@@ -2,6 +2,8 @@
   "name": "react-easyform",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/main.ts",
+  "types": "dist/main.ts",
   "dependencies": {},
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
