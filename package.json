@@ -1,9 +1,9 @@
 {
-  "name": "react-easyform",
+  "name": "wbox-forms",
   "version": "0.1.0",
-  "private": true,
-  "main": "dist/main.ts",
-  "types": "dist/main.ts",
+  "private": false,
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
   "dependencies": {},
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -17,7 +17,6 @@
     "@types/react-dom": "^17.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-15": "^1.4.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -25,9 +24,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "tsc --noEmit false",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
