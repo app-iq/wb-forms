@@ -1,20 +1,18 @@
 import {Form} from "../../Form/Form";
 import TextField from "../Components/TextField";
-import {DefaultHttpSubmitOptions} from "../../Services/DefaultImplementation/DefaultHttpSubmitService";
 import {DefaultsProvider} from "../../Defaults/DefaultsContext";
 import {Button} from "../../Form/Button/Button";
 import {FormActions} from "../../Data/Actions/Form/FormActions";
+import {Defaults} from "../../Defaults/FormDefaults";
 
 export function DefaultsExample() {
-    const submitOptions: DefaultHttpSubmitOptions = {
-        url: 'http://localhost:8080/login'
-    };
-    return <DefaultsProvider value={{
+    let defaults: Defaults = {
         valueSelector: e => e.target.value,
         clearValue: '----',
         fieldValue: 'DEFAULT VALUE'
-    }}>
-        <Form serviceOptions={{submit: submitOptions}}>
+    };
+    return <DefaultsProvider value={defaults}>
+        <Form>
             <h1>DefaultsProvider Example</h1>
             <hr/>
 

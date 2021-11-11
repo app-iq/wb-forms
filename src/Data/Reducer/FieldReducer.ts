@@ -21,8 +21,8 @@ export const fieldReducer: RootReducer<FieldAction<any>> = (state, action) => {
 }
 
 type HandleFieldChangeCallback = (field: FieldState) => FieldState;
-type  HandleFieldAction<TPayload extends FieldPayload> = (action: FieldAction<TPayload>) => HandleFieldChangeCallback;
-type  HandleSimpleFieldAction<TValue> = (action: FieldAction<SimpleFieldPayload<TValue>>) => HandleFieldChangeCallback;
+type HandleFieldAction<TPayload extends FieldPayload> = (action: FieldAction<TPayload>) => HandleFieldChangeCallback;
+type HandleSimpleFieldAction<TValue> = (action: FieldAction<SimpleFieldPayload<TValue>>) => HandleFieldChangeCallback;
 
 
 function updateFieldIfExists(state: RootState, action: FieldAction<any>, handleChange: HandleFieldChangeCallback): RootState {

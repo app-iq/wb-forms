@@ -30,8 +30,10 @@ export function SubmitButton(props: Props) {
             await submitService.submit();
         }
     }, [serviceFactory, rootState, props.validateBeforeSubmit]);
-    return <button onClick={async (e) => {
+    return <button onClick={(e) => {
         e.preventDefault();
-        await onSubmit();
-    }}>{props.title ?? "SUBMIT"}</button>
+        return onSubmit();
+    }}>
+        {props.title ?? "SUBMIT"}
+    </button>
 }

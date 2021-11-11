@@ -24,10 +24,12 @@ describe('DefaultFormFactory', () => {
         }
         const wrapper = mount(factory.create(configuration));
         expect(wrapper.find('Form')).not.toBeFalsy();
-        expect(wrapper.find('Form').children()).toHaveLength(2);
+        expect(wrapper.find('Form').children()).toHaveLength(3);
         expect(wrapper.find('DummyComponent1')).not.toBeFalsy();
         expect(wrapper.find('DummyComponent1').text()).toEqual("DummyField 1 : username");
         expect(wrapper.find('DummyComponent2')).not.toBeFalsy();
         expect(wrapper.find('DummyComponent2').text()).toEqual("DummyField 2 : password");
+        expect(wrapper.find('Button')).not.toBeFalsy();
+        expect(wrapper.find('button').text()).toEqual("SUBMIT");
     });
 });

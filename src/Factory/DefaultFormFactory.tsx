@@ -48,7 +48,7 @@ export class DefaultFormFactory<TFieldTypeMap extends FieldTypeMap, TFieldProps 
                 e.preventDefault();
                 const submit = serviceFactory.createSubmitService();
                 await submit.submit();
-            }}>Submit</button>
+            }}>SUBMIT</button>
         }}/>;
     }
 

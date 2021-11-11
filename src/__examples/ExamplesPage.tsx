@@ -10,24 +10,15 @@ import {CustomReducerExample} from "./Forms/CustomReducerExample";
 import {CustomServiceFactoryExample} from "./Forms/CustomServiceFactoryExample";
 
 const options: any = {
-    login: LoginForm,
-    register: RegisterForm,
-    formFactory: FormFactoryExample,
-    defaultsProvider: DefaultsExample,
-    getStateAndGetDispatch: StateAndDispatchExample,
-    customReducer: CustomReducerExample,
-    customServiceFactory: CustomServiceFactoryExample,
+    'Login Form': LoginForm,
+    'Register Form': RegisterForm,
+    'Form Factory': FormFactoryExample,
+    'Defaults Provider': DefaultsExample,
+    'getState,getDispatch': StateAndDispatchExample,
+    'Custom Reducer': CustomReducerExample,
+    'Custom Service Factory': CustomServiceFactoryExample,
 };
 
-const titles: any = {
-    login: 'Login',
-    register: 'Register',
-    formFactory: 'Form Factory',
-    defaultsProvider: 'Defaults Provider',
-    getStateAndGetDispatch: 'getState,getDispatch',
-    customReducer: 'getState,getDispatch',
-
-}
 const optionsKeys = Object.keys(options);
 
 export function SimpleExample() {
