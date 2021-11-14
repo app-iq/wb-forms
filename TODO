@@ -1,17 +1,6 @@
 Categories:
 
-- Cleanups
 - docs website
-
-Examples:
-- LoginForm
-- RegisterForm
-- FormFactory
-- DefaultProvider
-- GetState,GetDispatch
-- CustomReducer
-- CustomServiceFactory
-
 
 Extensions:
 
