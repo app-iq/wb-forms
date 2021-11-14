@@ -1,6 +1,6 @@
-Categories:
 
-- docs website
+- npm publishing
+- docs website review
 
 Extensions:
 
@@ -15,3 +15,19 @@ Extensions:
 Later:
 
 - FormContext an object contains rootState,dispatch,defaults,...
+
+
+
+
+Elements :
+
+- BaseField
+- Text
+- Password
+- Dropdown
+- Checkbox
+- RadioButton
+- TextArea
+- Date
+- Time
+- DateTime
