@@ -7,7 +7,7 @@ import {ServiceContext} from "../Services/ServiceContext";
 import {FieldsContext} from "../Field/FieldsContext";
 import {DefaultServiceFactory} from "../Services/ServiceFactory/DefaultServiceFactory";
 
-export function Form(props: FormProps) {
+export const Form: React.FC<FormProps> = (props) => {
     const {children} = props;
     const reducer = useMemo(() => buildRootReducer(props.reducers ?? []), [props.reducers]);
     const [state, dispatch] = useReducer(reducer, rootReducerInitialState);

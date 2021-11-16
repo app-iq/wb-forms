@@ -152,12 +152,13 @@ describe('DefaultHttpSubmitService', () => {
     });
 
 
-    it('should send request with method/buildBody options', async function () {
+    it('should send request with method/buildBody/contentType options', async function () {
         let dispatchMock = jest.fn();
         let buildBodyMock = jest.fn().mockReturnValue({test: 'value'});
         const submitOptions: DefaultHttpSubmitOptions = {
             url: 'https://test.com/',
             method: "PUT",
+            contentType: 'test-content-type',
             keysMap: {dummy: 'dummyField'},
             asQuery: ['dummy'],
             buildBody: buildBodyMock,
@@ -165,23 +166,31 @@ describe('DefaultHttpSubmitService', () => {
         const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, {submit: submitOptions});
         mockFetch.mockClear().mockReturnValue(Promise.resolve({json: () => 'value'}));
         await submitter.submit();
-        expect(mockFetch).toBeCalledWith('https://test.com/', {method: 'PUT', body: {test: 'value'}});
+        expect(mockFetch).toBeCalledWith('https://test.com/', {
+            method: 'PUT', headers: {
+                'Content-Type': 'test-content-type'
+            }, body: {test: 'value'}
+        });
         expect(buildBodyMock).toBeCalledWith(rootState, {dummy: 'dummyField'}, ['dummy']);
     });
 
 
-    it('should send request with default method/buildBody', async function () {
+    it('should send request with default method/buildBody/content-type', async function () {
         let dispatchMock = jest.fn();
         let buildBodyMock = jest.fn().mockReturnValue({test: 'value'});
         const submitOptions: DefaultHttpSubmitOptions = {
             url: 'https://test.com/',
-            method: "PUT",
             buildBody: buildBodyMock,
         };
         const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, {submit: submitOptions});
         mockFetch.mockClear().mockReturnValue(Promise.resolve({json: () => 'value'}));
         await submitter.submit();
-        expect(mockFetch).toBeCalledWith('https://test.com/', {method: 'PUT', body: {test: 'value'}});
+        expect(mockFetch).toBeCalledWith('https://test.com/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }, body: {test: 'value'}
+        });
         expect(buildBodyMock).toBeCalledWith(rootState, httpSubmitOptionsDefaults.keysMap, httpSubmitOptionsDefaults.asQuery);
     });
 

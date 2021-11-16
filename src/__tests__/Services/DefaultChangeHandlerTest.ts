@@ -72,7 +72,7 @@ describe('DefaultChangeHandler', function () {
         const handler = new DefaultChangeHandler(dispatch, fieldState, validator);
         let listenerCallback = jest.fn();
         handler.handle('new-value', listenerCallback);
-        expect(listenerCallback).toBeCalledWith('new-value');
+        expect(listenerCallback).toBeCalledWith('new-value' , dispatch);
     });
 
 });
