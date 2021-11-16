@@ -2,6 +2,7 @@ import {FieldProps} from "../../Field/FieldProps";
 import {withField, WithFieldProps} from "../../Field/HOCs";
 
 interface Props extends FieldProps, WithFieldProps {
+    inputProps?: any;
 }
 
 function TextField(props: Props) {

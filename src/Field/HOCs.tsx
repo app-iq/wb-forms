@@ -16,7 +16,7 @@ export interface WithFieldProps {
 
 
 export function withField<Props extends FieldProps = FieldProps>(Component: React.ComponentType<Props & WithFieldProps>, initializeFieldFunc: FieldInitializeFunc = defaultInitializeFunc, defaultProps: Partial<FieldProps> = {}) {
-    return function Wrapper(props: Omit<Props, keyof WithFieldProps> & {name : string})  {
+    return function Wrapper(props: Omit<Props, keyof WithFieldProps>) {
         props = {...props, ...defaultProps};
         const name = props.name;
         const field = useField(name);
@@ -28,14 +28,14 @@ export function withField<Props extends FieldProps = FieldProps>(Component: Reac
 
         useEffect(() => {
             if (isNotInitializedYet) {
-                dispatch(SetupActions.initializeField(props.name, initializeFieldFunc(props, defaults)));
+                dispatch(SetupActions.initializeField(props.name, initializeFieldFunc(props as Props, defaults)));
             }
         }, [dispatch, defaults, isNotInitializedYet, props]);
 
         useEffect(() => {
             if (!isNotInitializedYet) {
                 const updater = serviceFactory.createStateUpdater();
-                updater.update(field, props);
+                updater.update(field, props as Props);
             }
         }, [props, serviceFactory, field, isNotInitializedYet])
 

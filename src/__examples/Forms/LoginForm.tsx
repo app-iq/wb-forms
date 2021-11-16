@@ -12,7 +12,7 @@ export function LoginForm() {
         <h1>Login Form Example</h1>
         <hr/>
 
-        <TextField name={'username'} validationRules={'^.{3,30}$'}/>
+        <TextField name={''}  />
         <PasswordField name={'password'} validationRules={'^\\d{3,30}$'}/>
 
         <hr/>

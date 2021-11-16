@@ -22,5 +22,4 @@ export interface FieldProps extends Partial<FieldServices> {
     clearValue?: any;
     value?: never;
 
-    [propName: string]: any;
 }

@@ -61,11 +61,6 @@ describe('Helpers', () => {
             expect(field.valid).toEqual(false);
         });
 
-        it('should inject untyped props', function () {
-            const field = defaultInitializeFunc({...props, untypedProp: 10}, defaults);
-            expect(field.untypedProp).toEqual(10);
-        });
-
 
     });
 

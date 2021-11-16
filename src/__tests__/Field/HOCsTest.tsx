@@ -4,7 +4,6 @@ import * as ServiceHooks from "../../Services/ServiceFactory/Hooks";
 import * as DefaultsHooks from "../../Defaults/Hooks";
 import * as FormHooks from "../../Form/Hooks";
 import {render, waitFor} from "@testing-library/react";
-import React from "react";
 import {buildMockFieldState} from "../../Utils/TestHelpers";
 
 
@@ -46,7 +45,7 @@ describe('WithField', () => {
         fieldHooksSpy.mockReturnValue(fieldStateMock);
         const mockedComponent = jest.fn(() => <div/>);
         const FieldComponent = withField(mockedComponent);
-        render(<FieldComponent name={'test'} initialValue={'ali'} xyz={true}/>);
+        render(<FieldComponent name={'test'} initialValue={'ali'}/>);
         await waitFor(() => expect(mockedComponent).toBeCalled());
         const injectedProps: WithFieldProps = {
             handleChange: expect.anything(),
@@ -57,7 +56,6 @@ describe('WithField', () => {
         await waitFor(() => expect(mockedComponent).toBeCalledWith(expect.objectContaining(injectedProps), expect.anything()));
         await waitFor(() => expect(mockedComponent).toBeCalledWith(expect.objectContaining({
             name: 'test',
-            xyz: true,
             initialValue: 'ali'
         }), expect.anything()));
     });

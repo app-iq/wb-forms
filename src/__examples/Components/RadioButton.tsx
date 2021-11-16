@@ -2,8 +2,10 @@ import {withField, WithFieldProps} from "../../Field/HOCs";
 import {FieldProps} from "../../Field/FieldProps";
 import {defaultInitializeFunc} from "../../Field/Helpers";
 
-interface Props extends WithFieldProps, FieldProps {
+export interface RadioProps extends FieldProps{
     options: string[];
+}
+interface Props extends RadioProps, WithFieldProps {
 }
 
 function RadioButton(props: Props) {

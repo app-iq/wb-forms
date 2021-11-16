@@ -27,7 +27,8 @@ export function SimpleExample() {
         <h1>Select Example</h1>
 
         <Form>
-            <RadioButton name={'example'} options={optionsKeys} onValueChange={v => setExample(v)}/>
+            <RadioButton name={''} options={[]}   />
+            <RadioButton name={'example'} options={optionsKeys} />
         </Form>
 
         <ExampleView example={selectedExample}/>
