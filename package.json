@@ -4,6 +4,7 @@
   "private": false,
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
+  "type": "module",
   "dependencies": {},
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
