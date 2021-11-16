@@ -15,8 +15,8 @@ export interface WithFieldProps {
 }
 
 
-export function withField(Component: any, initializeFieldFunc: FieldInitializeFunc = defaultInitializeFunc, defaultProps: Partial<FieldProps> = {}) {
-    return function Wrapper(props: FieldProps) {
+export function withField<Props extends FieldProps = FieldProps>(Component: React.ComponentType<Props & WithFieldProps>, initializeFieldFunc: FieldInitializeFunc = defaultInitializeFunc, defaultProps: Partial<FieldProps> = {}) {
+    return function Wrapper(props: Omit<Props, keyof WithFieldProps> & {name : string})  {
         props = {...props, ...defaultProps};
         const name = props.name;
         const field = useField(name);
@@ -55,6 +55,6 @@ export function withField(Component: any, initializeFieldFunc: FieldInitializeFu
             field: field
         };
 
-        return <Component {...props} {...toInjectProps} />
+        return <Component {...(props as Props)} {...toInjectProps}/>
     }
 }
