@@ -20,7 +20,8 @@ describe('DefaultFormFactory', () => {
                 username: {type: 'text_type_1', fieldConfig: {name: 'username'}},
                 password: {type: 'text_type_2', fieldConfig: {name: 'password'}},
             },
-            formConfig: {}
+            formConfig: {},
+            extraOptions: {}
         }
         const wrapper = mount(factory.create(configuration));
         expect(wrapper.find('Form')).not.toBeFalsy();
