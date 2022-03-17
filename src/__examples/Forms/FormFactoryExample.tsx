@@ -27,6 +27,7 @@ export function FormFactoryExample() {
             serviceOptions: {
                 submit: {url: 'http://localhost:8080/review'}
             }
-        }
+        },
+        extraOptions: {}
     });
 }

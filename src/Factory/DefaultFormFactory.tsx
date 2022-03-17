@@ -5,16 +5,16 @@ import {FieldProps} from "../Field/FieldProps";
 import {Form} from "../Form/Form";
 import {Button} from "../Form/Button/Button";
 
-export class DefaultFormFactory<TFieldTypeMap extends FieldTypeMap, TFieldProps extends FieldProps = FieldProps, TExtraOptions = any>
-    implements FormFactory<FormConfiguration<TFieldTypeMap, TFieldProps, TExtraOptions>> {
+export class DefaultFormFactory<TFieldProps extends FieldProps = FieldProps, TExtraOptions = any>
+    implements FormFactory<FormConfiguration<TFieldProps, TExtraOptions>> {
 
-    protected readonly fieldTypeMap: TFieldTypeMap;
+    protected readonly fieldTypeMap: FieldTypeMap;
 
-    public constructor(fieldComponents: TFieldTypeMap) {
+    public constructor(fieldComponents: FieldTypeMap) {
         this.fieldTypeMap = fieldComponents;
     }
 
-    create(configuration: FormConfiguration<TFieldTypeMap, TFieldProps, TExtraOptions>): React.ReactElement {
+    create(configuration: FormConfiguration<TFieldProps, TExtraOptions>): React.ReactElement {
         const formProps = configuration.formConfig;
         return <Form {...formProps}>
             {
@@ -27,12 +27,12 @@ export class DefaultFormFactory<TFieldTypeMap extends FieldTypeMap, TFieldProps 
     }
 
 
-    protected getFieldElement(type: keyof TFieldTypeMap, fieldProps: TFieldProps) {
+    protected getFieldElement(type: keyof FieldTypeMap, fieldProps: TFieldProps) {
         const FieldComponent = this.fieldTypeMap[type];
         return <FieldComponent key={fieldProps.name} {...fieldProps} />;
     }
 
-    protected renderFields(configuration: FormConfiguration<TFieldTypeMap, TFieldProps, TExtraOptions>): ReactElement | ReactElement[] {
+    protected renderFields(configuration: FormConfiguration<TFieldProps, TExtraOptions>): ReactElement | ReactElement[] {
         const fields = configuration.fieldConfig;
         const keys = Object.keys(fields);
         return keys.map(key => {
