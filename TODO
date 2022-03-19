@@ -1,20 +1,11 @@
 Extensions:
 
-- wbox-forms-tailwindcss
+- wbox-forms-tailwindcss [DONE]
 - wbox-forms-material-ui
 - wbox-forms-semantic-ui
 - Dynamic Field
 - Auto Upload Field
 
 
-Later:
-
-- FormContext an object contains rootState,dispatch,defaults,...
-
-
-TODO:
-
-- Test Cleanup
-- Examples Cleanup
 - npm publishing
 - docs website review
