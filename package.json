@@ -29,7 +29,7 @@
     "start": "npm run start:server & npm run start:react",
     "start:server": "node src/__server/server.js",
     "start:react": "react-scripts start",
-    "build": "tsc --noEmit false",
+    "build": "tsc --noEmit false && rm -rf ./dist/__examples",
     "test": "react-scripts test"
   },
   "eslintConfig": {
