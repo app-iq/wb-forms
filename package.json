@@ -1,8 +1,8 @@
 {
   "name": "wbox-forms",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": false,
-  "main": "dist/main.ts",
+  "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "dependencies": {
   },
