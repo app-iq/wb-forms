@@ -1,10 +1,10 @@
-import {RootState} from "../Data/Types/RootState";
-import {useContext} from "react";
-import {RootStateContext} from "./RootStateContext";
-import {DispatchContext} from "./DispatchContext";
+import {State} from '../Data/State';
+import {useContext} from 'react';
+import {StateContext} from './StateContext';
+import {DispatchContext} from './DispatchContext';
 
-export function useRootState(): RootState {
-    return useContext(RootStateContext);
+export function useState(): State {
+    return useContext(StateContext);
 }
 
 export function useDispatch() {

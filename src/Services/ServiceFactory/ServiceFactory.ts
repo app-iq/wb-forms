@@ -1,15 +1,19 @@
-import {FieldValidator} from "../Protocol/FieldValidator";
-import {ChangeHandler} from "../Protocol/ChangeHandler";
-import {SubmitService} from "../Protocol/SubmitService";
-import {StateUpdater} from "../Protocol/StateUpdater";
+import {FieldValidator} from '../Protocol/FieldValidator';
+import {ChangeHandler} from '../Protocol/ChangeHandler';
+import {SubmitService} from '../Protocol/SubmitService';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {ValueSelector} from '../../Field/ValueSelector';
+import {FormValidator} from '../Protocol/FormValidator';
 
 export interface ServiceFactory {
     createFieldValidator(fieldName: string): FieldValidator;
 
-    createChangeHandler(fieldName: string): ChangeHandler;
+    createFormValidator(): FormValidator;
+
+    createChangeHandler(fieldName: string, defaultValueSelector?: ValueSelector): ChangeHandler;
 
     createSubmitService(): SubmitService;
 
-    createStateUpdater(): StateUpdater;
+    getFieldConfiguration(fieldName: string): FieldConfiguration | undefined;
 }
 

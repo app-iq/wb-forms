@@ -1,20 +1,20 @@
-import React, {useEffect, useMemo, useReducer} from "react";
-import {buildRootReducer, rootReducerInitialState} from "../Data/Reducer/RootReducer";
-import {DispatchContext} from "./DispatchContext";
-import {FormProps} from "./FormProps";
-import {RootStateContext} from "./RootStateContext";
-import {ServiceContext} from "../Services/ServiceContext";
-import {FieldsContext} from "../Field/FieldsContext";
-import {DefaultServiceFactory} from "../Services/ServiceFactory/DefaultServiceFactory";
+import React, {PropsWithChildren, useEffect, useMemo, useReducer} from 'react';
+import {buildRootReducer, initialState} from '../Data/RootReducer';
+import {DispatchContext} from './DispatchContext';
+import {FormProps} from './FormProps';
+import {StateContext} from './StateContext';
+import {ServiceContext} from '../Services/ServiceContext';
+import {DefaultServiceFactory} from '../Services/ServiceFactory/DefaultServiceFactory';
+import {FieldConfigurationProvider} from '../Field/FieldConfigurationContext';
 
-export const Form: React.FC<FormProps> = (props) => {
+export const Form: React.FC<PropsWithChildren<FormProps>> = (props) => {
     const {children} = props;
     const reducer = useMemo(() => buildRootReducer(props.reducers ?? []), [props.reducers]);
-    const [state, dispatch] = useReducer(reducer, rootReducerInitialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
     const sf = useMemo(() => {
         return props.serviceFactoryCallback ?
             props.serviceFactoryCallback(dispatch, state, props) :
-            new DefaultServiceFactory(state, dispatch, props)
+            new DefaultServiceFactory(state, dispatch, props);
     }, [state, dispatch, props]);
 
     const getDispatch = props.getDispatch;
@@ -23,12 +23,12 @@ export const Form: React.FC<FormProps> = (props) => {
     useEffect(() => getState?.(state), [getState, state]);
 
     return <DispatchContext.Provider value={dispatch}>
-        <RootStateContext.Provider value={state}>
+        <StateContext.Provider value={state}>
             <ServiceContext.Provider value={sf}>
-                <FieldsContext.Provider value={state.fields}>
+                <FieldConfigurationProvider value={props.fieldConfiguration ?? {}}>
                     {children}
-                </FieldsContext.Provider>
+                </FieldConfigurationProvider>
             </ServiceContext.Provider>
-        </RootStateContext.Provider>
-    </DispatchContext.Provider>
-}
+        </StateContext.Provider>
+    </DispatchContext.Provider>;
+};

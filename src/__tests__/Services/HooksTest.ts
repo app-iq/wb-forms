@@ -1,5 +1,5 @@
-import {useServiceFactory} from "../../Services/ServiceFactory/Hooks";
-import React from "react";
+import {useServiceFactory} from '../../Services/ServiceFactory/Hooks';
+import React from 'react';
 
 describe('ServiceFactoryHooks', () => {
 
@@ -9,18 +9,18 @@ describe('ServiceFactoryHooks', () => {
     }));
 
     it('should throw exception when service factory is nullable', function () {
-        jest.spyOn(React, "useContext")
+        jest.spyOn(React, 'useContext')
             .mockReturnValueOnce(undefined);
-        expect(() => useServiceFactory()).toThrowError("cannot resolve service factory");
+        expect(() => useServiceFactory()).toThrowError('cannot resolve service factory');
     });
 
     it('should return service factory', function () {
-        let mockedServiceFactory = {};
-        jest.spyOn(React, "useContext")
+        const mockedServiceFactory = {};
+        jest.spyOn(React, 'useContext')
             .mockReturnValueOnce(mockedServiceFactory);
-        let serviceFactory = useServiceFactory();
+        const serviceFactory = useServiceFactory();
         expect(serviceFactory).toEqual(mockedServiceFactory);
     });
 
 
-})
+});

@@ -1,11 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {SimpleExample} from "./__examples/ExamplesPage";
+import ReactDOM from 'react-dom/client';
+import {SimpleExample} from './Examples/ExamplesPage';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+root.render(
     <React.StrictMode>
         <SimpleExample/>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
 );
 

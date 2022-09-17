@@ -1,11 +1,9 @@
-import {RegexBasedFieldValidator} from "../../Services/DefaultImplementation/RegexBasedFieldValidator";
+import {RegexBasedFieldValidator} from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
 
 describe('RegexBasedFieldValidator', function () {
     it('should return true when pattern is empty or undefined or null', function () {
         const validator = new RegexBasedFieldValidator();
         expect(validator.validate('value', '')).toEqual(true);
-        expect(validator.validate('value', null)).toEqual(true);
-        expect(validator.validate('value', undefined)).toEqual(true);
     });
 
     it('should validate using regex', function () {

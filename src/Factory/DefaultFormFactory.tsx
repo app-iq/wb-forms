@@ -1,21 +1,22 @@
-import {FormFactory} from "./FormFactory";
-import {FieldTypeMap, FormConfiguration} from "./DefaultFormFactoryConfiguration";
-import React, {ReactElement} from "react";
-import {FieldProps} from "../Field/FieldProps";
-import {Form} from "../Form/Form";
-import {Button} from "../Form/Button/Button";
+import {FormFactory} from './FormFactory';
+import {FormOptions} from './DefaultFormFactoryConfiguration';
+import React, {ReactElement, useCallback} from 'react';
+import {FieldProps} from '../Field/FieldProps';
+import {Form} from '../Form/Form';
+import {useServiceFactory} from '../Services/ServiceFactory/Hooks';
 
-export class DefaultFormFactory<TFieldProps extends FieldProps = FieldProps, TExtraOptions = any>
-    implements FormFactory<FormConfiguration<TFieldProps, TExtraOptions>> {
+export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<FormOptions<TExtraOptions>> {
 
-    protected readonly fieldTypeMap: FieldTypeMap;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    protected readonly fieldTypeMap: Record<string, React.ComponentType<any>>;
 
-    public constructor(fieldComponents: FieldTypeMap) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public constructor(fieldComponents: Record<string, React.ComponentType<any>>) {
         this.fieldTypeMap = fieldComponents;
     }
 
-    create(configuration: FormConfiguration<TFieldProps, TExtraOptions>): React.ReactElement {
-        const formProps = configuration.formConfig;
+    create(configuration: FormOptions<TExtraOptions>): React.ReactElement {
+        const formProps = configuration.formOptions;
         return <Form {...formProps}>
             {
                 this.renderFields(configuration)
@@ -27,30 +28,34 @@ export class DefaultFormFactory<TFieldProps extends FieldProps = FieldProps, TEx
     }
 
 
-    protected getFieldElement(type: keyof FieldTypeMap, fieldProps: TFieldProps) {
+    protected getFieldElement(type: string, fieldProps: FieldProps) {
         const FieldComponent = this.fieldTypeMap[type];
         return <FieldComponent key={fieldProps.name} {...fieldProps} />;
     }
 
-    protected renderFields(configuration: FormConfiguration<TFieldProps, TExtraOptions>): ReactElement | ReactElement[] {
-        const fields = configuration.fieldConfig;
+    protected renderFields(configuration: FormOptions<TExtraOptions>): ReactElement | ReactElement[] {
+        const fields = configuration.fields;
         const keys = Object.keys(fields);
         return keys.map(key => {
-            const fieldProps = fields[key].fieldConfig;
+            const fieldProps = fields[key].options;
             const type = fields[key].type;
             return this.getFieldElement(type, fieldProps);
         });
     }
 
-    protected renderButton(): any {
-        return <Button render={serviceFactory => {
-            return <button onClick={async e => {
-                e.preventDefault();
-                const submit = serviceFactory.createSubmitService();
-                await submit.submit();
-            }}>SUBMIT</button>
-        }}/>;
+    protected renderButton(): ReactElement {
+        return <SubmitButton/>;
     }
 
 
+}
+
+function SubmitButton() {
+    const serviceFactory = useServiceFactory();
+    const onClick = useCallback((e: React.MouseEvent) => {
+        e.preventDefault();
+        const submit = serviceFactory.createSubmitService();
+        submit.submit().then();
+    }, []);
+    return <button onClick={onClick}>SUBMIT</button>;
 }

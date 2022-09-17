@@ -1,8 +1,8 @@
-import {useContext} from "react";
-import {FieldsContext} from "./FieldsContext";
-import {FieldState} from "../Data/Types/FieldState";
+import {useContext} from 'react';
+import {StateContext} from '../Form/StateContext';
+import {FieldState} from '../Data/State';
 
 export function useField(name: string): FieldState {
-    const fields = useContext(FieldsContext);
-    return fields[name];
+    const state = useContext(StateContext);
+    return state.fields[name];
 }

@@ -27,8 +27,6 @@
   ],
   "exclude": [
     "node_modules",
-    "src/__examples",
-    "src/__server",
-    "src/__tests__"
+    "src/__server__"
   ]
 }

@@ -3,40 +3,40 @@ import {
     filesValueSelector,
     singleFileSelector,
     textValueSelector
-} from "../../Field/ValueSelector";
+} from '../../Field/ValueSelector';
 
 describe('Value Selector', () => {
     it('should select value from input (textValueSelector)', () => {
-        const value = textValueSelector({target: {value: 'test-value'}}, {} as any);
+        const value = textValueSelector({target: {value: 'test-value'}});
         expect(value).toEqual('test-value');
     });
 
     it('should select value from checkbox (checkboxValueSelector)', () => {
-        const value = checkboxValueSelector({target: {checked: true}}, {} as any);
+        const value = checkboxValueSelector({target: {checked: true}});
         expect(value).toEqual(true);
     });
 
 
     it('should select files (filesValueSelector)', () => {
-        let mockedFiles = ['file1', 'file2'];
-        const value = filesValueSelector({target: {files: mockedFiles}}, {} as any);
+        const mockedFiles = ['file1', 'file2'];
+        const value = filesValueSelector({target: {files: mockedFiles}});
         expect(value).toEqual(mockedFiles);
     });
 
 
     it('should select single file (singleFileSelector)', () => {
-        let mockedFiles = ['file1', 'file2'];
-        const value = singleFileSelector({target: {files: mockedFiles}}, {} as any);
+        const mockedFiles = ['file1', 'file2'];
+        const value = singleFileSelector({target: {files: mockedFiles}});
         expect(value).toEqual('file1');
     });
 
 
     it('should return undefined when files are empty or null or undefined (singleFileSelector)', () => {
-        let value = singleFileSelector({target: {files: undefined}}, {} as any);
+        let value = singleFileSelector({target: {files: undefined}});
         expect(value).toEqual(undefined);
-        value = singleFileSelector({target: {files: null}}, {} as any);
+        value = singleFileSelector({target: {files: null}});
         expect(value).toEqual(undefined);
-        value = singleFileSelector({target: {files: []}}, {} as any);
+        value = singleFileSelector({target: {files: []}});
         expect(value).toEqual(undefined);
     });
 

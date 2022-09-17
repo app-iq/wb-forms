@@ -51,9 +51,9 @@ from just this code you will have fully functional form.
         serviceFactoryCallback?: (dispatch: DispatchFunction, state: RootState, props: FormProps) => ServiceFactory;
         getDispatch?: (dispatch: DispatchFunction) => void;
         getState?: (state: RootState) => void;
-        reducers?: RootReducer<Action<any, any>>[];
+        reducers?: RootReducer<Action<unknown,unknown>>[];
         serviceOptions?: {
-            [serviceName: string]: any;
+            [serviceName: string]: unknown;
         }
     }
 
@@ -83,14 +83,14 @@ that you shouldn't create new callback on each render.
         name: string;
         valueSelector?: ValueSelector;
         initialValue?: string;
-        validationRules?: any;
+        validationRules?: unknown;
         skipValidation?: boolean;
         validateOnChange?: boolean;
         initialValid?: boolean;
         hidden?: boolean;
         readonly?: boolean;
-        onValueChange?: (newValue: any) => void;
-        clearValue?: any;
+        onValueChange?: (newValue: FieldValue) => void;
+        clearValue?: FieldValue;
     }
 
 * **name** name is th only required prop that you need to path to the field, this should be unique in the form.
@@ -173,7 +173,7 @@ if you want to override the default values you can wrap your `Form` component wi
 the values that you can override are
 
     {
-        clearValue: any;
+        clearValue: FieldValue;
         fieldValue: string;
         valueSelector: ValueSelector;
     }

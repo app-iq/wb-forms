@@ -1,18 +1,18 @@
-import {DispatchFunction} from "../../Form/DispatchContext";
-import {SubmitServiceBase, SubmitterOptionsBase} from "../Base/SubmitServiceBase";
-import {RootState} from "../../Data/Types/RootState";
+import {DispatchFunction} from '../../Form/DispatchContext';
+import {SubmitServiceBase, SubmitterOptionsBase} from '../Base/SubmitServiceBase';
+import {State} from '../../Data/State';
 
 export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmitOptions> {
 
-    private static submitOptionsKey: string = "submit"
+    private static submitOptionsKey = 'submit';
 
-    protected extractSubmitOptions(options: any): DefaultHttpSubmitOptions {
-        return options[DefaultHttpSubmitService.submitOptionsKey];
+    protected extractSubmitOptions(options: Record<string, unknown>): DefaultHttpSubmitOptions {
+        return options[DefaultHttpSubmitService.submitOptionsKey] as DefaultHttpSubmitOptions;
     }
 
-    protected getSubmitPromise(): Promise<any> {
+    protected getSubmitPromise(): Promise<unknown> {
         const buildBody = this.options.buildBody ?? httpSubmitOptionsDefaults.buildBody;
-        let asQueryList = this.options.asQuery ?? httpSubmitOptionsDefaults.asQuery;
+        const asQueryList = this.options.asQuery ?? httpSubmitOptionsDefaults.asQuery;
         let request: RequestInit = {
             method: this.options.method ?? httpSubmitOptionsDefaults.method,
             headers: {
@@ -32,62 +32,68 @@ export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmi
 
     private buildUrl(): URL {
         let asQueryList = this.options.asQuery ?? httpSubmitOptionsDefaults.asQuery;
-        asQueryList = ["GET", "DELETE"].includes(this.options.method ?? '') ? Object.keys(this.rootState.fields) : asQueryList;
-        const url = new URL(this.options.url ?? httpSubmitOptionsDefaults.url ?? "");
+        asQueryList = ['GET', 'DELETE'].includes(this.options.method ?? '') ? Object.keys(this.rootState.fields) : asQueryList;
+        const url = new URL(this.options.url ?? httpSubmitOptionsDefaults.url ?? '');
+        const initialValue: Record<string, string> = {};
         const params = asQueryList.reduce((acc, fieldName) => {
             const field = this.rootState.fields[fieldName];
             if (field) {
                 acc[this.options.keysMap?.[fieldName] ?? fieldName] = field.value;
             }
             return acc;
-        }, {} as any);
+        }, initialValue);
         url.search = new URLSearchParams(params).toString();
         return url;
     }
 }
 
 
+export type HttpMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
+
 export interface DefaultHttpSubmitOptions extends SubmitterOptionsBase {
     url?: string;
-    method?: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
+    method?: HttpMethod;
     contentType?: string;
-    initRequest?: (request: RequestInit, rootState: RootState) => RequestInit;
-    parseResponse?: (response: Response) => Promise<any>;
+    initRequest?: (request: RequestInit, rootState: State) => RequestInit;
+    parseResponse?: (response: Response) => Promise<unknown>;
     onResponseStatus?: (status: number, statusText: string, dispatch: DispatchFunction) => void;
-    buildBody?: (state: RootState, keysMap: { [fieldName: string]: string }, skipFields: string[]) => any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    buildBody?: (state: State, keysMap: { [fieldName: string]: string }, skipFields: string[]) => any;
     asQuery?: string[];
     keysMap?: { [fieldName: string]: string };
 }
 
 export const httpSubmitOptionsDefaults = {
-    url: "/",
-    method: "POST",
+    url: '/',
+    method: 'POST',
     parseResponse: (response: Response) => response.json(),
     buildBody: buildJsonBody,
     asQuery: [],
     keysMap: {},
-    contentType : 'application/json'
-}
+    contentType: 'application/json'
+};
 
 
-export function buildJsonBody(state: RootState, keysMap: { [fieldName: string]: string }, skipFields: string[] = []): string {
+export function buildJsonBody(state: State, keysMap: { [fieldName: string]: string }, skipFields: string[] = []): string {
     return JSON.stringify(buildData(state, keysMap, skipFields));
 }
 
-export function buildFormData(state: RootState, keysMap: { [fieldName: string]: string }, skipFields: string[] = []): FormData {
+export function buildFormData(state: State, keysMap: { [fieldName: string]: string }, skipFields: string[] = []): FormData {
     const data = buildData(state, keysMap, skipFields);
     const formData = new FormData();
     Object.keys(data).forEach(key => formData.append(key, data[key]));
     return formData;
 }
 
-function buildData(state: RootState, keysMap: { [fieldName: string]: string }, skipFields: string[] = []): any {
+function buildData(state: State, keysMap: { [fieldName: string]: string }, skipFields: string[] = []) {
     const keys = Object.keys(state.fields);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const initialValue: any = {};
     return keys.reduce((body, key) => {
         if (skipFields.includes(key)) {
             return body;
         }
         body[keysMap[key] ?? key] = state.fields[key].value;
         return body;
-    }, {} as any);
+    }, initialValue);
 }

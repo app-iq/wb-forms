@@ -1,3 +1,5 @@
+import {FieldValue} from '../../Data/State';
+
 export interface FieldValidator {
-    validate(value: any, rules: any): boolean;
+    validate(value: FieldValue, rules: unknown): boolean;
 }

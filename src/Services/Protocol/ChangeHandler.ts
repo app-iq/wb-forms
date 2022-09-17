@@ -1,9 +1,9 @@
-import {FieldState} from "../../Data/Types/FieldState";
-import {FieldValidator} from "./FieldValidator";
-import {DispatchFunction} from "../../Form/DispatchContext";
+import {FieldValidator} from './FieldValidator';
+import {DispatchFunction} from '../../Form/DispatchContext';
+import {FieldState, FieldValue} from '../../Data/State';
 
 export interface ChangeHandler {
-    handle(e: any, listener?: (newValue: any, dispatch: DispatchFunction) => void): void;
+    handle(e: unknown, listener?: (newValue: FieldValue, dispatch: DispatchFunction) => void): void;
 }
 
 

@@ -1,14 +1,15 @@
-import {FieldState} from "../Data/Types/FieldState";
+import {FieldValue} from '../Data/State';
 
-export type ValueSelector = (e: any, field: FieldState) => any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ValueSelector = (e: any) => FieldValue;
 
-export const textValueSelector: ValueSelector = (e: any) => e.target.value;
+export const textValueSelector: ValueSelector = (e) => e.target.value;
 
-export const checkboxValueSelector: ValueSelector = (e: any) => e.target.checked;
+export const checkboxValueSelector: ValueSelector = (e) => e.target.checked;
 
-export const filesValueSelector: ValueSelector = (e: any) => e.target.files;
+export const filesValueSelector: ValueSelector = (e) => e.target.files;
 
-export const singleFileSelector: ValueSelector = (e: any, fieldState: FieldState) => {
-    const files = filesValueSelector(e, fieldState);
+export const singleFileSelector: ValueSelector = (e) => {
+    const files = filesValueSelector(e);
     return files && files.length > 0 ? files[0] : undefined;
 };

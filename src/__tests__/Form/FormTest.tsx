@@ -1,15 +1,13 @@
-import React, {useContext} from "react";
-import {ServiceFactory} from "../../Services/ServiceFactory/ServiceFactory";
-import {render, waitFor} from "@testing-library/react";
-import {Form} from "../../Form/Form";
-import {DispatchContext} from "../../Form/DispatchContext";
-import {RootStateContext} from "../../Form/RootStateContext";
-import {FieldsContext} from "../../Field/FieldsContext";
-import {ServiceContext} from "../../Services/ServiceContext";
-import Enzyme, {mount} from "enzyme";
-import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
-
-Enzyme.configure({adapter: new Adapter()})
+import React, {Reducer, useContext} from 'react';
+import {ServiceFactory} from '../../Services/ServiceFactory/ServiceFactory';
+import {render, waitFor} from '@testing-library/react';
+import {Form} from '../../Form/Form';
+import {DispatchContext, DispatchFunction} from '../../Form/DispatchContext';
+import {StateContext} from '../../Form/StateContext';
+import {ServiceContext} from '../../Services/ServiceContext';
+import {State} from '../../Data/State';
+import {Action} from '../../Data/Action';
+import * as TypeMoq from 'typemoq';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -21,21 +19,21 @@ jest.mock('react', () => ({
 describe('FormTest', () => {
 
 
-    function setupMock(mockState: any = {
+    function setupMock(mockState: State = {
         fields: {},
-        form: {}
-    }, mockDispatch: any = jest.fn(), mockReducer: any = jest.fn(), mockServiceFactory: any = jest.fn()) {
-        jest.spyOn(React, "useMemo")
-            .mockReturnValueOnce(mockReducer)
+        form: {loading: false}
+    }, mockDispatch: DispatchFunction = jest.fn(), mockReducers: Reducer<State, Action<unknown, unknown>> = jest.fn(), mockServiceFactory: ServiceFactory = TypeMoq.Mock.ofType<ServiceFactory>().object) {
+        jest.spyOn(React, 'useMemo')
+            .mockReturnValueOnce(mockReducers)
             .mockReturnValueOnce(mockServiceFactory);
-        jest.spyOn(React, "useReducer")
+        jest.spyOn(React, 'useReducer')
             .mockReturnValue([mockState, mockDispatch]);
     }
 
     it('should render children', async function () {
         setupMock();
         const component = render(<Form>
-            <div data-testid={"fields"}>
+            <div data-testid={'fields'}>
             </div>
         </Form>);
 
@@ -46,25 +44,23 @@ describe('FormTest', () => {
 
     it('should wrap elements with main context providers', async function () {
         const mockReducer = jest.fn();
-        const mockServiceFactory: ServiceFactory = {} as any;
+        const mockServiceFactory: ServiceFactory = TypeMoq.Mock.ofType<ServiceFactory>().object;
         const mockDispatch = jest.fn();
-        const mockState = {fields: {username: {value: 'ali'}}};
+        const mockState: State = {fields: {username: {value: 'ali', valid: true}}, form: {loading: false}};
         setupMock(mockState, mockDispatch, mockReducer, mockServiceFactory);
 
         const DummyComponent = () => {
             const dispatch = useContext(DispatchContext);
-            const rootState = useContext(RootStateContext);
+            const rootState = useContext(StateContext);
             const serviceFactory = useContext(ServiceContext);
-            const fieldStates = useContext(FieldsContext);
 
             expect(rootState).toEqual(mockState);
             expect(dispatch).toEqual(mockDispatch);
             expect(serviceFactory).toEqual(mockServiceFactory);
-            expect(fieldStates).toEqual(mockState.fields);
 
             return null;
-        }
+        };
 
-        mount(<Form><DummyComponent/></Form>);
+        await render(<Form><DummyComponent/></Form>);
     });
 });

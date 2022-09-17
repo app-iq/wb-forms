@@ -1,5 +1,5 @@
-import {useDispatch, useRootState} from "../../Form/Hooks";
-import React from "react";
+import {useDispatch, useState} from '../../Form/Hooks';
+import React from 'react';
 
 describe('Hooks', () => {
 
@@ -10,16 +10,16 @@ describe('Hooks', () => {
 
     it('should return root state | useRootState', function () {
         const mockedRootState = {fields: {username: {value: 'ali'}}};
-        jest.spyOn(React, "useContext")
+        jest.spyOn(React, 'useContext')
             .mockReturnValueOnce(mockedRootState);
-        const rootState = useRootState();
+        const rootState = useState();
         expect(rootState).toEqual(mockedRootState);
     });
 
 
     it('should return dispatch | useDispatch', function () {
         const mockedDispatch = jest.fn();
-        jest.spyOn(React, "useContext")
+        jest.spyOn(React, 'useContext')
             .mockReturnValueOnce(mockedDispatch);
         const rootState = useDispatch();
         expect(rootState).toEqual(mockedDispatch);

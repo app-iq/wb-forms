@@ -1,30 +1,24 @@
-import React from "react";
-import {Defaults} from "../../Defaults/FormDefaults";
-import {useDefaults} from "../../Defaults/Hooks";
+import React from 'react';
+import {Defaults, useDefaults} from '../../Defaults/DefaultsContext';
 
-let realUseContext: any;
-let useContextMock: any;
-// Setup mock
+let realUseContext: <T = unknown>(context: React.Context<T>) => T;
+let useContextMock: jest.Mock;
 beforeEach(() => {
     realUseContext = React.useContext;
     useContextMock = React.useContext = jest.fn();
 });
-// Cleanup mock
 afterEach(() => {
     React.useContext = realUseContext;
 });
 
-describe('Defaults Hooks', () => {
 
-    describe('useDefaults', () => {
+describe('useDefaults', () => {
 
-        it('should return field', function () {
-            const mockedDefaults: Defaults = {fieldValue: '', clearValue: '-', valueSelector: e => e};
-            useContextMock.mockReturnValue(mockedDefaults);
-            const field = useDefaults();
-            expect(field).toEqual(mockedDefaults);
-        });
-
+    it('should return default value', function () {
+        const mockedDefaults: Defaults = {fieldValue: '', clearValue: '-', valueSelector: e => e};
+        useContextMock.mockReturnValue(mockedDefaults);
+        const defaultValues = useDefaults();
+        expect(defaultValues).toEqual(mockedDefaults);
     });
 
-})
+});
