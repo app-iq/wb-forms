@@ -10,9 +10,8 @@ yarn.lock
 .idea
 
 .eslintcache
-
-./dist/__examples
-./dist/__server
 yarn-error.log
 config
 .babelrc
+.eslintignore
+.eslintrc.js
