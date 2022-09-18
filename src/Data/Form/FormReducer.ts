@@ -1,9 +1,9 @@
-import {RootReducer} from '../RootReducer';
 import {FormAction, FormActionType, SetCustomValuePayload} from './FormAction';
 import {FieldsState, State} from '../State';
 import {FieldConfiguration} from '../../Field/FieldProps';
+import {Reducer} from 'wb-core-provider';
 
-export const formReducer: RootReducer<FormAction<unknown>> = (state, action) => {
+export const formReducer: Reducer<State, FormAction<unknown>> = (state, action) => {
     switch (action.type) {
         case FormActionType.CLEAR:
             return clearFormValues(state, action.payload as Record<string, FieldConfiguration>);

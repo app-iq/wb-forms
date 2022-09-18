@@ -1,7 +1,8 @@
-import {RootReducer} from '../RootReducer';
 import {SubmitAction, SubmitActionType} from './SubmitAction';
+import {Reducer} from 'wb-core-provider';
+import {State} from '../State';
 
-export const submitReducer: RootReducer<SubmitAction<unknown>> = (state, action) => {
+export const submitReducer: Reducer<State, SubmitAction<unknown>> = (state, action) => {
     switch (action.type) {
         case SubmitActionType.SUBMIT_START:
             return {...state, form: {...state.form, loading: true, error: undefined, response: undefined}};

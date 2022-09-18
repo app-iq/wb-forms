@@ -1,4 +1,4 @@
-import {Action} from '../Action';
+import {Action} from 'wb-core-provider';
 
 export enum FormActionType {
     CLEAR = 'FORM_CLEAR',

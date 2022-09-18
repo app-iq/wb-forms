@@ -3,7 +3,8 @@ import {FormOptions} from './DefaultFormFactoryConfiguration';
 import React, {ReactElement, useCallback} from 'react';
 import {FieldProps} from '../Field/FieldProps';
 import {Form} from '../Form/Form';
-import {useServiceFactory} from '../Services/ServiceFactory/Hooks';
+import {useServiceFactory} from 'wb-core-provider';
+import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
 
 export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<FormOptions<TExtraOptions>> {
 
@@ -51,7 +52,7 @@ export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<
 }
 
 function SubmitButton() {
-    const serviceFactory = useServiceFactory();
+    const serviceFactory = useServiceFactory<ServiceFactory>();
     const onClick = useCallback((e: React.MouseEvent) => {
         e.preventDefault();
         const submit = serviceFactory.createSubmitService();

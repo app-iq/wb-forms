@@ -1,12 +1,10 @@
-import React, {useCallback, useState} from 'react';
-import {DispatchFunction} from '../../Form/DispatchContext';
+import React from 'react';
 import {Form} from '../../Form/Form';
 import TextField from '../../DefaultComponents/TextField';
-import {RootReducer} from '../../Data/RootReducer';
-import {Action} from '../../Data/Action';
-import {FieldsState} from '../../Data/State';
+import {FieldsState, State} from '../../Data/State';
+import {Action, Reducer, useDispatch} from 'wb-core-provider';
 
-const myCustomReducer: RootReducer<Action<unknown, unknown>> = (state, action) => {
+const myCustomReducer: Reducer<State, Action<unknown, unknown>> = (state, action) => {
     if (action.type === 'PREFIX_VALUE') {
         const fieldNames = Object.keys(state.fields);
         return {
@@ -29,20 +27,23 @@ const prefixAction = (value: string): Action<unknown, unknown> => {
 };
 
 export function CustomReducerExample() {
-    const [dispatch, setDispatch] = useState<DispatchFunction | undefined>();
-    const getDispatchCallback = useCallback((d: DispatchFunction) => setDispatch(() => d), []);
-    return <Form getDispatch={getDispatchCallback} reducers={[myCustomReducer]}>
+    return <Form reducers={[myCustomReducer]}>
         <h1>Custom Reducer Example</h1>
         <hr/>
 
         <TextField name={'value 1'}/>
         <TextField name={'value 2'}/>
+        <Button />
 
-        <button onClick={e => {
-            e.preventDefault();
-            dispatch?.(prefixAction('CUSTOM_REDUCER'));
-        }}>
-            PREFIX
-        </button>
     </Form>;
+}
+
+function Button() {
+    const dispatch = useDispatch();
+    return <button onClick={e => {
+        e.preventDefault();
+        dispatch?.(prefixAction('CUSTOM_REDUCER'));
+    }}>
+        PREFIX
+    </button>;
 }

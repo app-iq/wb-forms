@@ -1,9 +1,7 @@
 import {withField, WithFieldProps} from '../../Field/WithField';
 import * as Hooks from '../../Field/Hooks';
-import * as ServiceHooks from '../../Services/ServiceFactory/Hooks';
 import * as DefaultContext from '../../Defaults/DefaultsContext';
 import {Defaults} from '../../Defaults/DefaultsContext';
-import * as FormHooks from '../../Form/Hooks';
 import * as FieldConfigurationsContext from '../../Field/FieldConfigurationContext';
 import {render, waitFor} from '@testing-library/react';
 import {buildMockFieldState} from '../../Utils/TestHelpers';
@@ -11,15 +9,22 @@ import React from 'react';
 import {FieldState} from '../../Data/State';
 import {ServiceFactory} from '../../Services/ServiceFactory/ServiceFactory';
 import * as TypeMoq from 'typemoq';
-import {DispatchFunction} from '../../Form/DispatchContext';
 import {FieldConfiguration} from '../../Field/FieldProps';
 import {ChangeHandler} from '../../Services/Protocol/ChangeHandler';
 import SpyInstance = jest.SpyInstance;
+import {DispatchFunction} from 'wb-core-provider';
+import {useServiceFactory, useDispatch} from 'wb-core-provider';
+import Mock = jest.Mock;
+
+jest.mock('wb-core-provider', () => {
+    return {
+        useDispatch: jest.fn(),
+        useServiceFactory: jest.fn(),
+    };
+});
 
 const fieldHooksSpy: SpyInstance<FieldState | undefined> = jest.spyOn(Hooks, 'useField');
-const serviceFactorySpy: SpyInstance<ServiceFactory> = jest.spyOn(ServiceHooks, 'useServiceFactory');
 const defaultsHooksSpy: SpyInstance<Defaults> = jest.spyOn(DefaultContext, 'useDefaults');
-const dispatchHooksSpy: SpyInstance<DispatchFunction> = jest.spyOn(FormHooks, 'useDispatch');
 const fieldConfigurationHookSpy: SpyInstance<FieldConfiguration> = jest.spyOn(FieldConfigurationsContext, 'useFieldConfiguration');
 
 
@@ -42,10 +47,10 @@ describe('WithField', () => {
             defaultsHooksSpy.mockReturnValue(hooks.defaults ?? TypeMoq.Mock.ofType<Defaults>().object);
         }
         if (hooks.serviceFactory !== false) {
-            serviceFactorySpy.mockReturnValue(hooks.serviceFactory ?? serviceFactoryMock.object);
+            (useServiceFactory as Mock).mockReturnValue(hooks.serviceFactory ?? serviceFactoryMock.object);
         }
         if (hooks.dispatch !== false) {
-            dispatchHooksSpy.mockReturnValue(hooks.dispatch ?? dispatchMock);
+            (useDispatch as Mock).mockReturnValue(hooks.dispatch ?? dispatchMock);
         }
         if (hooks.fieldConfiguration !== false) {
             fieldConfigurationHookSpy.mockReturnValue(hooks.fieldConfiguration ?? {});

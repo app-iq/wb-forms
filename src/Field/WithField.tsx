@@ -1,14 +1,13 @@
 import {useField} from './Hooks';
 import React, {useEffect} from 'react';
 import {FieldProps} from './FieldProps';
-import {useServiceFactory} from '../Services/ServiceFactory/Hooks';
 import {SetupActions} from '../Data/Setup/SetupActions';
-import {useDispatch} from '../Form/Hooks';
-import {DispatchFunction} from '../Form/DispatchContext';
 import {FieldState} from '../Data/State';
 import {useDefaults} from '../Defaults/DefaultsContext';
 import {useFieldConfiguration} from './FieldConfigurationContext';
 import {textValueSelector, ValueSelector} from './ValueSelector';
+import {DispatchFunction, useDispatch, useServiceFactory} from 'wb-core-provider';
+import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
 
 export interface WithFieldProps {
     handleChange: (e: unknown) => void;
@@ -25,7 +24,7 @@ export function withField<Props extends FieldProps = FieldProps>(Component: Reac
         const name = props.name;
         const field = useField(name);
         const dispatch = useDispatch();
-        const serviceFactory = useServiceFactory();
+        const serviceFactory = useServiceFactory<ServiceFactory>();
         const defaults = useDefaults();
         const changeHandler = serviceFactory.createChangeHandler(name, defaultValueSelector);
         const isNotInitializedYet = field === undefined;

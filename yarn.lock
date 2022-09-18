@@ -8644,6 +8644,11 @@ watchpack@^2.4.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
+wb-core-provider@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/wb-core-provider/-/wb-core-provider-0.4.1.tgz#79d5cbd12b8c8e59b20e9090a216234369251143"
+  integrity sha512-31EOmrk3XBM/yQ7weWIODUXgBLi7UbSv3Hc8k3T4ewIndJhNacK6+kbNKl1snXM2R2HLO5IoCTSXSt5dw1HRJw==
+
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.3.tgz#c1d8d149316d3ea852848895cb6a0bfe887b87df"

@@ -1,13 +1,13 @@
 import React, {useCallback} from 'react';
-import {useServiceFactory} from '../Services/ServiceFactory/Hooks';
-import {useState} from '../Form/Hooks';
+import {useServiceFactory, useState} from 'wb-core-provider';
+import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
 
 interface Props {
     title?: string;
 }
 
 export function SubmitButton(props: Props) {
-    const serviceFactory = useServiceFactory();
+    const serviceFactory = useServiceFactory<ServiceFactory>();
     const rootState = useState();
     const onSubmit = useCallback(async () => {
         const formValidator = serviceFactory.createFormValidator();

@@ -1,6 +1,6 @@
 import {DefaultFormValidator} from '../../Services/DefaultImplementation/DefaultFormValidator';
 import {FieldsState} from '../../Data/State';
-import * as TypeMoq from 'typemoq';
+import {Mock} from 'typemoq';
 import {ServiceFactory} from '../../Services/ServiceFactory/ServiceFactory';
 import {It, Times} from 'typemoq';
 import {FieldValidator} from '../../Services/Protocol/FieldValidator';
@@ -26,7 +26,7 @@ describe('DefaultFormValidator' , () => {
             email: {value: 'test.com', valid: true},
             phone: {value: '0000', valid: true},
         };
-        const serviceFactory = TypeMoq.Mock.ofType<ServiceFactory>();
+        const serviceFactory = Mock.ofType<ServiceFactory>();
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isAny())).returns(() => ({}));
         serviceFactory.setup(sf => sf.createFieldValidator(It.isValue('name')))
             .returns(() => new MockedFieldValidator(true));
@@ -46,7 +46,7 @@ describe('DefaultFormValidator' , () => {
             email: {value: 'test@email.com', valid: true},
             phone: {value: '0000', valid: true},
         };
-        const serviceFactory = TypeMoq.Mock.ofType<ServiceFactory>();
+        const serviceFactory = Mock.ofType<ServiceFactory>();
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isAny())).returns(() => ({}));
         serviceFactory.setup(sf => sf.createFieldValidator(It.isValue('name')))
             .returns(() => new MockedFieldValidator(true));
@@ -66,10 +66,10 @@ describe('DefaultFormValidator' , () => {
             email: {value: 'test.com', valid: true},
         };
 
-        const serviceFactory = TypeMoq.Mock.ofType<ServiceFactory>();
-        const mockedNameFieldValidator = TypeMoq.Mock.ofType<FieldValidator>();
+        const serviceFactory = Mock.ofType<ServiceFactory>();
+        const mockedNameFieldValidator = Mock.ofType<FieldValidator>();
         mockedNameFieldValidator.setup(v => v.validate(It.isAny(), It.isAny())).returns(() => true);
-        const mockedEmailFieldValidator = TypeMoq.Mock.ofType<FieldValidator>();
+        const mockedEmailFieldValidator = Mock.ofType<FieldValidator>();
         mockedEmailFieldValidator.setup(v => v.validate(It.isAny(), It.isAny())).returns(() => false);
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isValue('name'))).returns(() => ({}));
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isValue('email'))).returns(() => ({skipValidation: true}));

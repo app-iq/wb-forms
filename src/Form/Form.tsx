@@ -1,34 +1,35 @@
-import React, {PropsWithChildren, useEffect, useMemo, useReducer} from 'react';
-import {buildRootReducer, initialState} from '../Data/RootReducer';
-import {DispatchContext} from './DispatchContext';
+import React, {PropsWithChildren, useCallback, useMemo} from 'react';
 import {FormProps} from './FormProps';
-import {StateContext} from './StateContext';
-import {ServiceContext} from '../Services/ServiceContext';
 import {DefaultServiceFactory} from '../Services/ServiceFactory/DefaultServiceFactory';
-import {FieldConfigurationProvider} from '../Field/FieldConfigurationContext';
+import {CoreProvider, DispatchFunction} from 'wb-core-provider';
+import {INITIAL_STATE, State} from '../Data/State';
+import {setupReducer} from '../Data/Setup/SetupReducer';
+import {fieldReducer} from '../Data/Field/FieldReducer';
+import {submitReducer} from '../Data/Form/SubmitReducer';
+import {formReducer} from '../Data/Form/FormReducer';
+import {FieldConfigurationContext} from '../Field/FieldConfigurationContext';
+
+const baseReducers = [
+    setupReducer,
+    fieldReducer,
+    submitReducer,
+    formReducer
+];
 
 export const Form: React.FC<PropsWithChildren<FormProps>> = (props) => {
     const {children} = props;
-    const reducer = useMemo(() => buildRootReducer(props.reducers ?? []), [props.reducers]);
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const sf = useMemo(() => {
-        return props.serviceFactoryCallback ?
-            props.serviceFactoryCallback(dispatch, state, props) :
-            new DefaultServiceFactory(state, dispatch, props);
-    }, [state, dispatch, props]);
+    const reducers = useMemo(() => baseReducers.concat(props.reducers ?? []), [props.reducers]);
+    const createServiceFactory = useCallback((dispatch: DispatchFunction, state: unknown) => {
+        return props.serviceProvider ?
+            props.serviceProvider(dispatch, state as State, props)
+            : new DefaultServiceFactory(state as State, dispatch, props);
+    }, [props.serviceProvider]);
 
-    const getDispatch = props.getDispatch;
-    const getState = props.getState;
-    useEffect(() => getDispatch?.(dispatch), [getDispatch, dispatch]);
-    useEffect(() => getState?.(state), [getState, state]);
-
-    return <DispatchContext.Provider value={dispatch}>
-        <StateContext.Provider value={state}>
-            <ServiceContext.Provider value={sf}>
-                <FieldConfigurationProvider value={props.fieldConfiguration ?? {}}>
-                    {children}
-                </FieldConfigurationProvider>
-            </ServiceContext.Provider>
-        </StateContext.Provider>
-    </DispatchContext.Provider>;
+    return <CoreProvider createServiceFactory={createServiceFactory}
+                         reducers={reducers}
+                         initialState={INITIAL_STATE}>
+        <FieldConfigurationContext.Provider value={props.fieldConfiguration ?? {}}>
+            {children}
+        </FieldConfigurationContext.Provider>
+    </CoreProvider>;
 };

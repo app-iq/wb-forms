@@ -1,10 +1,10 @@
 import {ChangeHandler} from '../Protocol/ChangeHandler';
-import {DispatchFunction} from '../../Form/DispatchContext';
 import {FieldActions} from '../../Data/Field/FieldActions';
 import {FieldValidator} from '../Protocol/FieldValidator';
 import {FieldConfiguration} from '../../Field/FieldProps';
 import {textValueSelector, ValueSelector} from '../../Field/ValueSelector';
 import {FieldValue} from '../../Data/State';
+import {DispatchFunction} from 'wb-core-provider';
 
 export class DefaultChangeHandler implements ChangeHandler {
 

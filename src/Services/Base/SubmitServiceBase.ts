@@ -1,8 +1,8 @@
 import {SubmitService} from '../Protocol/SubmitService';
-import {DispatchFunction} from '../../Form/DispatchContext';
 import {SubmitActions} from '../../Data/Form/SubmitActions';
 import {FormActions} from '../../Data/Form/FormActions';
 import {State} from '../../Data/State';
+import {DispatchFunction} from 'wb-core-provider';
 
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
 

@@ -4,7 +4,6 @@ import {FieldConfiguration} from './FieldProps';
 type FieldConfigContextState = Record<string, FieldConfiguration>
 
 export const FieldConfigurationContext = React.createContext<FieldConfigContextState>({});
-export const FieldConfigurationProvider = FieldConfigurationContext.Provider;
 
 export const useFieldConfiguration = (fieldName: string) => {
     const configuration = useContext(FieldConfigurationContext);

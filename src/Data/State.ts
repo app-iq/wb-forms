@@ -22,3 +22,10 @@ export interface State {
     fields: FieldsState;
     form: FormState;
 }
+
+export const INITIAL_STATE: State = {
+    fields: {},
+    form: {
+        loading: false
+    }
+};

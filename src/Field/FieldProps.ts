@@ -1,9 +1,9 @@
 import {ValueSelector} from './ValueSelector';
-import {DispatchFunction} from '../Form/DispatchContext';
 import {FieldValidator} from '../Services/Protocol/FieldValidator';
 import {ChangeHandler} from '../Services/Protocol/ChangeHandler';
 import {FieldValue, State} from '../Data/State';
 import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
+import {DispatchFunction} from 'wb-core-provider';
 
 export type ServiceCallback<TService> = (dispatch: DispatchFunction, state: State, serviceFactory: ServiceFactory) => TService
 

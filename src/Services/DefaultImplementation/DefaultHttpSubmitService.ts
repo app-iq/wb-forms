@@ -1,6 +1,6 @@
-import {DispatchFunction} from '../../Form/DispatchContext';
 import {SubmitServiceBase, SubmitterOptionsBase} from '../Base/SubmitServiceBase';
 import {State} from '../../Data/State';
+import {DispatchFunction} from 'wb-core-provider';
 
 export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmitOptions> {
 

@@ -1,6 +1,6 @@
-import {Action} from '../Action';
 import {FieldPayload} from '../Field/FieldAction';
 import {FieldState} from '../State';
+import {Action} from 'wb-core-provider';
 
 export enum SetupActionType {
     INITIALIZE_FIELD = 'INITIALIZE_FIELD'

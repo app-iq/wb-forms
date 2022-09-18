@@ -3,7 +3,7 @@ import {FieldActions} from '../../Data/Field/FieldActions';
 import {FieldConfiguration} from '../../Field/FieldProps';
 import * as TypeMoq from 'typemoq';
 import {FieldValidator} from '../../Services/Protocol/FieldValidator';
-import {DispatchFunction} from '../../Form/DispatchContext';
+import {DispatchFunction} from 'wb-core-provider';
 
 describe('DefaultChangeHandler', function () {
 

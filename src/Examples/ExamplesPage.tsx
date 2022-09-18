@@ -5,7 +5,6 @@ import {LoginForm} from './Forms/LoginForm';
 import {RegisterForm} from './Forms/RegisterForm';
 import {FormFactoryExample} from './Forms/FormFactoryExample';
 import {DefaultsExample} from './Forms/DefaultsExample';
-import {StateAndDispatchExample} from './Forms/StateAndDispatchExample';
 import {CustomReducerExample} from './Forms/CustomReducerExample';
 import {CustomServiceFactoryExample} from './Forms/CustomServiceFactoryExample';
 import {useField} from '../Field/Hooks';
@@ -16,7 +15,6 @@ const options: any = {
     'Register Form': RegisterForm,
     'Form Factory': FormFactoryExample,
     'Defaults Provider': DefaultsExample,
-    'getState,getDispatch': StateAndDispatchExample,
     'Custom Reducer': CustomReducerExample,
     'Custom Service Factory': CustomServiceFactoryExample,
 };

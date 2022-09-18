@@ -1,5 +1,4 @@
 import {State} from '../../Data/State';
-import {DispatchFunction} from '../../Form/DispatchContext';
 import {FormProps} from '../../Form/FormProps';
 import {ChangeHandler} from '../Protocol/ChangeHandler';
 import {DefaultChangeHandler} from '../DefaultImplementation/DefaultChangeHandler';
@@ -13,6 +12,7 @@ import {PropsWithChildren} from 'react';
 import {ValueSelector} from '../../Field/ValueSelector';
 import {FormValidator} from '../Protocol/FormValidator';
 import {DefaultFormValidator} from '../DefaultImplementation/DefaultFormValidator';
+import {DispatchFunction} from 'wb-core-provider';
 
 export class DefaultServiceFactory implements ServiceFactory {
 

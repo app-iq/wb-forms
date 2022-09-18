@@ -1,9 +1,9 @@
-import {RootReducer} from '../RootReducer';
 import {FieldAction, FieldActionType, FieldPayload, SetCustomValuePayload, SimpleFieldPayload} from './FieldAction';
 import {FieldState, State} from '../State';
+import {Reducer} from 'wb-core-provider';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const fieldReducer: RootReducer<FieldAction<any>> = (state, action) => {
+export const fieldReducer: Reducer<State, FieldAction<any>> = (state, action) => {
 
     switch (action.type) {
         case FieldActionType.CHANGE_VALUE:
