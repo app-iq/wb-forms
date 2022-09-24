@@ -3,7 +3,7 @@ import {FieldProps} from '../Field/FieldProps';
 
 export interface FieldOptions {
     type: string;
-    options: FieldProps;
+    options: FieldProps & { [propName: string]: unknown };
 }
 
 export interface FormOptions<TExtraOptions = unknown> {

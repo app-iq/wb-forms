@@ -1,5 +1,4 @@
 import {DefaultFormFactory} from '../../Factory/DefaultFormFactory';
-import {RadioProps} from '../../DefaultComponents/RadioButton';
 import {defaultFieldsMap} from '../../DefaultComponents/DefaultFieldsMap';
 
 export function FormFactoryExample() {
@@ -13,7 +12,7 @@ export function FormFactoryExample() {
             },
             rating: {
                 type: 'radio',
-                options: {name: 'radio', options: ['Bad', 'Normal', 'Great']} as RadioProps
+                options: {name: 'radio', options: ['Bad', 'Normal', 'Great']}
             }
         },
         formOptions: {
