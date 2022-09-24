@@ -1,6 +1,6 @@
 {
   "name": "wb-forms",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": false,
   "main": "build/main.js",
   "types": "build/main.d.ts",
@@ -33,6 +33,7 @@
     "start:react": "react-scripts start",
     "build": "tsc --noEmit false && rm -rf ./build/__examples__ && rm -rf ./build/__examples && rm -rf ./build/__tests__ && rm -rf ./build/Utils && rm ./build/index.d.ts && rm ./build/index.js",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
