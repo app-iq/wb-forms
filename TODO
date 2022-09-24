@@ -6,11 +6,11 @@ Extensions:
 - Dynamic Field
 - Auto Upload Field
 
-
-- npm publishing
-- docs website review
-
-
-
-- cleanup main.ts
-- cleanup README.md
+- IMPROVE TESTING
+- FIX DEPENDENCIES
+- QUICK CLEANUPS
+- SIMPLE DOCS
+- TAILWIND PLUGIN
+- EXAMPLES PACKAGE
+- WHAT TO DO NEXT
+- CONVENTIONS
