@@ -12,6 +12,7 @@ export interface FieldProps {
     initialValue?: string;
     initialValid?: boolean;
     onValueChange?: (newValue: FieldValue, dispatch: DispatchFunction) => void;
+    options?: Record<string, unknown>;
 }
 
 export interface FieldConfiguration {
