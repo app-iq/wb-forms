@@ -4,5 +4,5 @@ import React from 'react';
 
 
 export function PasswordField(props: FieldProps) {
-    return <TextField name={props.name}/>;
+    return <TextField name={props.name} inputProps={{type: 'password'}} />;
 }
