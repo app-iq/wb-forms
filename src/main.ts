@@ -1,5 +1,6 @@
 import {Form} from './Form/Form';
-import {withField, WithFieldProps} from './Field/WithField';
+import {withField} from './Field/WithField';
+import {WithFieldProps} from './Field/BaseFieldComponent';
 import {FieldActions} from './Data/Field/FieldActions';
 import {FormActions} from './Data/Form/FormActions';
 import {SubmitActions} from './Data/Form/SubmitActions';

@@ -1,5 +1,6 @@
+import { WithFieldProps } from '../Field/BaseFieldComponent';
 import {FieldProps} from '../Field/FieldProps';
-import {withField, WithFieldProps} from '../Field/WithField';
+import {withField} from '../Field/WithField';
 import React from 'react';
 
 interface Props extends FieldProps, WithFieldProps {

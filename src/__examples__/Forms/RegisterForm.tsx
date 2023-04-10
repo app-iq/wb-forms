@@ -7,7 +7,7 @@ import {DefaultHttpSubmitOptions} from '../../Services/DefaultImplementation/Def
 
 export function RegisterForm() {
     const submitOptions: DefaultHttpSubmitOptions = {
-        url: 'http://localhost:8080/register'
+        url: 'http://localhost:5050/register'
     };
     return <Form serviceOptions={{submit: submitOptions}}>
         <h1>Register Form Example</h1>

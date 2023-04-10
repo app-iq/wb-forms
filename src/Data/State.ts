@@ -4,11 +4,12 @@ export type FieldValue = any;
 export interface FieldState {
     value: FieldValue;
     valid: boolean;
+    ready: boolean;
 
     [propertyName: string]: unknown;
 }
 
-export type FieldsState = Record<string, FieldState>
+export type FieldsState = Record<string, FieldState>;
 
 export interface FormState {
     loading: boolean;
@@ -26,6 +27,6 @@ export interface State {
 export const INITIAL_STATE: State = {
     fields: {},
     form: {
-        loading: false
-    }
+        loading: false,
+    },
 };

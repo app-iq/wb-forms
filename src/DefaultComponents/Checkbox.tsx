@@ -1,7 +1,8 @@
-import {withField, WithFieldProps} from '../Field/WithField';
+import {withField} from '../Field/WithField';
 import {FieldProps} from '../Field/FieldProps';
 import React from 'react';
 import {checkboxValueSelector} from '../Field/ValueSelector';
+import { WithFieldProps } from '../Field/BaseFieldComponent';
 
 
 export interface RadioProps extends FieldProps {

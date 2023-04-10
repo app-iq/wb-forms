@@ -5,6 +5,7 @@ export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
     return {
         value: '',
         valid: true,
+        ready: true,
         ...(field ?? {})
     };
 }

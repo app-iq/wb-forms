@@ -8,11 +8,13 @@ import {DefaultsExample} from './Forms/DefaultsExample';
 import {CustomReducerExample} from './Forms/CustomReducerExample';
 import {CustomServiceFactoryExample} from './Forms/CustomServiceFactoryExample';
 import {useField} from '../Field/Hooks';
+import { FileFieldExample } from './Forms/FileFieldExample';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const options: any = {
     'Login Form': LoginForm,
     'Register Form': RegisterForm,
+    'File Field': FileFieldExample,
     'Form Factory': FormFactoryExample,
     'Defaults Provider': DefaultsExample,
     'Custom Reducer': CustomReducerExample,

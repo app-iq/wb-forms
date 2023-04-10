@@ -3,7 +3,8 @@ import {Action} from 'wb-core-provider';
 export enum FieldActionType {
     CHANGE_VALUE = 'CHANGE_VALUE',
     SET_VALIDATION_STATE = 'SET_VALIDATION_STATE',
-    SET_CUSTOM_VALUE = 'FIELD_ACTION@SET_CUSTOM_VALUE'
+    SET_CUSTOM_VALUE = 'FIELD_ACTION@SET_CUSTOM_VALUE',
+    SET_READY = 'SET_READY',
 }
 
 export interface FieldPayload {

@@ -7,7 +7,7 @@ import React from 'react';
 
 export function LoginForm() {
     const submitOptions: DefaultHttpSubmitOptions = {
-        url: 'http://localhost:8080/login'
+        url: 'http://localhost:5050/login'
     };
     return <Form serviceOptions={{submit: submitOptions}}
                  fieldConfiguration={{

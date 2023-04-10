@@ -1,61 +1,26 @@
-import {useField} from './Hooks';
-import React, {useEffect} from 'react';
-import {FieldProps} from './FieldProps';
-import {SetupActions} from '../Data/Setup/SetupActions';
-import {FieldState} from '../Data/State';
-import {useDefaults} from '../Defaults/DefaultsContext';
-import {useFieldConfiguration} from './FieldConfigurationContext';
-import {textValueSelector, ValueSelector} from './ValueSelector';
-import {DispatchFunction, useDispatch, useServiceFactory} from 'wb-core-provider';
-import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
-
-export interface WithFieldProps {
-    handleChange: (e: unknown) => void;
-    field: FieldState;
-    dispatch: DispatchFunction;
-}
+import React from 'react';
+import { createBaseFieldComponent, WithFieldProps } from './BaseFieldComponent';
+import { FieldProps } from './FieldProps';
+import { textValueSelector, ValueSelector } from './ValueSelector';
 
 
-export function withField<Props extends FieldProps = FieldProps>(Component: React.ComponentType<Props & WithFieldProps>,
-                                                                 defaultValueSelector: ValueSelector = textValueSelector,
-                                                                 defaultProps: Partial<FieldProps> = {}) {
-    return function Wrapper(props: Omit<Props, keyof WithFieldProps>) {
-        props = {...props, ...defaultProps};
-        const name = props.name;
-        const field = useField(name);
-        const dispatch = useDispatch();
-        const serviceFactory = useServiceFactory<ServiceFactory>();
-        const defaults = useDefaults();
-        const changeHandler = serviceFactory.createChangeHandler(name, defaultValueSelector);
-        const isNotInitializedYet = field === undefined;
-        const configuration = useFieldConfiguration(props.name) ?? {};
-
-        useEffect(() => {
-            if (isNotInitializedYet) {
-                const initialFieldState = {
-                    value: props.initialValue ?? defaults.fieldValue,
-                    valid: props.initialValid ?? true
-                };
-                dispatch(SetupActions.initializeField(props.name, initialFieldState));
-            }
-        }, [dispatch, defaults, isNotInitializedYet, props]);
-
-        if (isNotInitializedYet) {
-            return null;
-        }
-
-        if (configuration.hidden) {
-            return <React.Fragment/>;
-        }
-
-        const onChange = (e: unknown) => changeHandler.handle(e, props.onValueChange);
-
-        const toInjectProps: WithFieldProps = {
-            handleChange: onChange,
-            dispatch: dispatch,
-            field: field
-        };
-
-        return <Component {...(props as Props)} {...toInjectProps}/>;
-    };
+export function withField<Props extends FieldProps = FieldProps>(
+    Component: React.ComponentType<Props & WithFieldProps>,
+    defaultValueSelector: ValueSelector = textValueSelector,
+    defaultProps: Partial<FieldProps> = {}
+) {
+    return createBaseFieldComponent<Props, Partial<FieldProps>>(
+        Component,
+        defaultProps,
+        (props, serviceFactory) =>
+            serviceFactory.createChangeHandler(
+                props.name,
+                defaultValueSelector
+            ),
+        (props, defaults) => ({
+            value: props.initialValue ?? defaults.fieldValue,
+            valid: props.initialValid ?? true,
+            ready: true,
+        })
+    );
 }
