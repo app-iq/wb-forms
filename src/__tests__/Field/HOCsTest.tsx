@@ -1,4 +1,4 @@
-import {withField, WithFieldProps} from '../../Field/WithField';
+import {withField} from '../../Field/WithField';
 import * as Hooks from '../../Field/Hooks';
 import * as DefaultContext from '../../Defaults/DefaultsContext';
 import {Defaults} from '../../Defaults/DefaultsContext';
@@ -15,6 +15,7 @@ import SpyInstance = jest.SpyInstance;
 import {DispatchFunction} from 'wb-core-provider';
 import {useServiceFactory, useDispatch} from 'wb-core-provider';
 import Mock = jest.Mock;
+import { WithFieldProps } from '../../Field/BaseFieldComponent';
 
 jest.mock('wb-core-provider', () => {
     return {

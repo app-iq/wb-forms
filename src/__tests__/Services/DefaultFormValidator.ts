@@ -22,9 +22,9 @@ describe('DefaultFormValidator' , () => {
 
     it('should validate form / not valid form', function () {
         const fields : FieldsState = {
-            name: {value: 'Ali Faris', valid: true},
-            email: {value: 'test.com', valid: true},
-            phone: {value: '0000', valid: true},
+            name: {value: 'Ali Faris', valid: true, ready: true},
+            email: {value: 'test.com', valid: true, ready: true},
+            phone: {value: '0000', valid: true, ready: true},
         };
         const serviceFactory = Mock.ofType<ServiceFactory>();
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isAny())).returns(() => ({}));
@@ -42,9 +42,9 @@ describe('DefaultFormValidator' , () => {
 
     it('should validate form / valid form', function () {
         const fields : FieldsState = {
-            name: {value: 'Ali Faris', valid: true},
-            email: {value: 'test@email.com', valid: true},
-            phone: {value: '0000', valid: true},
+            name: {value: 'Ali Faris', valid: true, ready: true},
+            email: {value: 'test@email.com', valid: true, ready: true},
+            phone: {value: '0000', valid: true, ready: true},
         };
         const serviceFactory = Mock.ofType<ServiceFactory>();
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isAny())).returns(() => ({}));
@@ -62,8 +62,8 @@ describe('DefaultFormValidator' , () => {
 
     it('should skipValidation for marked fields', function () {
         const fields : FieldsState = {
-            name: {value: 'Ali Faris', valid: true},
-            email: {value: 'test.com', valid: true},
+            name: {value: 'Ali Faris', valid: true, ready: true},
+            email: {value: 'test.com', valid: true, ready: true},
         };
 
         const serviceFactory = Mock.ofType<ServiceFactory>();
