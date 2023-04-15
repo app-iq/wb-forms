@@ -36,6 +36,7 @@ import Dropdown from './DefaultComponents/Dropdown';
 import {PasswordField} from './DefaultComponents/PasswordField';
 import {SubmitButton} from './DefaultComponents/SubmitButton';
 import {defaultFieldsMap} from './DefaultComponents/DefaultFieldsMap';
+import {FormOptions,FieldOptions} from './Factory/DefaultFormFactoryConfiguration';
 
 export {
     FieldActions,
@@ -80,6 +81,8 @@ export type {
     FieldValidator,
     SubmitService,
     ServiceFactory,
-    FormValidator
+    FormValidator,
+    FormOptions,
+    FieldOptions
 };
 

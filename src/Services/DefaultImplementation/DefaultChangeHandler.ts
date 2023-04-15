@@ -38,7 +38,8 @@ export class DefaultChangeHandler implements ChangeHandler {
     }
 
     private shouldValidate(): boolean {
-        return Boolean(this.fieldConfiguration.validateOnChange) && !this.fieldConfiguration.skipValidation && Boolean(this.fieldConfiguration.validationRules);
+        const validateOnChange = this.fieldConfiguration.validateOnChange ?? true;
+        return validateOnChange && !this.fieldConfiguration.skipValidation && Boolean(this.fieldConfiguration.validationRules);
     }
 
 }
