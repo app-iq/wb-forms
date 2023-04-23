@@ -41,7 +41,7 @@ export class DefaultFormValidator implements FormValidator {
         }
         const validationAction = FieldActions.changeValidationState(fieldName, isFieldValid);
         this.dispatch(validationAction);
-        return isFieldValid;
+        return Array.isArray(isFieldValid) ? isFieldValid.every((valid) => valid) : isFieldValid;
     }
 
     private validateArrayField(validator: FieldValidator, values: FieldValue[], validationRules: unknown) {
