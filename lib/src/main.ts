@@ -37,6 +37,7 @@ import {PasswordField} from './DefaultComponents/PasswordField';
 import {SubmitButton} from './DefaultComponents/SubmitButton';
 import {defaultFieldsMap} from './DefaultComponents/DefaultFieldsMap';
 import {FormOptions,FieldOptions} from './Factory/DefaultFormFactoryConfiguration';
+import { useField } from './Field/Hooks';
 
 export {
     FieldActions,
@@ -46,6 +47,7 @@ export {
     DefaultsProvider,
     DefaultFormFactory,
     withField,
+    useField,
     useFieldConfiguration,
     textValueSelector,
     checkboxValueSelector,
