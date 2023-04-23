@@ -1,6 +1,3 @@
-- Array Field
-- export: useField
-- RemoveOptions
 - IMPROVE TESTING COVERAGE AND QUALITY
 - update the validation state of each field when using FormValidator
 - move item in array field

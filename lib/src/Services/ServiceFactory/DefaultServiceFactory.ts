@@ -88,7 +88,7 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createFormValidator(): FormValidator {
-        return new DefaultFormValidator(this.state.fields, this);
+        return new DefaultFormValidator(this.state.fields, this, this.dispatch);
     }
 
     createArrayFieldChangeHandler(fieldName: string, fieldState: FieldState): ArrayFieldChangeHandler {

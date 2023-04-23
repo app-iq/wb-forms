@@ -1,27 +1,55 @@
 import {FormValidator, ValidationResult} from '../Protocol/FormValidator';
-import {FieldsState} from '../../Data/State';
+import {FieldState, FieldValue, FieldsState} from '../../Data/State';
 import {ServiceFactory} from '../ServiceFactory/ServiceFactory';
+import { DispatchFunction } from 'wb-core-provider';
+import { FieldActions } from '../../Data/Field/FieldActions';
+import { FieldValidator } from '../Protocol/FieldValidator';
 
 export class DefaultFormValidator implements FormValidator {
 
     private readonly fields: FieldsState;
     private readonly serviceFactory: ServiceFactory;
+    private readonly dispatch: DispatchFunction;
 
-    constructor(fields: FieldsState, serviceFactory: ServiceFactory) {
+    constructor(fields: FieldsState, serviceFactory: ServiceFactory, dispatch: DispatchFunction) {
         this.fields = fields;
         this.serviceFactory = serviceFactory;
+        this.dispatch = dispatch;
     }
 
     validate(): ValidationResult {
         const fieldsNames = Object.keys(this.fields);
         const valid = fieldsNames.reduce((v, fieldName) => {
-            const field = this.fields[fieldName];
-            const validator = this.serviceFactory.createFieldValidator(fieldName);
-            const fieldConfiguration = this.serviceFactory.getFieldConfiguration(fieldName);
-            const isFieldValid = fieldConfiguration?.skipValidation ? true : validator.validate(field.value, fieldConfiguration?.validationRules);
+            const isFieldValid = this.handleValidation(fieldName);
             return v && isFieldValid;
         }, true);
         return {valid, errors: []};
+    }
+
+    private handleValidation(fieldName: string) {
+        const field = this.fields[fieldName];
+        const validator = this.serviceFactory.createFieldValidator(fieldName);
+        const fieldConfiguration = this.serviceFactory.getFieldConfiguration(fieldName);
+        const skipValidation = fieldConfiguration?.skipValidation || !fieldConfiguration?.validationRules;
+        let isFieldValid: boolean | boolean[] = true;
+        if(!skipValidation) {
+            if (Array.isArray(field.value)) {
+                isFieldValid = this.validateArrayField(validator, field.value, fieldConfiguration?.validationRules);
+            } else {
+                isFieldValid = this.validateField(validator, field.value, fieldConfiguration?.validationRules);
+            }
+        }
+        const validationAction = FieldActions.changeValidationState(fieldName, isFieldValid);
+        this.dispatch(validationAction);
+        return isFieldValid;
+    }
+
+    private validateArrayField(validator: FieldValidator, values: FieldValue[], validationRules: unknown) {
+        return values.map((value) => validator.validate(value, validationRules));
+    }
+
+    private validateField(validator: FieldValidator, value: FieldValue, validationRules: unknown) {
+        return validator.validate(value, validationRules);
     }
 
 }
