@@ -37,14 +37,14 @@ export const _ArrayKeyValueField: React.FC<ArrayKeyValueFieldProps> = props => {
                     <label>Key</label>
                     <input
                         style={{ background: valid[index] ? 'white' : 'pink' }}
-                        value={value.key}
-                        onChange={e => props.handleChange(index, e.target.value)}
+                        value={value.key ?? ''}
+                        onChange={e => props.handleChange(index, { ...value, key: e.target.value})}
                     />
                     <label>Value</label>
                     <input
                         style={{ background: valid[index] ? 'white' : 'pink' }}
-                        value={value.value}
-                        onChange={e => props.handleChange(index, e.target.value)}
+                        value={value.value ?? ''}
+                        onChange={e => props.handleChange(index, {...value , value: e.target.value})}
                     />
                     <button onClick={() => props.remove(index)}>Remove</button>
                 </div>

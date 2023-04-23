@@ -4,7 +4,7 @@ import { ArrayKeyValueField, ArrayTextField } from '../../DefaultComponents/Arra
 export function ArrayFieldExample() {
     
     return <Form fieldConfiguration={{
-                     password: {
+                     items: {
                          validationRules: '^\\d{3,30}$'
                      }
                  }}>
