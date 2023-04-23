@@ -1,12 +1,11 @@
-import {FormValidator, ValidationResult} from '../Protocol/FormValidator';
-import {FieldState, FieldValue, FieldsState} from '../../Data/State';
-import {ServiceFactory} from '../ServiceFactory/ServiceFactory';
+import { FormValidator, ValidationResult } from '../Protocol/FormValidator';
+import { FieldValue, FieldsState } from '../../Data/State';
+import { ServiceFactory } from '../ServiceFactory/ServiceFactory';
 import { DispatchFunction } from 'wb-core-provider';
 import { FieldActions } from '../../Data/Field/FieldActions';
 import { FieldValidator } from '../Protocol/FieldValidator';
 
 export class DefaultFormValidator implements FormValidator {
-
     private readonly fields: FieldsState;
     private readonly serviceFactory: ServiceFactory;
     private readonly dispatch: DispatchFunction;
@@ -23,7 +22,7 @@ export class DefaultFormValidator implements FormValidator {
             const isFieldValid = this.handleValidation(fieldName);
             return v && isFieldValid;
         }, true);
-        return {valid, errors: []};
+        return { valid, errors: [] };
     }
 
     private handleValidation(fieldName: string) {
@@ -32,7 +31,7 @@ export class DefaultFormValidator implements FormValidator {
         const fieldConfiguration = this.serviceFactory.getFieldConfiguration(fieldName);
         const skipValidation = fieldConfiguration?.skipValidation || !fieldConfiguration?.validationRules;
         let isFieldValid: boolean | boolean[] = true;
-        if(!skipValidation) {
+        if (!skipValidation) {
             if (Array.isArray(field.value)) {
                 isFieldValid = this.validateArrayField(validator, field.value, fieldConfiguration?.validationRules);
             } else {
@@ -41,15 +40,14 @@ export class DefaultFormValidator implements FormValidator {
         }
         const validationAction = FieldActions.changeValidationState(fieldName, isFieldValid);
         this.dispatch(validationAction);
-        return Array.isArray(isFieldValid) ? isFieldValid.every((valid) => valid) : isFieldValid;
+        return Array.isArray(isFieldValid) ? isFieldValid.every(valid => valid) : isFieldValid;
     }
 
     private validateArrayField(validator: FieldValidator, values: FieldValue[], validationRules: unknown) {
-        return values.map((value) => validator.validate(value, validationRules));
+        return values.map(value => validator.validate(value, validationRules));
     }
 
     private validateField(validator: FieldValidator, value: FieldValue, validationRules: unknown) {
         return validator.validate(value, validationRules);
     }
-
 }

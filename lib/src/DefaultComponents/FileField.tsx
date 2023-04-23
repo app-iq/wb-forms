@@ -2,6 +2,7 @@ import React from 'react';
 import { withFileField } from '../Field/WithFileField';
 import { FileFieldProps } from '../Field/FileFieldProps';
 import { WithFieldProps } from '../Field/BaseFieldComponent';
+import { FieldValue } from '../Data/State';
 
 interface Props extends FileFieldProps, WithFieldProps {
     inputProps?: unknown;
@@ -17,7 +18,7 @@ function FileField(props: Props) {
             <span style={{ width: 8, display: 'inline-block' }} />
             <input
                 name={name}
-                value={(field.fileValue as any) ?? ''}
+                value={(field.fileValue as FieldValue) ?? ''}
                 type="file"
                 {...(inputProps ?? {})}
                 style={{ color: !field.valid ? 'red' : undefined }}

@@ -1,1 +1,3 @@
 .eslintrc.cjs
+server.js
+/build
