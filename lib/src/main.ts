@@ -32,6 +32,7 @@ import {DefaultFormValidator} from './Services/DefaultImplementation/DefaultForm
 import {FormOptions,FieldOptions} from './Factory/DefaultFormFactoryConfiguration';
 import { useField } from './Field/Hooks';
 import { FileFieldProps } from './Field/FileFieldProps';
+import { withFileField } from './Field/WithFileField';
 
 export {
     FieldActions,
@@ -41,6 +42,7 @@ export {
     DefaultsProvider,
     DefaultFormFactory,
     withField,
+    withFileField,
     useField,
     useFieldConfiguration,
     textValueSelector,
