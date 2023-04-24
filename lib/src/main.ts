@@ -33,6 +33,9 @@ import {FormOptions,FieldOptions} from './Factory/DefaultFormFactoryConfiguratio
 import { useField } from './Field/Hooks';
 import { FileFieldProps } from './Field/FileFieldProps';
 import { withFileField } from './Field/WithFileField';
+import { DefaultArrayFieldChangeHandler } from './Services/DefaultImplementation/DefaultArrayFieldChangeHandler';
+import { ArrayFieldChangeHandler } from './Services/Protocol/ArrayFieldChangeHandler';
+import { WithArrayFieldProps, withArrayField } from './Field/WithArrayField';
 
 export {
     FieldActions,
@@ -55,6 +58,8 @@ export {
     RegexBasedFieldValidator,
     DefaultServiceFactory,
     DefaultFormValidator,
+    DefaultArrayFieldChangeHandler,
+    withArrayField,
 };
 
 
@@ -76,5 +81,7 @@ export type {
     FormOptions,
     FieldOptions,
     FileFieldProps,
+    ArrayFieldChangeHandler,
+    WithArrayFieldProps,
 };
 
