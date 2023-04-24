@@ -4,7 +4,7 @@ import * as DefaultContext from '../../Defaults/DefaultsContext';
 import {Defaults} from '../../Defaults/DefaultsContext';
 import * as FieldConfigurationsContext from '../../Field/FieldConfigurationContext';
 import {render, waitFor} from '@testing-library/react';
-import {buildMockFieldState} from '../../Utils/TestHelpers';
+import {buildMockFieldState} from '../Utils/TestHelpers';
 import React from 'react';
 import {FieldState} from '../../Data/State';
 import {ServiceFactory} from '../../Services/ServiceFactory/ServiceFactory';

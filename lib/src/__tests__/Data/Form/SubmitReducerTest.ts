@@ -1,6 +1,6 @@
 import {SubmitActions} from '../../../Data/Form/SubmitActions';
 import {State} from '../../../Data/State';
-import {buildMockFormState} from '../../../Utils/TestHelpers';
+import {buildMockFormState} from '../../Utils/TestHelpers';
 import {submitReducer} from '../../../Data/Form/SubmitReducer';
 
 const initialState: State = {

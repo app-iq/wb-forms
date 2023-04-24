@@ -1,6 +1,6 @@
 import {DefaultServiceFactory} from '../../Services/ServiceFactory/DefaultServiceFactory';
 import {State} from '../../Data/State';
-import {buildMockFieldState} from '../../Utils/TestHelpers';
+import {buildMockFieldState} from '../Utils/TestHelpers';
 import {DefaultChangeHandler} from '../../Services/DefaultImplementation/DefaultChangeHandler';
 import {RegexBasedFieldValidator} from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
 import {DefaultHttpSubmitService} from '../../Services/DefaultImplementation/DefaultHttpSubmitService';

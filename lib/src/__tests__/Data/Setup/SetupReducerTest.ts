@@ -1,6 +1,6 @@
 import {SetupActions} from '../../../Data/Setup/SetupActions';
 import {setupReducer} from '../../../Data/Setup/SetupReducer';
-import {buildMockFieldState} from '../../../Utils/TestHelpers';
+import {buildMockFieldState} from '../../Utils/TestHelpers';
 import {FieldState, INITIAL_STATE, State} from '../../../Data/State';
 
 describe('SetupReducer', () => {

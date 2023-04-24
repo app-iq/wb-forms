@@ -1,5 +1,5 @@
 import {State} from '../../../Data/State';
-import {buildMockFieldState, buildMockFormState} from '../../../Utils/TestHelpers';
+import {buildMockFieldState, buildMockFormState} from '../../Utils/TestHelpers';
 import {FieldActions} from '../../../Data/Field/FieldActions';
 import {fieldReducer} from '../../../Data/Field/FieldReducer';
 
