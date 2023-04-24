@@ -2127,10 +2127,10 @@ wb-core-provider@^0.4.2:
   resolved "https://registry.yarnpkg.com/wb-core-provider/-/wb-core-provider-0.4.2.tgz#7b3121f27439ed9079e46cb52ce65891042b5bd9"
   integrity sha512-r34OAUpFWRRq9Y2E8bWx2PDZG/VxTJpjh96jjsTu1ggswDPyMrKkvNBCa1Qnon1ouSQ3nRQHwwW4uUL7VlsUkQ==
 
-wb-forms@^0.4.2-alpha.3:
-  version "0.4.2-alpha.3"
-  resolved "https://registry.yarnpkg.com/wb-forms/-/wb-forms-0.4.2-alpha.3.tgz#f9b481ce8d5c0b7bae7ac99587d89a5d5fd789ec"
-  integrity sha512-FWWTPzu6hE5cmpNacSPWCznHV8sZic+HFKDFchEsqnPCIBBAU3zPI03zoAi5CWFrdHAP47DP0Wr3Rq9fd0CQGw==
+wb-forms@^0.4.2-alpha.4:
+  version "0.4.2-alpha.4"
+  resolved "https://registry.yarnpkg.com/wb-forms/-/wb-forms-0.4.2-alpha.4.tgz#90dff7942319fabc0ccea19b65ecf863ff5ac56c"
+  integrity sha512-DHEzPIWm8SyLApHCnO6ofRj2x+wTjZzXGvgW5+YHEJiIMhvhWqQXeiB661244hXCkRlcJZ1qjfCnC5/r6U+1PQ==
   dependencies:
     react "^18.2.0"
     react-dom "^18.2.0"

@@ -1,4 +1,3 @@
-import './App.css';
 import { SimpleExample } from './Examples/ExamplesPage';
 
 function App() {

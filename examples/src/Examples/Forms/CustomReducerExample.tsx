@@ -1,6 +1,6 @@
 import {Action, Reducer, useDispatch} from 'wb-core-provider';
 import { Form, State } from 'wb-forms';
-import { FieldsState } from 'wb-forms/build/Data/State';
+import { FieldsState } from 'wb-forms';
 import { TextField } from '../../Components/TextField';
 
 const myCustomReducer: Reducer<State, Action<unknown, unknown>> = (state, action) => {
