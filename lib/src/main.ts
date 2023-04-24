@@ -5,7 +5,7 @@ import {FieldActions} from './Data/Field/FieldActions';
 import {FormActions} from './Data/Form/FormActions';
 import {SubmitActions} from './Data/Form/SubmitActions';
 import {SetupActions} from './Data/Setup/SetupActions';
-import {FieldState, FieldValue, State} from './Data/State';
+import {FieldState, FieldValue, FieldsState, State} from './Data/State';
 import {DefaultsProvider} from './Defaults/DefaultsContext';
 import {DefaultFormFactory} from './Factory/DefaultFormFactory';
 import {FieldConfiguration, FieldProps} from './Field/FieldProps';
@@ -65,6 +65,7 @@ export {
 
 export type {
     FieldState,
+    FieldsState,
     State,
     FieldValue,
     FormFactory,
