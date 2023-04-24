@@ -29,15 +29,9 @@ import {FormFactory} from './Factory/FormFactory';
 import {useFieldConfiguration} from './Field/FieldConfigurationContext';
 import {FormValidator} from './Services/Protocol/FormValidator';
 import {DefaultFormValidator} from './Services/DefaultImplementation/DefaultFormValidator';
-import Checkbox from './DefaultComponents/Checkbox';
-import RadioButton from './DefaultComponents/RadioButton';
-import TextField from './DefaultComponents/TextField';
-import Dropdown from './DefaultComponents/Dropdown';
-import {PasswordField} from './DefaultComponents/PasswordField';
-import {SubmitButton} from './DefaultComponents/SubmitButton';
-import {defaultFieldsMap} from './DefaultComponents/DefaultFieldsMap';
 import {FormOptions,FieldOptions} from './Factory/DefaultFormFactoryConfiguration';
 import { useField } from './Field/Hooks';
+import { FileFieldProps } from './Field/FileFieldProps';
 
 export {
     FieldActions,
@@ -59,13 +53,6 @@ export {
     RegexBasedFieldValidator,
     DefaultServiceFactory,
     DefaultFormValidator,
-    Checkbox,
-    RadioButton,
-    Dropdown,
-    PasswordField,
-    SubmitButton,
-    TextField,
-    defaultFieldsMap
 };
 
 
@@ -85,6 +72,7 @@ export type {
     ServiceFactory,
     FormValidator,
     FormOptions,
-    FieldOptions
+    FieldOptions,
+    FileFieldProps,
 };
 

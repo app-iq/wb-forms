@@ -1,6 +1,6 @@
 {
     "name": "wb-forms",
-    "version": "0.4.2-alpha.0",
+    "version": "0.4.2-alpha.1",
     "private": false,
     "main": "build/main.js",
     "types": "build/main.d.ts",
@@ -35,14 +35,12 @@
         "vite": "^4.2.0"
     },
     "scripts": {
-        "start:server": "node src/__server__/server.js",
         "cleanup:build": "rm -rf ./build/__examples__ && rm -rf ./build/__examples && rm -rf ./build/__tests__ && rm -rf ./build/Utils && rm ./build/index.d.ts && rm ./build/index.js",
         "test": "jest",
         "test:coverage": "jest --coverage --watchAll",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "dev": "npm run start:server & vite",
-        "dev-no-server": "vite",
+        "dev": "vite",
         "build": "tsc --noEmit false && npm run cleanup:build",
         "preview": "vite preview"
     },
