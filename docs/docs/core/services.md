@@ -71,3 +71,7 @@ then in the `Form` component, you can do this:
     <Form serviceProvider={serviceFactoryCallback}>
         ...
     </Form>
+
+
+
+TODO: note about service factory enable the user to change behavior easily

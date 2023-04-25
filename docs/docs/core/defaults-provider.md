@@ -1,9 +1,8 @@
 ---
-sidebar_position: 8
+sidebar_position: 7
 ---
 
 # Defaults Provider
-
 
 if you want to override the default values you can wrap your `Form` component with `DefaultsProvider`
 
@@ -31,4 +30,3 @@ the current default values are
         clearValue: '',
         valueSelector: textValueSelector
     };
-

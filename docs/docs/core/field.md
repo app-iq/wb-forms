@@ -65,6 +65,40 @@ checkout the following example:
 
     export default withFileField(FileField);
 
+## withArrayField
+
+this HOC help you building multiple fields, it will inject five properties to your component:
+
+- handleChange: a ready to use function to handle onChange event for your field.
+- field: the state of the field.
+- dispatch: dispatch function that you can use to dispatch actions.
+- add: a function to add new field.
+- remove: a function to remove field with an index.
+
+it also accept default value for the newly added field.
+
+    const _ArrayTextField: React.FC<Props> = props => {
+        const values = props.field.value as FieldValue[];
+        const valid = props.field.valid as boolean[];
+        return (
+            <div>
+                <button onClick={() => props.add()}>Add</button>
+                {values.map((value, index) => (
+                    <div key={index}>
+                        <input
+                            style={{ display: 'inline-block', background: valid[index] ? 'white' : 'pink' }}
+                            value={value}
+                            onChange={e => props.handleChange(index, e.target.value)}
+                        />
+                        <button onClick={() => props.remove(index)}>Remove</button>
+                    </div>
+                ))}
+            </div>
+        );
+    };
+
+    export const ArrayTextField = withArrayField(_ArrayTextField, '');
+
 ## Field Configuration
 
 each field has set for configuration, you can set these configuration via the `Form` component

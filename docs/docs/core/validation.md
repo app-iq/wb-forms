@@ -4,70 +4,53 @@ sidebar_position: 5
 
 # Validation
 
-we built this library to be customizable, so each behavior have its own module than can be replaced by you.
+there are two level of validations, field level and form level.
 
-this library come with default implementations for each behaviors:
+## Field Validation
 
-| service                   | description                                                               | default behavior                                                                    |
-| ------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| field validation          | validating a single field                                                 | simple regex based validation, see TODO: add url                                    |
-| form validation           | validating the whole form                                                 | it uses the field validator for all fields and return the result, see TODO: add url |
-| field change handler      | handling onChange for the field                                           | see TODO: todo add url                                                              |
-| file field change handler | handling onChange for file fields                                         | see TODO: todo add url                                                              |
-| data submission           | handling submitting the data to the server                                | http submitter that uses `fetch`                                                    |
-| file uploading            | handling file upload, this is used by default for the auto upload feature | using `fetch` to upload the file                                                    |
+for this behavior, we use FieldValidator which is created via the service factory.
 
-## ServiceFactory
+    createFieldValidator(fieldName: string): FieldValidator;
 
-the service factory is where we create instances of each different service, to get access to the service factory object, you need to use `useServiceFactory` hook:
+by default, `RegexBasedFieldValidator` is returned, but you can change that by either using custom service factory that would create what ever field validator you need or you can pass new field validator instance via field configuration props:
 
-    import {useServiceFactory} from 'wb-core-provider';
-    import {ServiceFactory} from 'wb-forms';
+    <Form fieldConfiguration={{
+        email: {
+            fieldValidator: (dispatch, state, serviceFactory) => new EmailValidator()
+        }
+    }}>
 
-    export function SubmitButton(props: Props) {
-        const serviceFactory = useServiceFactory<ServiceFactory>();
+        <TextField name='email' />
 
-        const onSubmit = () => {
-            const formValidator = serviceFactory.createFormValidator();
-            if (!formValidator.validate().valid) {
-                alert('form is not valid');
-                return;
-            }
-            const submitService = serviceFactory.createSubmitService();
-            await submitService.submit();
-        };
-        return <button onClick={(e) => {
-            e.preventDefault();
-            return onSubmit();
-        }}>
-            Submit
-        </button>;
-    }
-
-## Custom Service Factory
-
-you can inject your custom service factory via `Form` component props:
-
-    import {ServiceFactory} from 'wb-forms';
-
-    class MyCustomServiceFactory implements ServiceFactory {
-        // your own implementation of the service factory
-    }
-
-or maybe use can extend the default service factory
-
-    import {ServiceFactory, DefaultServiceFactory} from 'wb-forms';
-
-    class MyCustomServiceFactory extends DefaultServiceFactory {
-        // override what ever you want
-    }
-
-then in the `Form` component, you can do this:
-
-    const serviceFactoryCallback = useCallback((dispatch: DispatchFunction, state: State, props: FormProps) => {
-        return new MyCustomServiceFactory(state, dispatch, props), [])
-    };
-
-    <Form serviceProvider={serviceFactoryCallback}>
-        ...
     </Form>
+
+by default, the validation happens when field value changed, you still can provide few properties to alter the behavior of the validation:
+
+| configuration name  |  details |
+|---|---|
+| validationRules | a value that will be used by the field validator to check if the value valid or not, an example of this can be regex expression|
+| skipValidation | a flag to skip validation, by default its `false` |
+| validateOnChange | a flag to update validation state when the value changed, by default its `true` |
+| fieldValidator | we already talked about this, its used to create a new validator for the specified field |
+
+    <Form fieldConfiguration={{
+        email: {
+            fieldValidator: (dispatch, state, serviceFactory) => new MyCustomValidator(),
+            skipValidation: true,
+            validationRules: 'required|email',
+            validateOnChange: false
+        }
+    }}>
+
+        <TextField name='email' />
+        ...
+
+    </Form>
+
+## Form Validation
+
+for this behavior, we use FormValidator which is created via the service factory.
+
+    createFormValidator(): FormValidator;
+
+by default, the form validator will go throw each field and collect `ValidationResult` object, the default implementation will return empty array for errors it will only return `valid` flag to indicate if the form is valid or not, it will also change the state of valid status for each field.

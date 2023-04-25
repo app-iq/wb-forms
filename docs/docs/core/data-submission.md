@@ -4,70 +4,29 @@ sidebar_position: 6
 
 # Data Submission
 
-we built this library to be customizable, so each behavior have its own module than can be replaced by you.
+after all, we need to submit form data somewhere, for example to an http server or graphql server, or firebase database, so that we provided you with `SubmitService` to handle that.
 
-this library come with default implementations for each behaviors:
+the submit service is created via the service factory, by default we create `DefaultHttpSubmitService` which uses `fetch` to send the http request.
 
-| service                   | description                                                               | default behavior                                                                    |
-| ------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| field validation          | validating a single field                                                 | simple regex based validation, see TODO: add url                                    |
-| form validation           | validating the whole form                                                 | it uses the field validator for all fields and return the result, see TODO: add url |
-| field change handler      | handling onChange for the field                                           | see TODO: todo add url                                                              |
-| file field change handler | handling onChange for file fields                                         | see TODO: todo add url                                                              |
-| data submission           | handling submitting the data to the server                                | http submitter that uses `fetch`                                                    |
-| file uploading            | handling file upload, this is used by default for the auto upload feature | using `fetch` to upload the file                                                    |
+## Default Implementation (DefaultHttpSubmitService)
 
-## ServiceFactory
+if decided to use the default submit service, you will only need add the submit options to the form props:
 
-the service factory is where we create instances of each different service, to get access to the service factory object, you need to use `useServiceFactory` hook:
-
-    import {useServiceFactory} from 'wb-core-provider';
-    import {ServiceFactory} from 'wb-forms';
-
-    export function SubmitButton(props: Props) {
-        const serviceFactory = useServiceFactory<ServiceFactory>();
-
-        const onSubmit = () => {
-            const formValidator = serviceFactory.createFormValidator();
-            if (!formValidator.validate().valid) {
-                alert('form is not valid');
-                return;
-            }
-            const submitService = serviceFactory.createSubmitService();
-            await submitService.submit();
-        };
-        return <button onClick={(e) => {
-            e.preventDefault();
-            return onSubmit();
-        }}>
-            Submit
-        </button>;
-    }
-
-## Custom Service Factory
-
-you can inject your custom service factory via `Form` component props:
-
-    import {ServiceFactory} from 'wb-forms';
-
-    class MyCustomServiceFactory implements ServiceFactory {
-        // your own implementation of the service factory
-    }
-
-or maybe use can extend the default service factory
-
-    import {ServiceFactory, DefaultServiceFactory} from 'wb-forms';
-
-    class MyCustomServiceFactory extends DefaultServiceFactory {
-        // override what ever you want
-    }
-
-then in the `Form` component, you can do this:
-
-    const serviceFactoryCallback = useCallback((dispatch: DispatchFunction, state: State, props: FormProps) => {
-        return new MyCustomServiceFactory(state, dispatch, props), [])
-    };
-
-    <Form serviceProvider={serviceFactoryCallback}>
+    <Form serviceOptions={{
+        submit: {
+            url: 'http://my-server.com/'
+        }
+    }}>
         ...
     </Form>
+
+| option        | description                                                                                                                                                              | default                                  |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
+| url           | url where to send the http request                                                                                                                                       | `/`                                      |
+| method        | http method                                                                                                                                                              | POST                                     |
+| contentType   | content type header                                                                                                                                                      | application/json                         |
+| initRequest   | a function to return the request that will be used by `fetch` function, the type of the function is: `(request:RequestInit,rootState:State) => RequestInit`              | undefined                                |
+| parseResponse | a function that will be used to parse the response that returned by `fetch`                                                                                              | `(response:Response) => response.json()` |
+| buildBody     | a function to build the body from the form data, the type of the function is `(state:State, keysMap:{ [fieldName:string]: string}, skipFields:string[]) => any`          | a function to build data as a json       |
+| asQuery       | an array of field names to indicate which fields should be sent in the query instead of the body                                                                         | empty array                              |
+| keysMap       | an object that will be used to change the name of field when sending the data, for example you have a field with the name "birthdate" but you want to send it as "date"  | empty object                             |
