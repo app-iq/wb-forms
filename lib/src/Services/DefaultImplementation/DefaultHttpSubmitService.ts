@@ -25,6 +25,7 @@ export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmi
         const parseResponse = this.options.parseResponse ?? httpSubmitOptionsDefaults.parseResponse;
         return fetch(url.toString(), request)
             .then(response => {
+                //TODO: remove this line and onResponseStatus
                 this.options.onResponseStatus?.(response.status, response.statusText, this.dispatch);
                 return parseResponse(response);
             });
@@ -78,6 +79,7 @@ export function buildJsonBody(state: State, keysMap: { [fieldName: string]: stri
     return JSON.stringify(buildData(state, keysMap, skipFields));
 }
 
+//TODO: delete this function
 export function buildFormData(state: State, keysMap: { [fieldName: string]: string }, skipFields: string[] = []): FormData {
     const data = buildData(state, keysMap, skipFields);
     const formData = new FormData();
