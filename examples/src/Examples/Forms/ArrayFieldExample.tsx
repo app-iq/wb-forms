@@ -11,7 +11,7 @@ export function ArrayFieldExample() {
         <h1>Array Field Example</h1>
         <hr/>
 
-        <ArrayTextField name='items' />
+        <ArrayTextField name='items' initialValue={['' , 'testing', '123']} initialValid={[false,true,false]} />
 
         <hr />
 

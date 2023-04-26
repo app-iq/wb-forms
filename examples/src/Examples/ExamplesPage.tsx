@@ -2,7 +2,6 @@ import React from 'react';
 import {LoginForm} from './Forms/LoginForm';
 import {RegisterForm} from './Forms/RegisterForm';
 import {FormFactoryExample} from './Forms/FormFactoryExample';
-import {DefaultsExample} from './Forms/DefaultsExample';
 import {CustomReducerExample} from './Forms/CustomReducerExample';
 import {CustomServiceFactoryExample} from './Forms/CustomServiceFactoryExample';
 import { FileFieldExample } from './Forms/FileFieldExample';
@@ -16,7 +15,6 @@ const options: any = {
     'Register Form': RegisterForm,
     'File Field': FileFieldExample,
     'Form Factory': FormFactoryExample,
-    'Defaults Provider': DefaultsExample,
     'Custom Reducer': CustomReducerExample,
     'Custom Service Factory': CustomServiceFactoryExample,
     'Array Field': ArrayFieldExample,
