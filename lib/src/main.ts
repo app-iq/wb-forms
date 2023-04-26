@@ -36,6 +36,7 @@ import { withFileField } from './Field/WithFileField';
 import { DefaultArrayFieldChangeHandler } from './Services/DefaultImplementation/DefaultArrayFieldChangeHandler';
 import { ArrayFieldChangeHandler } from './Services/Protocol/ArrayFieldChangeHandler';
 import { WithArrayFieldProps, withArrayField } from './Field/WithArrayField';
+import { UseSubmitOptions, useSubmit } from './Form/UseSubmit';
 
 export {
     FieldActions,
@@ -60,6 +61,7 @@ export {
     DefaultFormValidator,
     DefaultArrayFieldChangeHandler,
     withArrayField,
+    useSubmit,
 };
 
 
@@ -84,5 +86,6 @@ export type {
     FileFieldProps,
     ArrayFieldChangeHandler,
     WithArrayFieldProps,
+    UseSubmitOptions,
 };
 
