@@ -1,11 +1,11 @@
 ---
-slug: first-blog-post
-title: First Blog Post
+slug: login-register-example
+title: Login & User Registration Example
 authors:
-  name: Gao Wei
-  title: Docusaurus Core Team
-  url: https://github.com/wgao19
-  image_url: https://github.com/wgao19.png
+  name: Ali Faris
+  title: Software Engineer @Testlio
+  url: https://github.com/alicompiler
+  image_url: https://github.com/alicompiler.png
 tags: [hola, docusaurus]
 ---
 
