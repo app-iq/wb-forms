@@ -17,9 +17,9 @@ export function withFileField<Props extends FileFieldProps = FileFieldProps>(
                 props.autoUpload,
                 defaultValueSelector
             ),
-        (_, defaults) => ({
-            value: defaults.fieldValue,
-            valid: true,
+        (props) => ({
+            value: props.initialValid ?? '',
+            valid: props.initialValid ?? true,
             ready: true,
         })
     );

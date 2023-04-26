@@ -1,11 +1,8 @@
 import {withField} from '../../Field/WithField';
 import * as Hooks from '../../Field/Hooks';
-import * as DefaultContext from '../../Defaults/DefaultsContext';
-import {Defaults} from '../../Defaults/DefaultsContext';
 import * as FieldConfigurationsContext from '../../Field/FieldConfigurationContext';
 import {render, waitFor} from '@testing-library/react';
 import {buildMockFieldState} from '../Utils/TestHelpers';
-import React from 'react';
 import {FieldState} from '../../Data/State';
 import {ServiceFactory} from '../../Services/ServiceFactory/ServiceFactory';
 import * as TypeMoq from 'typemoq';
@@ -25,14 +22,12 @@ jest.mock('wb-core-provider', () => {
 });
 
 const fieldHooksSpy: SpyInstance<FieldState | undefined> = jest.spyOn(Hooks, 'useField');
-const defaultsHooksSpy: SpyInstance<Defaults> = jest.spyOn(DefaultContext, 'useDefaults');
 const fieldConfigurationHookSpy: SpyInstance<FieldConfiguration> = jest.spyOn(FieldConfigurationsContext, 'useFieldConfiguration');
 
 
 describe('WithField', () => {
 
     const setupHooks = (hooks: {
-        defaults?: Defaults | false,
         serviceFactory?: ServiceFactory | false,
         dispatch?: DispatchFunction | false,
         field?: FieldState | false,
@@ -43,9 +38,6 @@ describe('WithField', () => {
         const serviceFactoryMock = TypeMoq.Mock.ofType<ServiceFactory>();
         if (hooks.field !== false) {
             fieldHooksSpy.mockReturnValue(hooks.field);
-        }
-        if (hooks.defaults !== false) {
-            defaultsHooksSpy.mockReturnValue(hooks.defaults ?? TypeMoq.Mock.ofType<Defaults>().object);
         }
         if (hooks.serviceFactory !== false) {
             (useServiceFactory as Mock).mockReturnValue(hooks.serviceFactory ?? serviceFactoryMock.object);

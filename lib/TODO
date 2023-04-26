@@ -1,7 +1,5 @@
 - IMPROVE TESTING COVERAGE AND QUALITY
 - initial valid and initial value for array field
 - initial valid and initial value for file field
-- useSubmit
-- research deleting DefaultContext
 - docs
 - service factory from props

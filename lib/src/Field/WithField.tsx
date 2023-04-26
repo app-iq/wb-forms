@@ -17,8 +17,8 @@ export function withField<Props extends FieldProps = FieldProps>(
                 props.name,
                 defaultValueSelector
             ),
-        (props, defaults) => ({
-            value: props.initialValue ?? defaults.fieldValue,
+        (props) => ({
+            value: props.initialValue ?? '',
             valid: props.initialValid ?? true,
             ready: true,
         })

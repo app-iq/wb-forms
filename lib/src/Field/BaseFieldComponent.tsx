@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { DispatchFunction, useDispatch, useServiceFactory } from 'wb-core-provider';
-import { Defaults, useDefaults } from '../Defaults/DefaultsContext';
 import { useFieldConfiguration } from './FieldConfigurationContext';
 import { useField } from './Hooks';
 import { ServiceFactory } from '../Services/ServiceFactory/ServiceFactory';
@@ -18,7 +17,7 @@ export function createBaseFieldComponent<Props extends { name: string }, TDefaul
     Component: React.ComponentType<Props & WithFieldProps>,
     defaultProps: TDefaultProps,
     createChangeHandler: (props: Omit<Props, keyof WithFieldProps>, serviceFactory: ServiceFactory) => ChangeHandler,
-    createInitialFieldState: (props: Omit<Props, keyof WithFieldProps>, defaults: Defaults) => FieldState
+    createInitialFieldState: (props: Omit<Props, keyof WithFieldProps>) => FieldState
 ) {
     return function Wrapper(props: Omit<Props, keyof WithFieldProps>) {
         props = { ...props, ...defaultProps };
@@ -26,7 +25,6 @@ export function createBaseFieldComponent<Props extends { name: string }, TDefaul
         const field = useField(name);
         const dispatch = useDispatch();
         const serviceFactory = useServiceFactory<ServiceFactory>();
-        const defaults = useDefaults();
         const changeHandler = createChangeHandler(props, serviceFactory);
         const isNotInitializedYet = field === undefined;
         const configuration = useFieldConfiguration(props.name) ?? {};
@@ -34,10 +32,10 @@ export function createBaseFieldComponent<Props extends { name: string }, TDefaul
         useEffect(() => {
             if (isNotInitializedYet) {
                 dispatch(
-                    SetupActions.initializeField(props.name, createInitialFieldState(props, defaults))
+                    SetupActions.initializeField(props.name, createInitialFieldState(props))
                 );
             }
-        }, [dispatch, defaults, isNotInitializedYet, props]);
+        }, [dispatch, isNotInitializedYet, props]);
 
         if (isNotInitializedYet) {
             return null;
