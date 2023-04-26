@@ -18,7 +18,7 @@ export interface WithArrayFieldProps {
 
 export function withArrayField<Props extends FieldProps = FieldProps>(
     Component: React.ComponentType<Props & WithArrayFieldProps>,
-    defaultValue: FieldValue,
+    defaultValue: FieldValue = '',
 ) {
     return function ArrayFieldWrapper(props: Omit<Props, keyof WithArrayFieldProps>) {
         props = { ...props };
@@ -36,8 +36,8 @@ export function withArrayField<Props extends FieldProps = FieldProps>(
                 dispatch(
                     SetupActions.initializeField(props.name, {
                         ready: true,
-                        valid: [true],
-                        value: [defaultValue]
+                        valid: props.initialValid ?? [true],
+                        value: props.initialValue ?? [defaultValue]
                     })
                 );
             }

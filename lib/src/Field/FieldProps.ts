@@ -10,8 +10,8 @@ export type ServiceCallback<TService> = (dispatch: DispatchFunction, state: Stat
 
 export interface FieldProps {
     name: string;
-    initialValue?: string;
-    initialValid?: boolean;
+    initialValue?: FieldValue | FieldValue[];
+    initialValid?: boolean | boolean[];
     onValueChange?: (newValue: FieldValue, dispatch: DispatchFunction) => void;
 }
 
