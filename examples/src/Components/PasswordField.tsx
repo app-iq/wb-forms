@@ -1,4 +1,5 @@
-import { FieldProps, TextField } from 'wb-forms';
+import { FieldProps } from 'wb-forms';
+import { TextField } from './TextField';
 
 
 export function PasswordField(props: FieldProps) {

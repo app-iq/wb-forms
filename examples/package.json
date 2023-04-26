@@ -15,7 +15,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "wb-core-provider": "^0.4.2",
-    "wb-forms": "^0.4.2-alpha.4"
+    "wb-forms": "^0.4.2-alpha.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
