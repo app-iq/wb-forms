@@ -18,8 +18,8 @@ describe('FormReducer', () => {
         const expectedState: State = {
             ...initialState,
             fields: {
-                username: { ...initialState.fields['username'], value: '' },
-                password: { ...initialState.fields['password'], value: '' },
+                username: { ...initialState.fields['username'], value: '', valid: true },
+                password: { ...initialState.fields['password'], value: '', valid: true },
             },
         };
         expect(newState).toEqual(expectedState);
@@ -34,8 +34,8 @@ describe('FormReducer', () => {
         const expectedState: State = {
             ...initialState,
             fields: {
-                username: { ...initialState.fields['username'], value: 'username' },
-                password: { ...initialState.fields['password'], value: 'password' },
+                username: { ...initialState.fields['username'], value: 'username', valid: true },
+                password: { ...initialState.fields['password'], value: 'password', valid: true },
             },
         };
         expect(newState).toEqual(expectedState);
