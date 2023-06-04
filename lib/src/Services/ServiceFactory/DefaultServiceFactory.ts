@@ -76,7 +76,12 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createSubmitService(): SubmitService {
-        return new DefaultHttpSubmitService(this.dispatch, this.state, this.formProps.serviceOptions ?? {});
+        return new DefaultHttpSubmitService(
+            this.dispatch,
+            this.state,
+            this.formProps.serviceOptions ?? {},
+            this.formProps.fieldConfiguration ?? {}
+        );
     }
 
     createFileUploader(): FileUploader {

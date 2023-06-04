@@ -1,18 +1,20 @@
-import {SubmitService} from '../Protocol/SubmitService';
-import {SubmitActions} from '../../Data/Form/SubmitActions';
-import {FormActions} from '../../Data/Form/FormActions';
-import {State} from '../../Data/State';
-import {DispatchFunction} from 'wb-core-provider';
+import { SubmitService } from '../Protocol/SubmitService';
+import { SubmitActions } from '../../Data/Form/SubmitActions';
+import { FormActions } from '../../Data/Form/FormActions';
+import { State } from '../../Data/State';
+import { DispatchFunction } from 'wb-core-provider';
+import { FieldConfiguration } from '../../Field/FieldProps';
 
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
 
-    protected readonly dispatch: DispatchFunction;
-    protected readonly rootState: State;
     protected readonly options: TOptions;
 
-    public constructor(dispatch: DispatchFunction, rootState: State, options: Record<string, unknown>) {
-        this.dispatch = dispatch;
-        this.rootState = rootState;
+    public constructor(
+        protected readonly dispatch: DispatchFunction,
+        protected readonly rootState: State,
+        options: Record<string, unknown>,
+        protected readonly fieldsConfiguration: Record<string, FieldConfiguration> = {}
+    ) {
         this.options = this.extractSubmitOptions(options);
     }
 
@@ -20,12 +22,12 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
         this.dispatch(SubmitActions.submitStart());
         return new Promise((resolve, reject) => {
             this.getSubmitPromise()
-                .then((response) => {
+                .then(response => {
                     this.onSuccess(response);
                     this.onComplete();
                     resolve();
                 })
-                .catch((e) => {
+                .catch(e => {
                     this.onFail(e);
                     this.onComplete();
                     reject();
@@ -42,7 +44,7 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
         this.options.onSuccess?.(response, this.dispatch);
         const clearAfterSuccess = this.options.clearAfterSuccess ?? true;
         if (clearAfterSuccess) {
-            this.dispatch(FormActions.clearValues());
+            this.dispatch(FormActions.clearValues(this.fieldsConfiguration));
         }
     }
 
@@ -55,9 +57,7 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
         this.dispatch(SubmitActions.submitComplete());
         this.options.onComplete?.(this.dispatch);
     }
-
 }
-
 
 export interface SubmitterOptionsBase {
     onSuccess?: (response: unknown, dispatch: DispatchFunction) => void;
