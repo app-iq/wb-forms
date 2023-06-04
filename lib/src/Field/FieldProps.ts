@@ -1,12 +1,16 @@
-import {ValueSelector} from './ValueSelector';
-import {FieldValidator} from '../Services/Protocol/FieldValidator';
-import {ChangeHandler} from '../Services/Protocol/ChangeHandler';
-import {FieldValue, State} from '../Data/State';
-import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
-import {DispatchFunction} from 'wb-core-provider';
+import { ValueSelector } from './ValueSelector';
+import { FieldValidator } from '../Services/Protocol/FieldValidator';
+import { ChangeHandler } from '../Services/Protocol/ChangeHandler';
+import { FieldValue, State } from '../Data/State';
+import { ServiceFactory } from '../Services/ServiceFactory/ServiceFactory';
+import { DispatchFunction } from 'wb-core-provider';
 import { ArrayFieldChangeHandler } from '../Services/Protocol/ArrayFieldChangeHandler';
 
-export type ServiceCallback<TService> = (dispatch: DispatchFunction, state: State, serviceFactory: ServiceFactory) => TService
+export type ServiceCallback<TService> = (
+    dispatch: DispatchFunction,
+    state: State,
+    serviceFactory: ServiceFactory
+) => TService;
 
 export interface FieldProps {
     name: string;

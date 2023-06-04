@@ -95,7 +95,7 @@ describe('DefaultHttpSubmitService', () => {
         const fieldsConfiguration = {
             testField: {
                 clearValue: 'test clear value',
-            }
+            },
         };
         const submitter = new DefaultHttpSubmitService(
             dispatchMock,

@@ -1,24 +1,25 @@
-import {DefaultServiceFactory} from '../../Services/ServiceFactory/DefaultServiceFactory';
-import {State} from '../../Data/State';
-import {buildMockFieldState} from '../Utils/TestHelpers';
-import {DefaultChangeHandler} from '../../Services/DefaultImplementation/DefaultChangeHandler';
-import {RegexBasedFieldValidator} from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
-import {DefaultHttpSubmitService} from '../../Services/DefaultImplementation/DefaultHttpSubmitService';
+import { DefaultServiceFactory } from '../../Services/ServiceFactory/DefaultServiceFactory';
+import { State } from '../../Data/State';
+import { buildMockFieldState } from '../Utils/TestHelpers';
+import { DefaultChangeHandler } from '../../Services/DefaultImplementation/DefaultChangeHandler';
+import { RegexBasedFieldValidator } from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
+import { DefaultHttpSubmitService } from '../../Services/DefaultImplementation/DefaultHttpSubmitService';
 
 describe('DefaultServiceFactory', () => {
     it('should create onChangeHandler from field', function () {
         const mockedChangeHandler = {};
         const changeHandlerCallback = jest.fn().mockReturnValue(mockedChangeHandler);
         const rootState: State = {
-            fields: {username: buildMockFieldState()},
-            form: {loading: false}
+            fields: { username: buildMockFieldState() },
+            form: { loading: false },
         };
         const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), {
-            children: [], fieldConfiguration: {
+            children: [],
+            fieldConfiguration: {
                 username: {
-                    changeHandler: changeHandlerCallback
-                }
-            }
+                    changeHandler: changeHandlerCallback,
+                },
+            },
         });
         const handler = serviceFactory.createChangeHandler('username');
         expect(handler).toEqual(mockedChangeHandler);
@@ -28,13 +29,13 @@ describe('DefaultServiceFactory', () => {
     it('should create DefaultChangeHandler', function () {
         const rootState: State = {
             fields: {
-                username: buildMockFieldState()
+                username: buildMockFieldState(),
             },
             form: {
-                loading: false
-            }
+                loading: false,
+            },
         };
-        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), {children: []});
+        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), { children: [] });
         const handler = serviceFactory.createChangeHandler('username');
         expect(handler).toBeInstanceOf(DefaultChangeHandler);
     });
@@ -43,15 +44,16 @@ describe('DefaultServiceFactory', () => {
         const mockedFieldValidator = {};
         const fieldValidatorCallback = jest.fn().mockReturnValue(mockedFieldValidator);
         const rootState: State = {
-            fields: {username: buildMockFieldState()},
-            form: {loading: false}
+            fields: { username: buildMockFieldState() },
+            form: { loading: false },
         };
         const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), {
-            children: [], fieldConfiguration: {
+            children: [],
+            fieldConfiguration: {
                 username: {
-                    fieldValidator: fieldValidatorCallback
-                }
-            }
+                    fieldValidator: fieldValidatorCallback,
+                },
+            },
         });
         const validator = serviceFactory.createFieldValidator('username');
         expect(validator).toEqual(mockedFieldValidator);
@@ -61,23 +63,21 @@ describe('DefaultServiceFactory', () => {
     it('should create RegexBasedFieldValidator', function () {
         const rootState: State = {
             fields: {
-                username: buildMockFieldState()
+                username: buildMockFieldState(),
             },
             form: {
-                loading: false
-            }
+                loading: false,
+            },
         };
-        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), {children: []});
+        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), { children: [] });
         const validator = serviceFactory.createFieldValidator('username');
         expect(validator).toBeInstanceOf(RegexBasedFieldValidator);
     });
 
-
     it('should create DefaultHttpSubmitService', function () {
-        const rootState: State = {fields: {}, form: {loading: false}};
-        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), {children: []});
+        const rootState: State = { fields: {}, form: { loading: false } };
+        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), { children: [] });
         const submitter = serviceFactory.createSubmitService();
         expect(submitter).toBeInstanceOf(DefaultHttpSubmitService);
     });
-
 });

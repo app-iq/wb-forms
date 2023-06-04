@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
-import {FieldConfiguration} from './FieldProps';
+import React, { useContext } from 'react';
+import { FieldConfiguration } from './FieldProps';
 
-type FieldConfigContextState = Record<string, FieldConfiguration>
+type FieldConfigContextState = Record<string, FieldConfiguration>;
 
 export const FieldConfigurationContext = React.createContext<FieldConfigContextState>({});
 

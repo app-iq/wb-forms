@@ -6,4 +6,3 @@ export interface ValidationResult {
 export interface FormValidator {
     validate(): ValidationResult;
 }
-

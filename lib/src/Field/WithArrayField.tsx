@@ -18,7 +18,7 @@ export interface WithArrayFieldProps {
 
 export function withArrayField<Props extends FieldProps = FieldProps>(
     Component: React.ComponentType<Props & WithArrayFieldProps>,
-    defaultValue: FieldValue = '',
+    defaultValue: FieldValue = ''
 ) {
     return function ArrayFieldWrapper(props: Omit<Props, keyof WithArrayFieldProps>) {
         props = { ...props };
@@ -26,7 +26,7 @@ export function withArrayField<Props extends FieldProps = FieldProps>(
         const field = useField(name);
         const dispatch = useDispatch();
         const serviceFactory = useServiceFactory<ServiceFactory>();
-        
+
         const changeHandler = serviceFactory.createArrayFieldChangeHandler(name, field);
         const isNotInitializedYet = field === undefined;
         const configuration = useFieldConfiguration(props.name) ?? {};
@@ -37,7 +37,7 @@ export function withArrayField<Props extends FieldProps = FieldProps>(
                     SetupActions.initializeField(props.name, {
                         ready: true,
                         valid: props.initialValid ?? [true],
-                        value: props.initialValue ?? [defaultValue]
+                        value: props.initialValue ?? [defaultValue],
                     })
                 );
             }
@@ -53,8 +53,8 @@ export function withArrayField<Props extends FieldProps = FieldProps>(
 
         const toInjectProps: WithArrayFieldProps = {
             add: () => changeHandler.add(defaultValue),
-            remove: (index) => changeHandler.remove(index),
-            handleChange: (index,value) => changeHandler.handleChange(index, value),
+            remove: index => changeHandler.remove(index),
+            handleChange: (index, value) => changeHandler.handleChange(index, value),
             dispatch: dispatch,
             field: field,
         };

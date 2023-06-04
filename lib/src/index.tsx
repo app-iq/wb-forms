@@ -8,4 +8,3 @@ root.render(
         <h1>wb-forms</h1>
     </React.StrictMode>
 );
-

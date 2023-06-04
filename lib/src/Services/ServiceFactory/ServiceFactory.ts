@@ -13,10 +13,7 @@ export interface ServiceFactory {
 
     createFormValidator(): FormValidator;
 
-    createChangeHandler(
-        fieldName: string,
-        defaultValueSelector?: ValueSelector
-    ): ChangeHandler;
+    createChangeHandler(fieldName: string, defaultValueSelector?: ValueSelector): ChangeHandler;
 
     createFileChangeHandler(
         fieldName: string,

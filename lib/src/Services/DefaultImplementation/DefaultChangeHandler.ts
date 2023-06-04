@@ -1,20 +1,25 @@
-import {ChangeHandler} from '../Protocol/ChangeHandler';
-import {FieldActions} from '../../Data/Field/FieldActions';
-import {FieldValidator} from '../Protocol/FieldValidator';
-import {FieldConfiguration} from '../../Field/FieldProps';
-import {textValueSelector, ValueSelector} from '../../Field/ValueSelector';
-import {FieldValue} from '../../Data/State';
-import {DispatchFunction} from 'wb-core-provider';
+import { ChangeHandler } from '../Protocol/ChangeHandler';
+import { FieldActions } from '../../Data/Field/FieldActions';
+import { FieldValidator } from '../Protocol/FieldValidator';
+import { FieldConfiguration } from '../../Field/FieldProps';
+import { textValueSelector, ValueSelector } from '../../Field/ValueSelector';
+import { FieldValue } from '../../Data/State';
+import { DispatchFunction } from 'wb-core-provider';
 
 export class DefaultChangeHandler implements ChangeHandler {
-
     private readonly fieldValidator: FieldValidator;
     private readonly dispatch: DispatchFunction;
     private readonly fieldConfiguration: FieldConfiguration;
     private readonly fieldName: string;
     private readonly defaultValueSelector: ValueSelector;
 
-    constructor(dispatch: DispatchFunction, fieldName: string, fieldValidator: FieldValidator, fieldConfiguration: FieldConfiguration, valueSelector?: ValueSelector) {
+    constructor(
+        dispatch: DispatchFunction,
+        fieldName: string,
+        fieldValidator: FieldValidator,
+        fieldConfiguration: FieldConfiguration,
+        valueSelector?: ValueSelector
+    ) {
         this.fieldValidator = fieldValidator;
         this.dispatch = dispatch;
         this.fieldConfiguration = fieldConfiguration;
@@ -32,14 +37,20 @@ export class DefaultChangeHandler implements ChangeHandler {
         this.dispatch(FieldActions.changeValue(this.fieldName, newValue));
         listener?.(newValue, this.dispatch);
         if (this.shouldValidate()) {
-            const validateAction = FieldActions.changeValidationState(this.fieldName, this.fieldValidator.validate(newValue, this.fieldConfiguration.validationRules));
+            const validateAction = FieldActions.changeValidationState(
+                this.fieldName,
+                this.fieldValidator.validate(newValue, this.fieldConfiguration.validationRules)
+            );
             this.dispatch(validateAction);
         }
     }
 
     private shouldValidate(): boolean {
         const validateOnChange = this.fieldConfiguration.validateOnChange ?? true;
-        return validateOnChange && !this.fieldConfiguration.skipValidation && Boolean(this.fieldConfiguration.validationRules);
+        return (
+            validateOnChange &&
+            !this.fieldConfiguration.skipValidation &&
+            Boolean(this.fieldConfiguration.validationRules)
+        );
     }
-
 }

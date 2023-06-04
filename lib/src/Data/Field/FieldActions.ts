@@ -1,16 +1,8 @@
-import {
-    FieldAction,
-    FieldActionType,
-    SetCustomValuePayload,
-    SimpleFieldPayload,
-} from './FieldAction';
+import { FieldAction, FieldActionType, SetCustomValuePayload, SimpleFieldPayload } from './FieldAction';
 import { FieldValue } from '../State';
 
 export class FieldActions {
-    public static changeValue(
-        fieldName: string,
-        value: FieldValue
-    ): FieldAction<SimpleFieldPayload<FieldValue>> {
+    public static changeValue(fieldName: string, value: FieldValue): FieldAction<SimpleFieldPayload<FieldValue>> {
         return {
             type: FieldActionType.CHANGE_VALUE,
             payload: {
@@ -48,10 +40,7 @@ export class FieldActions {
         };
     }
 
-    public static setReady(
-        fieldName: string,
-        ready: boolean
-    ): FieldAction<SimpleFieldPayload<boolean>> {
+    public static setReady(fieldName: string, ready: boolean): FieldAction<SimpleFieldPayload<boolean>> {
         return {
             type: FieldActionType.SET_READY,
             payload: {

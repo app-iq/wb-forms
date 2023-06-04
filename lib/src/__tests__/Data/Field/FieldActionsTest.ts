@@ -1,20 +1,23 @@
-import {FieldActions} from '../../../Data/Field/FieldActions';
-import {FieldAction, FieldActionType, SetCustomValuePayload, SimpleFieldPayload} from '../../../Data/Field/FieldAction';
+import { FieldActions } from '../../../Data/Field/FieldActions';
+import {
+    FieldAction,
+    FieldActionType,
+    SetCustomValuePayload,
+    SimpleFieldPayload,
+} from '../../../Data/Field/FieldAction';
 
 describe('FieldActions', () => {
-
     it('should create change value action', function () {
         const action = FieldActions.changeValue('test', 'test-value');
         const expected: FieldAction<SimpleFieldPayload<unknown>> = {
             type: FieldActionType.CHANGE_VALUE,
             payload: {
                 name: 'test',
-                value: 'test-value'
-            }
+                value: 'test-value',
+            },
         };
         expect(action).toEqual(expected);
     });
-
 
     it('should create set custom value action', function () {
         const action = FieldActions.setCustomValue('test', 'readonly', false);
@@ -23,8 +26,8 @@ describe('FieldActions', () => {
             payload: {
                 name: 'test',
                 propertyName: 'readonly',
-                value: false
-            }
+                value: false,
+            },
         };
         expect(action).toEqual(expected);
     });
@@ -35,8 +38,8 @@ describe('FieldActions', () => {
             type: FieldActionType.SET_VALIDATION_STATE,
             payload: {
                 name: 'test',
-                value: true
-            }
+                value: true,
+            },
         };
         expect(action).toEqual(expected);
     });

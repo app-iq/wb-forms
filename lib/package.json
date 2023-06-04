@@ -38,8 +38,8 @@
         "cleanup:build": "rm -rf ./build/__examples__ && rm -rf ./build/__examples && rm -rf ./build/__tests__ && rm -rf ./build/Utils && rm ./build/index.d.ts && rm ./build/index.js",
         "test": "jest",
         "test:coverage": "jest --coverage --watchAll",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
+        "lint": "eslint ./src",
+        "lint:fix": "eslint ./src --fix",
         "dev": "vite",
         "build": "tsc --noEmit false && npm run cleanup:build",
         "preview": "vite preview"

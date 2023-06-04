@@ -1,4 +1,4 @@
-import {Action} from 'wb-core-provider';
+import { Action } from 'wb-core-provider';
 
 export enum FieldActionType {
     CHANGE_VALUE = 'CHANGE_VALUE',
@@ -11,7 +11,7 @@ export interface FieldPayload {
     name: string;
 }
 
-export type FieldAction<TPayload extends FieldPayload> = Action<FieldActionType, TPayload>
+export type FieldAction<TPayload extends FieldPayload> = Action<FieldActionType, TPayload>;
 
 export interface SimpleFieldPayload<T> extends FieldPayload {
     value: T;

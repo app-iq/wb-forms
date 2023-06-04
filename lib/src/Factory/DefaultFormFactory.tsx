@@ -1,13 +1,12 @@
-import {FormFactory} from './FormFactory';
-import {FormOptions} from './DefaultFormFactoryConfiguration';
-import React, {ReactElement, useCallback} from 'react';
-import {FieldProps} from '../Field/FieldProps';
-import {Form} from '../Form/Form';
-import {useServiceFactory} from 'wb-core-provider';
-import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
+import { FormFactory } from './FormFactory';
+import { FormOptions } from './DefaultFormFactoryConfiguration';
+import React, { ReactElement, useCallback } from 'react';
+import { FieldProps } from '../Field/FieldProps';
+import { Form } from '../Form/Form';
+import { useServiceFactory } from 'wb-core-provider';
+import { ServiceFactory } from '../Services/ServiceFactory/ServiceFactory';
 
 export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<FormOptions<TExtraOptions>> {
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     protected readonly fieldTypeMap: Record<string, React.ComponentType<any>>;
 
@@ -18,16 +17,13 @@ export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<
 
     create(configuration: FormOptions<TExtraOptions>): React.ReactElement {
         const formProps = configuration.formOptions;
-        return <Form {...formProps}>
-            {
-                this.renderFields(configuration)
-            }
-            {
-                this.renderButton()
-            }
-        </Form>;
+        return (
+            <Form {...formProps}>
+                {this.renderFields(configuration)}
+                {this.renderButton()}
+            </Form>
+        );
     }
-
 
     protected getFieldElement(type: string, fieldProps: FieldProps) {
         const FieldComponent = this.fieldTypeMap[type];
@@ -45,10 +41,8 @@ export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<
     }
 
     protected renderButton(): ReactElement {
-        return <SubmitButton/>;
+        return <SubmitButton />;
     }
-
-
 }
 
 function SubmitButton() {

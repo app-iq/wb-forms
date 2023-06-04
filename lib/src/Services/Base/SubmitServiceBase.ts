@@ -6,7 +6,6 @@ import { DispatchFunction } from 'wb-core-provider';
 import { FieldConfiguration } from '../../Field/FieldProps';
 
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
-
     protected readonly options: TOptions;
 
     public constructor(

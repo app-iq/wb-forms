@@ -31,9 +31,7 @@ export function createBaseFieldComponent<Props extends { name: string }, TDefaul
 
         useEffect(() => {
             if (isNotInitializedYet) {
-                dispatch(
-                    SetupActions.initializeField(props.name, createInitialFieldState(props))
-                );
+                dispatch(SetupActions.initializeField(props.name, createInitialFieldState(props)));
             }
         }, [dispatch, isNotInitializedYet, props]);
 

@@ -12,12 +12,8 @@ export function withFileField<Props extends FileFieldProps = FileFieldProps>(
         Component,
         defaultProps,
         (props, serviceFactory) =>
-            serviceFactory.createFileChangeHandler(
-                props.name,
-                props.autoUpload,
-                defaultValueSelector
-            ),
-        (props) => ({
+            serviceFactory.createFileChangeHandler(props.name, props.autoUpload, defaultValueSelector),
+        props => ({
             value: props.initialValid ?? '',
             valid: props.initialValid ?? true,
             ready: true,

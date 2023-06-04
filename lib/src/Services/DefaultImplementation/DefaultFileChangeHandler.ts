@@ -29,41 +29,26 @@ export class DefaultFileChangeHandler implements ChangeHandler {
         }
 
         if (this.shouldValidate()) {
-            const valid = this.fieldValidator.validate(
-                e,
-                this.fieldConfiguration.validationRules
-            );
-            const validateAction = FieldActions.changeValidationState(
-                this.fieldName,
-                valid
-            );
+            const valid = this.fieldValidator.validate(e, this.fieldConfiguration.validationRules);
+            const validateAction = FieldActions.changeValidationState(this.fieldName, valid);
             this.dispatch(validateAction);
 
             if (!valid) {
                 this.dispatch(FieldActions.changeValue(this.fieldName, ''));
-                FieldActions.setCustomValue(
-                    this.fieldName,
-                    'filValue',
-                    undefined
-                );
+                FieldActions.setCustomValue(this.fieldName, 'filValue', undefined);
                 return;
             }
         }
 
-        const valueSelector =
-            this.fieldConfiguration.valueSelector ?? this.defaultValueSelector;
+        const valueSelector = this.fieldConfiguration.valueSelector ?? this.defaultValueSelector;
         const fileValue = valueSelector(e);
-        this.dispatch(
-            FieldActions.setCustomValue(this.fieldName, 'filValue', fileValue)
-        );
+        this.dispatch(FieldActions.setCustomValue(this.fieldName, 'filValue', fileValue));
         if (this.uploadOptions) {
             this.dispatch(FieldActions.setReady(this.fieldName, false));
             this.fileUploader
                 .uploadFile(e, this.uploadOptions)
-                .then((value) => {
-                    this.dispatch(
-                        FieldActions.changeValue(this.fieldName, value)
-                    );
+                .then(value => {
+                    this.dispatch(FieldActions.changeValue(this.fieldName, value));
                 })
                 .finally(() => {
                     this.dispatch(FieldActions.setReady(this.fieldName, true));

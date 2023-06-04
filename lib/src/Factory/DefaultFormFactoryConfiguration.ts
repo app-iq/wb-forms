@@ -1,5 +1,5 @@
-import {FormProps} from '../Form/FormProps';
-import {FieldProps} from '../Field/FieldProps';
+import { FormProps } from '../Form/FormProps';
+import { FieldProps } from '../Field/FieldProps';
 
 export interface FieldOptions {
     type: string;
@@ -11,4 +11,3 @@ export interface FormOptions<TExtraOptions = unknown> {
     fields: Record<string, FieldOptions>;
     extraOptions: TExtraOptions;
 }
-

@@ -1,4 +1,4 @@
-import {RegexBasedFieldValidator} from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
+import { RegexBasedFieldValidator } from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
 
 describe('RegexBasedFieldValidator', function () {
     it('should return true when pattern is empty or undefined or null', function () {
