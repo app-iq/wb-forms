@@ -1,4 +1,7 @@
 - IMPROVE TESTING COVERAGE AND QUALITY
 - docs
 - service factory from props
-- DataCollector/MapperService Service
+- DataCollector Service collecting data to submit
+- MapperService Service mapping fields to names that will be used for submit
+- use eslint-config-wb-config
+- prepare for 1.0.0 version
