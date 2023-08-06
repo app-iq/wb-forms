@@ -1,6 +1,4 @@
 - gitignore setup
-- DataCollector Service collecting data to submit
-- use eslint-config-wb-config
 - change private to protected in services files
 - service factory from props
 - IMPROVE TESTING COVERAGE AND QUALITY
