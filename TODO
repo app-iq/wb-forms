@@ -1,6 +1,5 @@
 - gitignore setup
 - DataCollector Service collecting data to submit
-- Mapper Service mapping fields to names that will be used for submit
 - use eslint-config-wb-config
 - change private to protected in services files
 - service factory from props
