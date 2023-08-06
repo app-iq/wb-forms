@@ -24,19 +24,21 @@ import {DataCollectorOptions, DefaultDataCollector} from '../DefaultImplementati
 export class DefaultServiceFactory implements ServiceFactory {
     public static readonly DATA_COLLECTOR_SERVICE_OPTION_KEY = 'collector';
 
-    private readonly state: State;
-
-    private readonly dispatch: DispatchFunction;
-
-    private readonly formProps: FormProps;
-
-    constructor(state: State, dispatch: DispatchFunction, formProps: PropsWithChildren<FormProps>) {
+    constructor(
+        protected readonly state: State,
+        protected readonly dispatch: DispatchFunction,
+        protected readonly formProps: PropsWithChildren<FormProps>,
+    ) {
         this.state = state;
         this.dispatch = dispatch;
         this.formProps = formProps;
     }
 
     createChangeHandler(fieldName: string, defaultValueSelector?: ValueSelector): ChangeHandler {
+        if (this.formProps.customServiceFactory?.changeHandler) {
+            return this.formProps.customServiceFactory.changeHandler(this.state, this.dispatch, this.formProps, this);
+        }
+
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
         if (fieldConfiguration?.changeHandler) {
             return fieldConfiguration.changeHandler(this.dispatch, this.state, this) as ChangeHandler;
@@ -56,6 +58,15 @@ export class DefaultServiceFactory implements ServiceFactory {
         uploadOptions?: UploadOptions,
         defaultValueSelector?: ValueSelector,
     ): ChangeHandler {
+        if (this.formProps.customServiceFactory?.fileChangeHandler) {
+            return this.formProps.customServiceFactory.fileChangeHandler(
+                this.state,
+                this.dispatch,
+                this.formProps,
+                this,
+            );
+        }
+
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
         if (fieldConfiguration?.changeHandler) {
             return fieldConfiguration.changeHandler(this.dispatch, this.state, this) as ChangeHandler;
@@ -73,6 +84,10 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createFieldValidator(fieldName: string): FieldValidator {
+        if (this.formProps.customServiceFactory?.fieldValidator) {
+            return this.formProps.customServiceFactory.fieldValidator(this.state, this.dispatch, this.formProps, this);
+        }
+
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
         if (fieldConfiguration?.fieldValidator) {
             return fieldConfiguration.fieldValidator(this.dispatch, this.state, this);
@@ -82,6 +97,10 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createSubmitService(): SubmitService {
+        if (this.formProps.customServiceFactory?.submitService) {
+            return this.formProps.customServiceFactory.submitService(this.state, this.dispatch, this.formProps, this);
+        }
+
         return new DefaultHttpSubmitService(
             this.dispatch,
             this.state,
@@ -92,6 +111,10 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createFileUploader(): FileUploader {
+        if (this.formProps.customServiceFactory?.fileUploader) {
+            return this.formProps.customServiceFactory.fileUploader(this.state, this.dispatch, this.formProps, this);
+        }
+
         return new DefaultFileUploader();
     }
 
@@ -100,10 +123,23 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createFormValidator(): FormValidator {
+        if (this.formProps.customServiceFactory?.formValidator) {
+            return this.formProps.customServiceFactory.formValidator(this.state, this.dispatch, this.formProps, this);
+        }
+
         return new DefaultFormValidator(this.state.fields, this, this.dispatch);
     }
 
     createArrayFieldChangeHandler(fieldName: string, fieldState: FieldState): ArrayFieldChangeHandler {
+        if (this.formProps.customServiceFactory?.arrayFieldChangeHandler) {
+            return this.formProps.customServiceFactory.arrayFieldChangeHandler(
+                this.state,
+                this.dispatch,
+                this.formProps,
+                this,
+            );
+        }
+
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
         if (fieldConfiguration?.changeHandler) {
             return fieldConfiguration.changeHandler(this.dispatch, this.state, this) as ArrayFieldChangeHandler;
@@ -118,6 +154,10 @@ export class DefaultServiceFactory implements ServiceFactory {
     }
 
     createDataCollectorService(): DataCollector {
+        if (this.formProps.customServiceFactory?.dataCollector) {
+            return this.formProps.customServiceFactory.dataCollector(this.state, this.dispatch, this.formProps, this);
+        }
+
         const options = (this.formProps.serviceOptions?.[DefaultServiceFactory.DATA_COLLECTOR_SERVICE_OPTION_KEY] ??
             {}) as DataCollectorOptions;
         return new DefaultDataCollector(this.state, options);
