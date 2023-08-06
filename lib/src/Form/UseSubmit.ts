@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
-import { useServiceFactory } from 'wb-core-provider';
-import { ServiceFactory } from '../Services/ServiceFactory/ServiceFactory';
-import { ValidationResult } from '../Services/Protocol/FormValidator';
+import {useCallback} from 'react';
+import {useServiceFactory} from 'wb-core-provider';
+import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
+import {ValidationResult} from '../Services/Protocol/FormValidator';
 
 export interface UseSubmitOptions {
     onValidationFailed?: (validationResult: ValidationResult) => void;

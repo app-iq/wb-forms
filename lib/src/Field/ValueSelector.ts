@@ -1,4 +1,4 @@
-import { FieldValue } from '../Data/State';
+import {FieldValue} from '../Data/State';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ValueSelector = (e: any) => FieldValue;

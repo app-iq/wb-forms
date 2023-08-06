@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import {SyntheticEvent} from 'react';
 
 export interface FileUploader {
     uploadFile(event: SyntheticEvent, options: UploadOptions): Promise<string>;

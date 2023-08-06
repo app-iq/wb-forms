@@ -1,9 +1,8 @@
-import { DefaultFormValidator } from '../../Services/DefaultImplementation/DefaultFormValidator';
-import { FieldsState } from '../../Data/State';
-import { Mock } from 'typemoq';
-import { ServiceFactory } from '../../Services/ServiceFactory/ServiceFactory';
-import { It, Times } from 'typemoq';
-import { FieldValidator } from '../../Services/Protocol/FieldValidator';
+import {Mock, It, Times} from 'typemoq';
+import {DefaultFormValidator} from '../../Services/DefaultImplementation/DefaultFormValidator';
+import {FieldsState} from '../../Data/State';
+import {ServiceFactory} from '../../Services/ServiceFactory/ServiceFactory';
+import {FieldValidator} from '../../Services/Protocol/FieldValidator';
 
 class MockedFieldValidator implements FieldValidator {
     private readonly valid: boolean;
@@ -18,11 +17,11 @@ class MockedFieldValidator implements FieldValidator {
 }
 
 describe('DefaultFormValidator', () => {
-    it('should validate form / not valid form', function () {
+    it('should validate form / not valid form', () => {
         const fields: FieldsState = {
-            name: { value: 'Ali Faris', valid: true, ready: true },
-            email: { value: 'test.com', valid: true, ready: true },
-            phone: { value: '0000', valid: true, ready: true },
+            name: {value: 'Ali Faris', valid: true, ready: true},
+            email: {value: 'test.com', valid: true, ready: true},
+            phone: {value: '0000', valid: true, ready: true},
         };
         const serviceFactory = Mock.ofType<ServiceFactory>();
         serviceFactory
@@ -46,11 +45,11 @@ describe('DefaultFormValidator', () => {
         expect(validationResult.valid).toEqual(false);
     });
 
-    it('should validate form / valid form', function () {
+    it('should validate form / valid form', () => {
         const fields: FieldsState = {
-            name: { value: 'Ali Faris', valid: true, ready: true },
-            email: { value: 'test@email.com', valid: true, ready: true },
-            phone: { value: '0000', valid: true, ready: true },
+            name: {value: 'Ali Faris', valid: true, ready: true},
+            email: {value: 'test@email.com', valid: true, ready: true},
+            phone: {value: '0000', valid: true, ready: true},
         };
         const serviceFactory = Mock.ofType<ServiceFactory>();
         serviceFactory.setup(sf => sf.getFieldConfiguration(It.isAny())).returns(() => ({}));
@@ -69,10 +68,10 @@ describe('DefaultFormValidator', () => {
         expect(validationResult.valid).toEqual(true);
     });
 
-    it('should skipValidation for marked fields', function () {
+    it('should skipValidation for marked fields', () => {
         const fields: FieldsState = {
-            name: { value: 'Ali Faris', valid: true, ready: true },
-            email: { value: 'test.com', valid: true, ready: true },
+            name: {value: 'Ali Faris', valid: true, ready: true},
+            email: {value: 'test.com', valid: true, ready: true},
         };
 
         const serviceFactory = Mock.ofType<ServiceFactory>();
@@ -82,10 +81,10 @@ describe('DefaultFormValidator', () => {
         mockedEmailFieldValidator.setup(v => v.validate(It.isAny(), It.isAny())).returns(() => false);
         serviceFactory
             .setup(sf => sf.getFieldConfiguration(It.isValue('name')))
-            .returns(() => ({ validationRules: 'required' }));
+            .returns(() => ({validationRules: 'required'}));
         serviceFactory
             .setup(sf => sf.getFieldConfiguration(It.isValue('email')))
-            .returns(() => ({ skipValidation: true }));
+            .returns(() => ({skipValidation: true}));
         serviceFactory
             .setup(sf => sf.createFieldValidator(It.isValue('name')))
             .returns(() => mockedNameFieldValidator.object);

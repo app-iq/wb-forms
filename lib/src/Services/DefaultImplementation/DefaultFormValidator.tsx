@@ -1,13 +1,15 @@
-import { FormValidator, ValidationResult } from '../Protocol/FormValidator';
-import { FieldValue, FieldsState } from '../../Data/State';
-import { ServiceFactory } from '../ServiceFactory/ServiceFactory';
-import { DispatchFunction } from 'wb-core-provider';
-import { FieldActions } from '../../Data/Field/FieldActions';
-import { FieldValidator } from '../Protocol/FieldValidator';
+import {DispatchFunction} from 'wb-core-provider';
+import {FormValidator, ValidationResult} from '../Protocol/FormValidator';
+import {FieldValue, FieldsState} from '../../Data/State';
+import {ServiceFactory} from '../ServiceFactory/ServiceFactory';
+import {FieldActions} from '../../Data/Field/FieldActions';
+import {FieldValidator} from '../Protocol/FieldValidator';
 
 export class DefaultFormValidator implements FormValidator {
     private readonly fields: FieldsState;
+
     private readonly serviceFactory: ServiceFactory;
+
     private readonly dispatch: DispatchFunction;
 
     constructor(fields: FieldsState, serviceFactory: ServiceFactory, dispatch: DispatchFunction) {
@@ -22,7 +24,7 @@ export class DefaultFormValidator implements FormValidator {
             const isFieldValid = this.handleValidation(fieldName);
             return v && isFieldValid;
         }, true);
-        return { valid, errors: [] };
+        return {valid, errors: []};
     }
 
     private handleValidation(fieldName: string) {

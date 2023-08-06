@@ -6,21 +6,25 @@ export interface DataCollectorOptions {
 }
 
 export class DefaultDataCollector implements DataCollector {
-
-    constructor(protected readonly state: State, protected readonly options: DataCollectorOptions) {
-    }
+    constructor(
+        protected readonly state: State,
+        protected readonly options: DataCollectorOptions,
+    ) {}
 
     collect(): Record<string, unknown> {
         const keys = Object.keys(this.state.fields);
-        return keys.reduce((acc, key) => {
-            const value = this.state.fields[key].value;
-            const customCollector = this.options[key];
-            if (customCollector) {
-                acc[key] = customCollector(value, this.state);
-            } else {
-                acc[key] = value;
-            }
-            return acc;
-        }, {} as Record<string, unknown>);
+        return keys.reduce(
+            (acc, key) => {
+                const {value} = this.state.fields[key];
+                const customCollector = this.options[key];
+                if (customCollector) {
+                    acc[key] = customCollector(value, this.state);
+                } else {
+                    acc[key] = value;
+                }
+                return acc;
+            },
+            {} as Record<string, unknown>,
+        );
     }
 }

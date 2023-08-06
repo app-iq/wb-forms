@@ -1,23 +1,23 @@
-import { FieldState, State } from '../../Data/State';
-import { FormProps } from '../../Form/FormProps';
-import { ChangeHandler } from '../Protocol/ChangeHandler';
-import { DefaultChangeHandler } from '../DefaultImplementation/DefaultChangeHandler';
-import { FieldValidator } from '../Protocol/FieldValidator';
-import { RegexBasedFieldValidator } from '../DefaultImplementation/RegexBasedFieldValidator';
-import { SubmitService } from '../Protocol/SubmitService';
-import { DefaultHttpSubmitService } from '../DefaultImplementation/DefaultHttpSubmitService';
-import { ServiceFactory } from './ServiceFactory';
-import { FieldConfiguration } from '../../Field/FieldProps';
-import { PropsWithChildren } from 'react';
-import { ValueSelector } from '../../Field/ValueSelector';
-import { FormValidator } from '../Protocol/FormValidator';
-import { DefaultFormValidator } from '../DefaultImplementation/DefaultFormValidator';
-import { DispatchFunction } from 'wb-core-provider';
-import { FileUploader, UploadOptions } from '../Protocol/FileUploader';
-import { DefaultFileChangeHandler } from '../DefaultImplementation/DefaultFileChangeHandler';
-import { DefaultFileUploader } from '../DefaultImplementation/DefaultFileUploader';
-import { ArrayFieldChangeHandler } from '../Protocol/ArrayFieldChangeHandler';
-import { DefaultArrayFieldChangeHandler } from '../DefaultImplementation/DefaultArrayFieldChangeHandler';
+import {PropsWithChildren} from 'react';
+import {DispatchFunction} from 'wb-core-provider';
+import {FieldState, State} from '../../Data/State';
+import {FormProps} from '../../Form/FormProps';
+import {ChangeHandler} from '../Protocol/ChangeHandler';
+import {DefaultChangeHandler} from '../DefaultImplementation/DefaultChangeHandler';
+import {FieldValidator} from '../Protocol/FieldValidator';
+import {RegexBasedFieldValidator} from '../DefaultImplementation/RegexBasedFieldValidator';
+import {SubmitService} from '../Protocol/SubmitService';
+import {DefaultHttpSubmitService} from '../DefaultImplementation/DefaultHttpSubmitService';
+import {ServiceFactory} from './ServiceFactory';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {ValueSelector} from '../../Field/ValueSelector';
+import {FormValidator} from '../Protocol/FormValidator';
+import {DefaultFormValidator} from '../DefaultImplementation/DefaultFormValidator';
+import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
+import {DefaultFileChangeHandler} from '../DefaultImplementation/DefaultFileChangeHandler';
+import {DefaultFileUploader} from '../DefaultImplementation/DefaultFileUploader';
+import {ArrayFieldChangeHandler} from '../Protocol/ArrayFieldChangeHandler';
+import {DefaultArrayFieldChangeHandler} from '../DefaultImplementation/DefaultArrayFieldChangeHandler';
 import {DataCollector} from '../Protocol/DataCollector';
 import {DataCollectorOptions, DefaultDataCollector} from '../DefaultImplementation/DefaultDataCollector';
 
@@ -25,7 +25,9 @@ export class DefaultServiceFactory implements ServiceFactory {
     public static readonly DATA_COLLECTOR_SERVICE_OPTION_KEY = 'collector';
 
     private readonly state: State;
+
     private readonly dispatch: DispatchFunction;
+
     private readonly formProps: FormProps;
 
     constructor(state: State, dispatch: DispatchFunction, formProps: PropsWithChildren<FormProps>) {
@@ -45,14 +47,14 @@ export class DefaultServiceFactory implements ServiceFactory {
             fieldName,
             this.createFieldValidator(fieldName),
             fieldConfiguration ?? {},
-            defaultValueSelector
+            defaultValueSelector,
         );
     }
 
     createFileChangeHandler(
         fieldName: string,
         uploadOptions?: UploadOptions,
-        defaultValueSelector?: ValueSelector
+        defaultValueSelector?: ValueSelector,
     ): ChangeHandler {
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
         if (fieldConfiguration?.changeHandler) {
@@ -66,7 +68,7 @@ export class DefaultServiceFactory implements ServiceFactory {
             this.createFileUploader(),
             fieldConfiguration ?? {},
             uploadOptions,
-            defaultValueSelector
+            defaultValueSelector,
         );
     }
 
@@ -84,8 +86,8 @@ export class DefaultServiceFactory implements ServiceFactory {
             this.dispatch,
             this.state,
             this.formProps.serviceOptions ?? {},
+            this.createDataCollectorService(),
             this.formProps.fieldConfiguration ?? {},
-            this.createDataCollectorService()
         );
     }
 
@@ -111,12 +113,13 @@ export class DefaultServiceFactory implements ServiceFactory {
             fieldState,
             this.dispatch,
             this.createFieldValidator(fieldName),
-            fieldConfiguration ?? {}
+            fieldConfiguration ?? {},
         );
     }
 
     createDataCollectorService(): DataCollector {
-        const options = (this.formProps.serviceOptions?.[DefaultServiceFactory.DATA_COLLECTOR_SERVICE_OPTION_KEY] ?? {}) as DataCollectorOptions;
+        const options = (this.formProps.serviceOptions?.[DefaultServiceFactory.DATA_COLLECTOR_SERVICE_OPTION_KEY] ??
+            {}) as DataCollectorOptions;
         return new DefaultDataCollector(this.state, options);
     }
 }

@@ -1,9 +1,9 @@
-import { FormAction, FormActionType, SetCustomValuePayload } from './FormAction';
-import { FieldConfiguration } from '../../Field/FieldProps';
+import {FormAction, FormActionType, SetCustomValuePayload} from './FormAction';
+import {FieldConfiguration} from '../../Field/FieldProps';
 
 export class FormActions {
     public static clearValues(
-        fieldsConfiguration: Record<string, FieldConfiguration> = {}
+        fieldsConfiguration: Record<string, FieldConfiguration> = {},
     ): FormAction<Record<string, FieldConfiguration>> {
         return {
             type: FormActionType.CLEAR,
@@ -15,7 +15,7 @@ export class FormActions {
         return {
             type: FormActionType.SET_CUSTOM_VALUE,
             payload: {
-                value: value,
+                value,
                 name: stateName,
             },
         };

@@ -1,16 +1,20 @@
-import { ChangeHandler } from '../Protocol/ChangeHandler';
-import { FieldActions } from '../../Data/Field/FieldActions';
-import { FieldValidator } from '../Protocol/FieldValidator';
-import { FieldConfiguration } from '../../Field/FieldProps';
-import { textValueSelector, ValueSelector } from '../../Field/ValueSelector';
-import { FieldValue } from '../../Data/State';
-import { DispatchFunction } from 'wb-core-provider';
+import {DispatchFunction} from 'wb-core-provider';
+import {ChangeHandler} from '../Protocol/ChangeHandler';
+import {FieldActions} from '../../Data/Field/FieldActions';
+import {FieldValidator} from '../Protocol/FieldValidator';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {textValueSelector, ValueSelector} from '../../Field/ValueSelector';
+import {FieldValue} from '../../Data/State';
 
 export class DefaultChangeHandler implements ChangeHandler {
     private readonly fieldValidator: FieldValidator;
+
     private readonly dispatch: DispatchFunction;
+
     private readonly fieldConfiguration: FieldConfiguration;
+
     private readonly fieldName: string;
+
     private readonly defaultValueSelector: ValueSelector;
 
     constructor(
@@ -18,7 +22,7 @@ export class DefaultChangeHandler implements ChangeHandler {
         fieldName: string,
         fieldValidator: FieldValidator,
         fieldConfiguration: FieldConfiguration,
-        valueSelector?: ValueSelector
+        valueSelector?: ValueSelector,
     ) {
         this.fieldValidator = fieldValidator;
         this.dispatch = dispatch;
@@ -39,7 +43,7 @@ export class DefaultChangeHandler implements ChangeHandler {
         if (this.shouldValidate()) {
             const validateAction = FieldActions.changeValidationState(
                 this.fieldName,
-                this.fieldValidator.validate(newValue, this.fieldConfiguration.validationRules)
+                this.fieldValidator.validate(newValue, this.fieldConfiguration.validationRules),
             );
             this.dispatch(validateAction);
         }

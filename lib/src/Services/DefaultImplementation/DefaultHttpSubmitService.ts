@@ -1,5 +1,27 @@
-import { SubmitServiceBase, SubmitterOptionsBase } from '../Base/SubmitServiceBase';
-import { State } from '../../Data/State';
+import {SubmitServiceBase, SubmitterOptionsBase} from '../Base/SubmitServiceBase';
+import {State} from '../../Data/State';
+
+export type HttpMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
+
+export interface DefaultHttpSubmitOptions extends SubmitterOptionsBase {
+    url?: string;
+    method?: HttpMethod;
+    contentType?: string;
+    initRequest?: (request: RequestInit, rootState: State) => RequestInit;
+    parseResponse?: (response: Response) => Promise<unknown>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    buildBody?: (data: Record<string, unknown>) => any;
+}
+
+export const httpSubmitOptionsDefaults = {
+    url: '/',
+    method: 'POST',
+    parseResponse: (response: Response) => response.json(),
+    buildBody: (data: Record<string, unknown>) => JSON.stringify(data),
+    asQuery: [],
+    keysMap: {},
+    contentType: 'application/json',
+};
 
 export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmitOptions> {
     private static submitOptionsKey = 'submit';
@@ -29,25 +51,3 @@ export class DefaultHttpSubmitService extends SubmitServiceBase<DefaultHttpSubmi
         return new URL(this.options.url ?? httpSubmitOptionsDefaults.url ?? '');
     }
 }
-
-export type HttpMethod = 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
-
-export interface DefaultHttpSubmitOptions extends SubmitterOptionsBase {
-    url?: string;
-    method?: HttpMethod;
-    contentType?: string;
-    initRequest?: (request: RequestInit, rootState: State) => RequestInit;
-    parseResponse?: (response: Response) => Promise<unknown>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    buildBody?: (data: Record<string, unknown>) => any;
-}
-
-export const httpSubmitOptionsDefaults = {
-    url: '/',
-    method: 'POST',
-    parseResponse: (response: Response) => response.json(),
-    buildBody: (data: Record<string, unknown>) => JSON.stringify(data),
-    asQuery: [],
-    keysMap: {},
-    contentType: 'application/json',
-};

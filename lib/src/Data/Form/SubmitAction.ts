@@ -1,4 +1,4 @@
-import { Action } from 'wb-core-provider';
+import {Action} from 'wb-core-provider';
 
 export enum SubmitActionType {
     SUBMIT_START = 'SUBMIT_START',

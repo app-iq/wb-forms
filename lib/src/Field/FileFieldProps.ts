@@ -1,5 +1,5 @@
-import { FieldValue } from '../Data/State';
-import { UploadOptions } from '../Services/Protocol/FileUploader';
+import {FieldValue} from '../Data/State';
+import {UploadOptions} from '../Services/Protocol/FileUploader';
 
 export interface FileFieldProps {
     name: string;

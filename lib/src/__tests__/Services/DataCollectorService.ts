@@ -26,11 +26,14 @@ test('should collect data', () => {
     const options: DataCollectorOptions = {
         id: () => randomId,
         name: (value: string) => value.toUpperCase(),
-        info: (value: { key: string; value: string }[]) => {
-            return value.reduce((acc, item) => {
-                acc[item.key] = item.value;
-                return acc;
-            }, {} as Record<string, string>);
+        info: (value: {key: string; value: string}[]) => {
+            return value.reduce(
+                (acc, item) => {
+                    acc[item.key] = item.value;
+                    return acc;
+                },
+                {} as Record<string, string>,
+            );
         },
         nonExistingField: () => 'non-existing-field',
     };
@@ -45,6 +48,6 @@ test('should collect data', () => {
             height: '180',
             weight: '80',
             age: '30',
-        }
+        },
     });
 });

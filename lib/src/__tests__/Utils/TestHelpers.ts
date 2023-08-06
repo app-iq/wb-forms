@@ -1,4 +1,4 @@
-import { FieldState, FormState } from '../../Data/State';
+import {FieldState, FormState} from '../../Data/State';
 
 export function buildMockFieldState(field?: Partial<FieldState>): FieldState {
     return {

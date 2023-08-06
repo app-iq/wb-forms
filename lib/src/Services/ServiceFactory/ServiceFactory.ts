@@ -1,12 +1,12 @@
-import { FieldValidator } from '../Protocol/FieldValidator';
-import { ChangeHandler } from '../Protocol/ChangeHandler';
-import { SubmitService } from '../Protocol/SubmitService';
-import { FieldConfiguration } from '../../Field/FieldProps';
-import { ValueSelector } from '../../Field/ValueSelector';
-import { FormValidator } from '../Protocol/FormValidator';
-import { FileUploader, UploadOptions } from '../Protocol/FileUploader';
-import { FieldState } from '../../main';
-import { ArrayFieldChangeHandler } from '../Protocol/ArrayFieldChangeHandler';
+import {FieldValidator} from '../Protocol/FieldValidator';
+import {ChangeHandler} from '../Protocol/ChangeHandler';
+import {SubmitService} from '../Protocol/SubmitService';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {ValueSelector} from '../../Field/ValueSelector';
+import {FormValidator} from '../Protocol/FormValidator';
+import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
+import {FieldState} from '../../main';
+import {ArrayFieldChangeHandler} from '../Protocol/ArrayFieldChangeHandler';
 import {DataCollector} from '../Protocol/DataCollector';
 
 export interface ServiceFactory {
@@ -19,7 +19,7 @@ export interface ServiceFactory {
     createFileChangeHandler(
         fieldName: string,
         autoUploadOptions?: UploadOptions,
-        defaultValueSelector?: ValueSelector
+        defaultValueSelector?: ValueSelector,
     ): ChangeHandler;
 
     createArrayFieldChangeHandler(fieldName: string, fieldState: FieldState): ArrayFieldChangeHandler;

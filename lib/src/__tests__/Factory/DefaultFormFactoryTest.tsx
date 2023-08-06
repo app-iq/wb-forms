@@ -1,14 +1,18 @@
-import { DefaultFormFactory } from '../../Factory/DefaultFormFactory';
-import { FormOptions } from '../../Factory/DefaultFormFactoryConfiguration';
-import React, { ComponentType } from 'react';
-import { FieldProps } from '../../Field/FieldProps';
-import { render, screen } from '@testing-library/react';
+import React, {ComponentType} from 'react';
+import {render, screen} from '@testing-library/react';
+import {DefaultFormFactory} from '../../Factory/DefaultFormFactory';
+import {FormOptions} from '../../Factory/DefaultFormFactoryConfiguration';
+import {FieldProps} from '../../Field/FieldProps';
 
-const DummyComponent1 = ({ name }: FieldProps) => <div>DummyField 1 : {name}</div>;
-const DummyComponent2 = ({ name }: FieldProps) => <div>DummyField 2 : {name}</div>;
+function DummyComponent1({name}: FieldProps) {
+    return <div>DummyField 1 : {name}</div>;
+}
+function DummyComponent2({name}: FieldProps) {
+    return <div>DummyField 2 : {name}</div>;
+}
 
 describe('DefaultFormFactory', () => {
-    it('should render form from configuration', async function () {
+    it('should render form from configuration', async () => {
         const fieldTypeMap: Record<string, ComponentType<FieldProps>> = {
             text_type_1: DummyComponent1,
             text_type_2: DummyComponent2,
@@ -16,8 +20,8 @@ describe('DefaultFormFactory', () => {
         const factory = new DefaultFormFactory(fieldTypeMap);
         const configuration: FormOptions = {
             fields: {
-                username: { type: 'text_type_1', options: { name: 'username' } },
-                password: { type: 'text_type_2', options: { name: 'password' } },
+                username: {type: 'text_type_1', options: {name: 'username'}},
+                password: {type: 'text_type_2', options: {name: 'password'}},
             },
             formOptions: {},
             extraOptions: {},

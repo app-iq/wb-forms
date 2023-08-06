@@ -1,11 +1,11 @@
-import { ChangeHandler } from '../Protocol/ChangeHandler';
-import { FieldActions } from '../../Data/Field/FieldActions';
-import { FieldValidator } from '../Protocol/FieldValidator';
-import { FieldConfiguration } from '../../Field/FieldProps';
-import { filesValueSelector, ValueSelector } from '../../Field/ValueSelector';
-import { FieldValue } from '../../Data/State';
-import { DispatchFunction } from 'wb-core-provider';
-import { FileUploader, UploadOptions } from '../Protocol/FileUploader';
+import {DispatchFunction} from 'wb-core-provider';
+import {ChangeHandler} from '../Protocol/ChangeHandler';
+import {FieldActions} from '../../Data/Field/FieldActions';
+import {FieldValidator} from '../Protocol/FieldValidator';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {filesValueSelector, ValueSelector} from '../../Field/ValueSelector';
+import {FieldValue} from '../../Data/State';
+import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
 
 export class DefaultFileChangeHandler implements ChangeHandler {
     private readonly defaultValueSelector: ValueSelector;
@@ -17,7 +17,7 @@ export class DefaultFileChangeHandler implements ChangeHandler {
         private fileUploader: FileUploader,
         private fieldConfiguration: FieldConfiguration,
         private uploadOptions?: UploadOptions,
-        valueSelector?: ValueSelector
+        valueSelector?: ValueSelector,
     ) {
         this.defaultValueSelector = valueSelector ?? filesValueSelector;
     }

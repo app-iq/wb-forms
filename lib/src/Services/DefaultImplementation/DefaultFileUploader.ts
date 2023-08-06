@@ -1,5 +1,5 @@
-import { SyntheticEvent } from 'react';
-import { FileUploader, UploadOptions } from '../Protocol/FileUploader';
+import {SyntheticEvent} from 'react';
+import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
 
 export class DefaultFileUploader implements FileUploader {
     async uploadFile(event: SyntheticEvent<HTMLInputElement>, options: UploadOptions): Promise<string> {

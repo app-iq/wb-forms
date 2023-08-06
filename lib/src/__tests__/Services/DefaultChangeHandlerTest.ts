@@ -1,12 +1,12 @@
-import { DefaultChangeHandler } from '../../Services/DefaultImplementation/DefaultChangeHandler';
-import { FieldActions } from '../../Data/Field/FieldActions';
-import { FieldConfiguration } from '../../Field/FieldProps';
 import * as TypeMoq from 'typemoq';
-import { FieldValidator } from '../../Services/Protocol/FieldValidator';
-import { DispatchFunction } from 'wb-core-provider';
+import {DispatchFunction} from 'wb-core-provider';
+import {DefaultChangeHandler} from '../../Services/DefaultImplementation/DefaultChangeHandler';
+import {FieldActions} from '../../Data/Field/FieldActions';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {FieldValidator} from '../../Services/Protocol/FieldValidator';
 
-describe('DefaultChangeHandler', function () {
-    it('should dispatch changeValue action', function () {
+describe('DefaultChangeHandler', () => {
+    it('should dispatch changeValue action', () => {
         const dispatch = jest.fn();
         const validator = TypeMoq.Mock.ofType<FieldValidator>();
         const handler = new DefaultChangeHandler(dispatch, 'username', validator.object, {
@@ -16,7 +16,7 @@ describe('DefaultChangeHandler', function () {
         expect(dispatch).toBeCalledWith(FieldActions.changeValue('username', 'new-value'));
     });
 
-    it('should dispatch changeValidationState action', function () {
+    it('should dispatch changeValidationState action', () => {
         const dispatch = jest.fn();
         const validator = TypeMoq.Mock.ofType<FieldValidator>();
         validator.setup(v => v.validate).returns(() => () => false);
@@ -30,10 +30,10 @@ describe('DefaultChangeHandler', function () {
         expect(dispatch).toHaveBeenNthCalledWith(2, FieldActions.changeValidationState('username', false));
     });
 
-    it('should not dispatch any action if readonly is true', function () {
+    it('should not dispatch any action if readonly is true', () => {
         const dispatch = jest.fn();
         const validator = TypeMoq.Mock.ofType<FieldValidator>();
-        const handler = new DefaultChangeHandler(dispatch, 'test', validator.object, { readonly: true });
+        const handler = new DefaultChangeHandler(dispatch, 'test', validator.object, {readonly: true});
         handler.handle('new-value');
         expect(dispatch).not.toBeCalled();
     });
@@ -41,7 +41,7 @@ describe('DefaultChangeHandler', function () {
     function assertValidationActionNotDispatch(
         fieldName: string,
         dispatch: DispatchFunction,
-        fieldConfiguration: FieldConfiguration
+        fieldConfiguration: FieldConfiguration,
     ) {
         const validator = TypeMoq.Mock.ofType<FieldValidator>();
         const handler = new DefaultChangeHandler(dispatch, fieldName, validator.object, fieldConfiguration);
@@ -50,21 +50,21 @@ describe('DefaultChangeHandler', function () {
         expect(dispatch).not.toHaveBeenNthCalledWith(2, FieldActions.changeValidationState('username', false));
     }
 
-    it('should not dispatch changeValidationState action', function () {
+    it('should not dispatch changeValidationState action', () => {
         const fieldConfiguration: FieldConfiguration = {
             validateOnChange: true,
             skipValidation: false,
             validationRules: 'some-rules',
             valueSelector: value => value,
         };
-        assertValidationActionNotDispatch('username', jest.fn(), { ...fieldConfiguration, skipValidation: true });
-        assertValidationActionNotDispatch('username', jest.fn(), { ...fieldConfiguration, validateOnChange: false });
-        assertValidationActionNotDispatch('username', jest.fn(), { ...fieldConfiguration, validationRules: '' });
-        assertValidationActionNotDispatch('username', jest.fn(), { ...fieldConfiguration, validationRules: null });
-        assertValidationActionNotDispatch('username', jest.fn(), { ...fieldConfiguration, validationRules: undefined });
+        assertValidationActionNotDispatch('username', jest.fn(), {...fieldConfiguration, skipValidation: true});
+        assertValidationActionNotDispatch('username', jest.fn(), {...fieldConfiguration, validateOnChange: false});
+        assertValidationActionNotDispatch('username', jest.fn(), {...fieldConfiguration, validationRules: ''});
+        assertValidationActionNotDispatch('username', jest.fn(), {...fieldConfiguration, validationRules: null});
+        assertValidationActionNotDispatch('username', jest.fn(), {...fieldConfiguration, validationRules: undefined});
     });
 
-    it('should call listener callback when passed', function () {
+    it('should call listener callback when passed', () => {
         const dispatch = jest.fn();
         const validator = TypeMoq.Mock.ofType<FieldValidator>();
         const handler = new DefaultChangeHandler(dispatch, 'test', validator.object, {

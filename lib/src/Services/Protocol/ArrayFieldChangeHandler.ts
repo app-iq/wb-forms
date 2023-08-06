@@ -1,4 +1,4 @@
-import { FieldValue } from '../../main';
+import {FieldValue} from '../../main';
 
 export interface ArrayFieldChangeHandler {
     add(defaultValue: FieldValue): void;

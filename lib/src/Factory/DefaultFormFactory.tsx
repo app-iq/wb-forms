@@ -1,10 +1,27 @@
-import { FormFactory } from './FormFactory';
-import { FormOptions } from './DefaultFormFactoryConfiguration';
-import React, { ReactElement, useCallback } from 'react';
-import { FieldProps } from '../Field/FieldProps';
-import { Form } from '../Form/Form';
-import { useServiceFactory } from 'wb-core-provider';
-import { ServiceFactory } from '../Services/ServiceFactory/ServiceFactory';
+import React, {ReactElement, useCallback} from 'react';
+import {useServiceFactory} from 'wb-core-provider';
+import {FormFactory} from './FormFactory';
+import {FormOptions} from './DefaultFormFactoryConfiguration';
+import {FieldProps} from '../Field/FieldProps';
+import {Form} from '../Form/Form';
+import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
+
+function SubmitButton() {
+    const serviceFactory = useServiceFactory<ServiceFactory>();
+    const onClick = useCallback(
+        (e: React.MouseEvent) => {
+            e.preventDefault();
+            const submit = serviceFactory.createSubmitService();
+            submit.submit().then();
+        },
+        [serviceFactory],
+    );
+    return (
+        <button type="button" onClick={onClick}>
+            SUBMIT
+        </button>
+    );
+}
 
 export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<FormOptions<TExtraOptions>> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,11 +48,11 @@ export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<
     }
 
     protected renderFields(configuration: FormOptions<TExtraOptions>): ReactElement | ReactElement[] {
-        const fields = configuration.fields;
+        const {fields} = configuration;
         const keys = Object.keys(fields);
         return keys.map(key => {
             const fieldProps = fields[key].options;
-            const type = fields[key].type;
+            const {type} = fields[key];
             return this.getFieldElement(type, fieldProps);
         });
     }
@@ -43,14 +60,4 @@ export class DefaultFormFactory<TExtraOptions = unknown> implements FormFactory<
     protected renderButton(): ReactElement {
         return <SubmitButton />;
     }
-}
-
-function SubmitButton() {
-    const serviceFactory = useServiceFactory<ServiceFactory>();
-    const onClick = useCallback((e: React.MouseEvent) => {
-        e.preventDefault();
-        const submit = serviceFactory.createSubmitService();
-        submit.submit().then();
-    }, []);
-    return <button onClick={onClick}>SUBMIT</button>;
 }

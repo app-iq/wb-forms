@@ -1,48 +1,24 @@
-import { FieldAction, FieldActionType, FieldPayload, SetCustomValuePayload, SimpleFieldPayload } from './FieldAction';
-import { FieldState, State } from '../State';
-import { Reducer } from 'wb-core-provider';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const fieldReducer: Reducer<State, FieldAction<any>> = (state, action) => {
-    switch (action.type) {
-        case FieldActionType.CHANGE_VALUE:
-            return updateFieldIfExists(
-                state,
-                action as FieldAction<SimpleFieldPayload<unknown>>,
-                handleValueChange(action)
-            );
-
-        case FieldActionType.SET_VALIDATION_STATE:
-            return updateFieldIfExists(state, action, handleValidation(action));
-
-        case FieldActionType.SET_CUSTOM_VALUE:
-            return updateFieldIfExists(state, action, handleSetCustomValue(action));
-
-        case FieldActionType.SET_READY:
-            return updateFieldIfExists(state, action, field => ({
-                ...field,
-                ready: action.payload.value,
-            }));
-    }
-};
+import {Reducer} from 'wb-core-provider';
+import {FieldAction, FieldActionType, FieldPayload, SetCustomValuePayload, SimpleFieldPayload} from './FieldAction';
+import {FieldState, State} from '../State';
 
 type HandleFieldChangeCallback = (field: FieldState) => FieldState;
 type HandleSimpleFieldAction<TAction extends FieldPayload> = (
-    action: FieldAction<TAction>
+    action: FieldAction<TAction>,
 ) => HandleFieldChangeCallback;
 
 function updateFieldIfExists(
     state: State,
     action: FieldAction<SimpleFieldPayload<unknown>>,
-    handleChange: HandleFieldChangeCallback
+    handleChange: HandleFieldChangeCallback,
 ): State {
-    const fields = { ...state.fields };
+    const fields = {...state.fields};
     const toChangeField = fields[action.payload.name];
     if (toChangeField === undefined) {
         return state;
     }
     fields[action.payload.name] = handleChange(toChangeField);
-    return { ...state, fields: fields };
+    return {...state, fields};
 }
 
 const changeProperty = (field: FieldState, propertyName: keyof FieldState, value: unknown) => ({
@@ -59,3 +35,29 @@ const handleSetCustomValue: HandleSimpleFieldAction<SetCustomValuePayload> =
 
 const handleValidation: HandleSimpleFieldAction<SimpleFieldPayload<boolean>> = action => field =>
     changeProperty(field, 'valid', action.payload.value);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const fieldReducer: Reducer<State, FieldAction<any>> = (state, action) => {
+    switch (action.type) {
+        case FieldActionType.CHANGE_VALUE:
+            return updateFieldIfExists(
+                state,
+                action as FieldAction<SimpleFieldPayload<unknown>>,
+                handleValueChange(action),
+            );
+
+        case FieldActionType.SET_VALIDATION_STATE:
+            return updateFieldIfExists(state, action, handleValidation(action));
+
+        case FieldActionType.SET_CUSTOM_VALUE:
+            return updateFieldIfExists(state, action, handleSetCustomValue(action));
+
+        case FieldActionType.SET_READY:
+            return updateFieldIfExists(state, action, field => ({
+                ...field,
+                ready: action.payload.value,
+            }));
+        default:
+            return state;
+    }
+};

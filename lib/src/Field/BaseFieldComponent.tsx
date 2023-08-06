@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
-import { DispatchFunction, useDispatch, useServiceFactory } from 'wb-core-provider';
-import { useFieldConfiguration } from './FieldConfigurationContext';
-import { useField } from './Hooks';
-import { ServiceFactory } from '../Services/ServiceFactory/ServiceFactory';
-import { ChangeHandler } from '../Services/Protocol/ChangeHandler';
-import { FieldState } from '../Data/State';
-import { SetupActions } from '../Data/Setup/SetupActions';
+import React, {useEffect, useMemo} from 'react';
+import {DispatchFunction, useDispatch, useServiceFactory} from 'wb-core-provider';
+import {useFieldConfiguration} from './FieldConfigurationContext';
+import {useField} from './Hooks';
+import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
+import {ChangeHandler} from '../Services/Protocol/ChangeHandler';
+import {FieldState} from '../Data/State';
+import {SetupActions} from '../Data/Setup/SetupActions';
 
 export interface WithFieldProps {
     handleChange: (e: unknown) => void;
@@ -13,44 +13,44 @@ export interface WithFieldProps {
     dispatch: DispatchFunction;
 }
 
-export function createBaseFieldComponent<Props extends { name: string }, TDefaultProps>(
+export function createBaseFieldComponent<Props extends {name: string}, TDefaultProps>(
     Component: React.ComponentType<Props & WithFieldProps>,
     defaultProps: TDefaultProps,
     createChangeHandler: (props: Omit<Props, keyof WithFieldProps>, serviceFactory: ServiceFactory) => ChangeHandler,
-    createInitialFieldState: (props: Omit<Props, keyof WithFieldProps>) => FieldState
+    createInitialFieldState: (props: Omit<Props, keyof WithFieldProps>) => FieldState,
 ) {
     return function Wrapper(props: Omit<Props, keyof WithFieldProps>) {
-        props = { ...props, ...defaultProps };
-        const name = props.name;
+        const propsWithDefaults = useMemo(() => ({...props, ...defaultProps}) as unknown as Props, [props]);
+        const {name} = propsWithDefaults;
         const field = useField(name);
         const dispatch = useDispatch();
         const serviceFactory = useServiceFactory<ServiceFactory>();
-        const changeHandler = createChangeHandler(props, serviceFactory);
+        const changeHandler = createChangeHandler(propsWithDefaults, serviceFactory);
         const isNotInitializedYet = field === undefined;
-        const configuration = useFieldConfiguration(props.name) ?? {};
+        const configuration = useFieldConfiguration(name) ?? {};
 
         useEffect(() => {
             if (isNotInitializedYet) {
-                dispatch(SetupActions.initializeField(props.name, createInitialFieldState(props)));
+                dispatch(SetupActions.initializeField(name, createInitialFieldState(propsWithDefaults)));
             }
-        }, [dispatch, isNotInitializedYet, props]);
+        }, [dispatch, isNotInitializedYet, name, propsWithDefaults]);
 
         if (isNotInitializedYet) {
             return null;
         }
 
         if (configuration.hidden) {
-            return <React.Fragment />;
+            return <></>;
         }
 
         const onChange = (e: unknown) => changeHandler.handle(e);
 
         const toInjectProps: WithFieldProps = {
             handleChange: onChange,
-            dispatch: dispatch,
-            field: field,
+            dispatch,
+            field,
         };
 
-        return <Component {...(props as Props)} {...toInjectProps} />;
+        return <Component {...propsWithDefaults} {...toInjectProps} />;
     };
 }

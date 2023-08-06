@@ -1,9 +1,9 @@
-import { FormProps } from '../Form/FormProps';
-import { FieldProps } from '../Field/FieldProps';
+import {FormProps} from '../Form/FormProps';
+import {FieldProps} from '../Field/FieldProps';
 
 export interface FieldOptions {
     type: string;
-    options: FieldProps & { [propName: string]: unknown };
+    options: FieldProps & {[propName: string]: unknown};
 }
 
 export interface FormOptions<TExtraOptions = unknown> {

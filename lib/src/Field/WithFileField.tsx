@@ -1,12 +1,12 @@
 import React from 'react';
-import { WithFieldProps, createBaseFieldComponent } from './BaseFieldComponent';
-import { FileFieldProps } from './FileFieldProps';
-import { ValueSelector, filesValueSelector } from './ValueSelector';
+import {WithFieldProps, createBaseFieldComponent} from './BaseFieldComponent';
+import {FileFieldProps} from './FileFieldProps';
+import {ValueSelector, filesValueSelector} from './ValueSelector';
 
 export function withFileField<Props extends FileFieldProps = FileFieldProps>(
     Component: React.ComponentType<Props & WithFieldProps>,
     defaultValueSelector: ValueSelector = filesValueSelector,
-    defaultProps: Partial<FileFieldProps> = {}
+    defaultProps: Partial<FileFieldProps> = {},
 ) {
     return createBaseFieldComponent<Props, Partial<FileFieldProps>>(
         Component,
@@ -17,6 +17,6 @@ export function withFileField<Props extends FileFieldProps = FileFieldProps>(
             value: props.initialValid ?? '',
             valid: props.initialValid ?? true,
             ready: true,
-        })
+        }),
     );
 }

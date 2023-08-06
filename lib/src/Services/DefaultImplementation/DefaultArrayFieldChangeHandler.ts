@@ -1,9 +1,9 @@
-import { DispatchFunction } from 'wb-core-provider';
-import { FieldState, FieldValue } from '../../Data/State';
-import { ArrayFieldChangeHandler } from '../Protocol/ArrayFieldChangeHandler';
-import { FieldValidator } from '../Protocol/FieldValidator';
-import { FieldConfiguration } from '../../Field/FieldProps';
-import { FieldActions } from '../../main';
+import {DispatchFunction} from 'wb-core-provider';
+import {FieldState, FieldValue} from '../../Data/State';
+import {ArrayFieldChangeHandler} from '../Protocol/ArrayFieldChangeHandler';
+import {FieldValidator} from '../Protocol/FieldValidator';
+import {FieldConfiguration} from '../../Field/FieldProps';
+import {FieldActions} from '../../main';
 
 export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
     constructor(
@@ -11,7 +11,7 @@ export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
         private readonly state: FieldState,
         private readonly dispatch: DispatchFunction,
         private readonly fieldValidator: FieldValidator,
-        private readonly fieldConfiguration: FieldConfiguration
+        private readonly fieldConfiguration: FieldConfiguration,
     ) {}
 
     add(defaultValue: FieldValue): void {
@@ -33,22 +33,23 @@ export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
         }
         const action = FieldActions.changeValue(
             this.fieldName,
-            this.state.value.filter((_: FieldValue, i: number) => i !== index)
+            this.state.value.filter((_: FieldValue, i: number) => i !== index),
         );
         this.dispatch(action);
         const validationAction = FieldActions.changeValidationState(
             this.fieldName,
-            (this.state.valid as boolean[]).filter((_, i) => i !== index)
+            (this.state.valid as boolean[]).filter((_, i) => i !== index),
         );
         this.dispatch(validationAction);
     }
+
     handleChange(index: number, value: FieldValue): void {
         if (this.fieldConfiguration.readonly) {
             return;
         }
         const action = FieldActions.changeValue(
             this.fieldName,
-            this.state.value.map((v: FieldValue, i: number) => (i === index ? value : v))
+            this.state.value.map((v: FieldValue, i: number) => (i === index ? value : v)),
         );
         this.dispatch(action);
         if (this.shouldValidate()) {
@@ -56,14 +57,14 @@ export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
             const valid = this.fieldValidator.validate(value, validationRules);
             const validationAction = FieldActions.changeValidationState(
                 this.fieldName,
-                (this.state.valid as boolean[]).map((v: boolean, i: number) => (i === index ? valid : v))
+                (this.state.valid as boolean[]).map((v: boolean, i: number) => (i === index ? valid : v)),
             );
             this.dispatch(validationAction);
         }
     }
 
     private getValidationRules(index: number): unknown {
-        const { validationRules } = this.fieldConfiguration;
+        const {validationRules} = this.fieldConfiguration;
         if (Array.isArray(validationRules)) {
             return validationRules[index];
         }

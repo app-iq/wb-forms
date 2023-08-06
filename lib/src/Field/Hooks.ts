@@ -1,5 +1,5 @@
-import { FieldState, State } from '../Data/State';
-import { useState } from 'wb-core-provider';
+import {useState} from 'wb-core-provider';
+import {FieldState, State} from '../Data/State';
 
 export function useField(name: string): FieldState {
     const state = useState<State>();

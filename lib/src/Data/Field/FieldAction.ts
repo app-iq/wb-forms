@@ -1,4 +1,4 @@
-import { Action } from 'wb-core-provider';
+import {Action} from 'wb-core-provider';
 
 export enum FieldActionType {
     CHANGE_VALUE = 'CHANGE_VALUE',

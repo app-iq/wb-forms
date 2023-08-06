@@ -1,4 +1,4 @@
-import { SubmitAction, SubmitActionType } from './SubmitAction';
+import {SubmitAction, SubmitActionType} from './SubmitAction';
 
 export class SubmitActions {
     public static submitStart(): SubmitAction<undefined> {

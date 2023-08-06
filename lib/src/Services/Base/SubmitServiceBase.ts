@@ -1,9 +1,9 @@
-import { SubmitService } from '../Protocol/SubmitService';
-import { SubmitActions } from '../../Data/Form/SubmitActions';
-import { FormActions } from '../../Data/Form/FormActions';
-import { State } from '../../Data/State';
-import { DispatchFunction } from 'wb-core-provider';
-import { FieldConfiguration } from '../../Field/FieldProps';
+import {DispatchFunction} from 'wb-core-provider';
+import {SubmitService} from '../Protocol/SubmitService';
+import {SubmitActions} from '../../Data/Form/SubmitActions';
+import {FormActions} from '../../Data/Form/FormActions';
+import {State} from '../../Data/State';
+import {FieldConfiguration} from '../../Field/FieldProps';
 import {DataCollector} from '../Protocol/DataCollector';
 
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
@@ -13,9 +13,8 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
         protected readonly dispatch: DispatchFunction,
         protected readonly rootState: State,
         options: Record<string, unknown>,
+        protected readonly collectorService: DataCollector,
         protected readonly fieldsConfiguration: Record<string, FieldConfiguration> = {},
-        protected readonly collectorService: DataCollector
-
     ) {
         this.options = this.extractSubmitOptions(options);
     }

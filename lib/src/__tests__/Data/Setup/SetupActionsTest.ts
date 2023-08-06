@@ -1,10 +1,10 @@
-import { SetupActions } from '../../../Data/Setup/SetupActions';
-import { InitializePayload, SetupAction, SetupActionType } from '../../../Data/Setup/SetupAction';
-import { buildMockFieldState } from '../../Utils/TestHelpers';
-import { FieldState } from '../../../Data/State';
+import {SetupActions} from '../../../Data/Setup/SetupActions';
+import {InitializePayload, SetupAction, SetupActionType} from '../../../Data/Setup/SetupAction';
+import {buildMockFieldState} from '../../Utils/TestHelpers';
+import {FieldState} from '../../../Data/State';
 
 describe('Setup Actions', () => {
-    it('should return initialize action', function () {
+    it('should return initialize action', () => {
         const field: FieldState = buildMockFieldState({
             name: 'test',
             value: 'xyz',
@@ -19,7 +19,7 @@ describe('Setup Actions', () => {
             type: SetupActionType.INITIALIZE_FIELD,
             payload: {
                 name: 'test',
-                field: field,
+                field,
             },
         };
         expect(action).toEqual(expected);
