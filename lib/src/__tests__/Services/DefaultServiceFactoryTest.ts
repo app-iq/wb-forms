@@ -85,7 +85,7 @@ describe('DefaultServiceFactory', () => {
     it('should create DefaultDataCollector', function () {
         const rootState: State = { fields: {}, form: { loading: false } };
         const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), { children: [] });
-        const collector = serviceFactory.createDataCollector();
+        const collector = serviceFactory.createDataCollectorService();
         expect(collector).toBeInstanceOf(DefaultDataCollector);
     });
 

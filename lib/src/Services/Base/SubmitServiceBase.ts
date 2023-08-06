@@ -4,6 +4,7 @@ import { FormActions } from '../../Data/Form/FormActions';
 import { State } from '../../Data/State';
 import { DispatchFunction } from 'wb-core-provider';
 import { FieldConfiguration } from '../../Field/FieldProps';
+import {DataCollector} from '../Protocol/DataCollector';
 
 export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> implements SubmitService {
     protected readonly options: TOptions;
@@ -12,7 +13,9 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
         protected readonly dispatch: DispatchFunction,
         protected readonly rootState: State,
         options: Record<string, unknown>,
-        protected readonly fieldsConfiguration: Record<string, FieldConfiguration> = {}
+        protected readonly fieldsConfiguration: Record<string, FieldConfiguration> = {},
+        protected readonly collectorService: DataCollector
+
     ) {
         this.options = this.extractSubmitOptions(options);
     }
@@ -20,7 +23,8 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
     submit(): Promise<void> {
         this.dispatch(SubmitActions.submitStart());
         return new Promise((resolve, reject) => {
-            this.getSubmitPromise()
+            const data = this.collectorService.collect();
+            this.getSubmitPromise(data)
                 .then(response => {
                     this.onSuccess(response);
                     this.onComplete();
@@ -36,7 +40,7 @@ export abstract class SubmitServiceBase<TOptions extends SubmitterOptionsBase> i
 
     protected abstract extractSubmitOptions(options: Record<string, unknown>): TOptions;
 
-    protected abstract getSubmitPromise(): Promise<unknown>;
+    protected abstract getSubmitPromise(data: Record<string, unknown>): Promise<unknown>;
 
     protected onSuccess(response: unknown): void {
         this.dispatch(SubmitActions.submitSucceed(response));

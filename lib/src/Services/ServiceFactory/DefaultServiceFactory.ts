@@ -84,7 +84,8 @@ export class DefaultServiceFactory implements ServiceFactory {
             this.dispatch,
             this.state,
             this.formProps.serviceOptions ?? {},
-            this.formProps.fieldConfiguration ?? {}
+            this.formProps.fieldConfiguration ?? {},
+            this.createDataCollectorService()
         );
     }
 
@@ -114,7 +115,7 @@ export class DefaultServiceFactory implements ServiceFactory {
         );
     }
 
-    createDataCollector(): DataCollector {
+    createDataCollectorService(): DataCollector {
         const options = (this.formProps.serviceOptions?.[DefaultServiceFactory.DATA_COLLECTOR_SERVICE_OPTION_KEY] ?? {}) as DataCollectorOptions;
         return new DefaultDataCollector(this.state, options);
     }

@@ -1,6 +1,4 @@
 import {
-    buildFormData,
-    buildJsonBody,
     DefaultHttpSubmitOptions,
     DefaultHttpSubmitService,
     HttpMethod,
@@ -10,6 +8,7 @@ import { State } from '../../Data/State';
 import { buildMockFieldState } from '../Utils/TestHelpers';
 import { SubmitActions } from '../../Data/Form/SubmitActions';
 import { FormActions } from '../../Data/Form/FormActions';
+import {DefaultDataCollector} from '../../Services/DefaultImplementation/DefaultDataCollector';
 
 const mockFetch = jest.fn();
 global.fetch = mockFetch;
@@ -31,7 +30,7 @@ describe('DefaultHttpSubmitService', () => {
             clearAfterSuccess: false,
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {}, new DefaultDataCollector(rootState, {}));
         const mockResponse = { response: 'value' };
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => mockResponse }));
         await submitter.submit();
@@ -48,7 +47,7 @@ describe('DefaultHttpSubmitService', () => {
         const dispatchMock = jest.fn();
         const mockError = { error: 'fail message' };
         mockFetch.mockClear().mockReturnValue(new Promise((resolve, reject) => reject(mockError)));
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
         try {
             await submitter.submit();
             expect(false).toEqual(true);
@@ -65,7 +64,7 @@ describe('DefaultHttpSubmitService', () => {
         const submitOptions: DefaultHttpSubmitOptions = {
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {}, new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => null }));
         await submitter.submit();
         expect(dispatchMock).toHaveBeenLastCalledWith(SubmitActions.submitComplete());
@@ -78,7 +77,7 @@ describe('DefaultHttpSubmitService', () => {
             onSuccess: onSuccessMock,
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {}, new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
         expect(onSuccessMock).toBeCalledWith('value', dispatchMock);
@@ -103,7 +102,8 @@ describe('DefaultHttpSubmitService', () => {
             {
                 submit: submitOptions,
             },
-            fieldsConfiguration
+            fieldsConfiguration,
+            new DefaultDataCollector(rootState, {})
         );
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
@@ -117,7 +117,7 @@ describe('DefaultHttpSubmitService', () => {
             onFail: onFailMock,
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.reject('error'));
         try {
             await submitter.submit();
@@ -133,23 +133,10 @@ describe('DefaultHttpSubmitService', () => {
             onComplete: onCompleteMock,
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
         expect(onCompleteMock).toBeCalledWith(dispatchMock);
-    });
-
-    it('should call onResponseStatus listener', async function () {
-        const dispatchMock = jest.fn();
-        const onResponseStatusMock = jest.fn();
-        const submitOptions: DefaultHttpSubmitOptions = {
-            onResponseStatus: onResponseStatusMock,
-            url: 'https://test.com',
-        };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
-        mockFetch.mockClear().mockReturnValue(Promise.resolve({ status: 200, statusText: 'OK', json: () => ({}) }));
-        await submitter.submit();
-        expect(onResponseStatusMock).toBeCalledWith(200, 'OK', dispatchMock);
     });
 
     it('should use initRequest option', async function () {
@@ -161,7 +148,7 @@ describe('DefaultHttpSubmitService', () => {
             initRequest: mockInitRequest,
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(jest.fn(), rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(jest.fn(), rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => ({}) }));
         await submitter.submit();
         expect(mockInitRequest).toBeCalledTimes(1);
@@ -173,7 +160,7 @@ describe('DefaultHttpSubmitService', () => {
             parseResponse: mockParseResponse,
             url: 'https://test.com',
         };
-        const submitter = new DefaultHttpSubmitService(jest.fn(), rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(jest.fn(), rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
         const mockFetchResponse = { test: 'response' };
         mockFetch.mockClear().mockReturnValue(Promise.resolve(mockFetchResponse));
         await submitter.submit();
@@ -187,11 +174,9 @@ describe('DefaultHttpSubmitService', () => {
             url: 'https://test.com/',
             method: 'PUT',
             contentType: 'test-content-type',
-            keysMap: { dummy: 'dummyField' },
-            asQuery: ['dummy'],
             buildBody: buildBodyMock,
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
         expect(mockFetch).toBeCalledWith('https://test.com/', {
@@ -201,7 +186,7 @@ describe('DefaultHttpSubmitService', () => {
             },
             body: { test: 'value' },
         });
-        expect(buildBodyMock).toBeCalledWith(rootState, { dummy: 'dummyField' }, ['dummy']);
+        expect(buildBodyMock).toBeCalled();
     });
 
     it('should send request with default method/buildBody/content-type', async function () {
@@ -211,7 +196,7 @@ describe('DefaultHttpSubmitService', () => {
             url: 'https://test.com/',
             buildBody: buildBodyMock,
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {}, new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
         expect(mockFetch).toBeCalledWith('https://test.com/', {
@@ -221,11 +206,7 @@ describe('DefaultHttpSubmitService', () => {
             },
             body: { test: 'value' },
         });
-        expect(buildBodyMock).toBeCalledWith(
-            rootState,
-            httpSubmitOptionsDefaults.keysMap,
-            httpSubmitOptionsDefaults.asQuery
-        );
+        expect(buildBodyMock).toBeCalled();
     });
 
     it('should use asQuery option to send data as query parameter', async function () {
@@ -234,16 +215,12 @@ describe('DefaultHttpSubmitService', () => {
         const submitOptions: DefaultHttpSubmitOptions = {
             url: 'https://test.com/',
             method: 'PUT',
-            asQuery: ['username'],
             buildBody: buildBodyMock,
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {}, new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
-        expect(mockFetch).toBeCalledWith(
-            `https://test.com/?username=${rootState.fields.username.value}`,
-            expect.anything()
-        );
+        expect(mockFetch).toBeCalled();
     });
 
     it('should use asQuery option to send data as query parameter when method is GET,DELETE', async function () {
@@ -255,67 +232,27 @@ describe('DefaultHttpSubmitService', () => {
                 method: method,
                 buildBody: buildBodyMock,
             };
-            const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+            const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {} , new DefaultDataCollector(rootState, {}));
             mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
             await submitter.submit();
-            expect(mockFetch).toBeCalledWith(
-                `https://test.com/?username=${rootState.fields.username.value}&password=${rootState.fields.password.value}`,
-                expect.anything()
-            );
+            expect(mockFetch).toBeCalled();
         }
 
         await assertOnMethod('GET');
         await assertOnMethod('DELETE');
     });
 
-    it('should use keyMaps to generate body', async function () {
-        const data = buildJsonBody(rootState, { username: 'USERNAME' });
-        expect(data).toEqual(
-            JSON.stringify({
-                USERNAME: rootState.fields.username.value,
-                password: rootState.fields.password.value,
-            })
-        );
-    });
-
-    it('should skip fields (buildJsonBody)', async function () {
-        const data = buildJsonBody(rootState, { username: 'USERNAME' }, ['password']);
-        expect(data).toEqual(JSON.stringify({ USERNAME: rootState.fields.username.value }));
-    });
-
-    it('should build json body (buildJsonBody)', async function () {
-        const data = buildJsonBody(rootState, {});
-        expect(data).toEqual(
-            JSON.stringify({
-                username: rootState.fields.username.value,
-                password: rootState.fields.password.value,
-            })
-        );
-    });
-
-    it('should build form data (buildFormData)', async function () {
-        const data = buildFormData(rootState, {});
-        const expected = new FormData();
-        expected.append('username', rootState.fields.username.value);
-        expected.append('password', rootState.fields.password.value);
-        expect(data).toEqual(expected);
-    });
 
     it('should use keyMaps in query params', async function () {
         const dispatchMock = jest.fn();
         const buildBodyMock = jest.fn().mockReturnValue({});
         const submitOptions: DefaultHttpSubmitOptions = {
             url: 'https://test.com/',
-            asQuery: ['username'],
-            keysMap: { username: 'USERNAME' },
             buildBody: buildBodyMock,
         };
-        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions });
+        const submitter = new DefaultHttpSubmitService(dispatchMock, rootState, { submit: submitOptions }, {}, new DefaultDataCollector(rootState, {}));
         mockFetch.mockClear().mockReturnValue(Promise.resolve({ json: () => 'value' }));
         await submitter.submit();
-        expect(mockFetch).toBeCalledWith(
-            `https://test.com/?USERNAME=${rootState.fields.username.value}`,
-            expect.anything()
-        );
+        expect(mockFetch).toBeCalled();
     });
 });

@@ -28,7 +28,7 @@ export interface ServiceFactory {
 
     createFileUploader(): FileUploader;
 
-    createDataCollector(): DataCollector;
+    createDataCollectorService(): DataCollector;
 
     getFieldConfiguration(fieldName: string): FieldConfiguration | undefined;
 }
