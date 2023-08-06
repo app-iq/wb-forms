@@ -1,5 +1,3 @@
-- gitignore setup
-- change private to protected in services files
 - service factory from props
 - IMPROVE TESTING COVERAGE AND QUALITY
 - docs

@@ -6,13 +6,11 @@ import {FieldActions} from '../../Data/Field/FieldActions';
 import {FieldValidator} from '../Protocol/FieldValidator';
 
 export class DefaultFormValidator implements FormValidator {
-    private readonly fields: FieldsState;
-
-    private readonly serviceFactory: ServiceFactory;
-
-    private readonly dispatch: DispatchFunction;
-
-    constructor(fields: FieldsState, serviceFactory: ServiceFactory, dispatch: DispatchFunction) {
+    constructor(
+        protected readonly fields: FieldsState,
+        protected readonly serviceFactory: ServiceFactory,
+        protected readonly dispatch: DispatchFunction,
+    ) {
         this.fields = fields;
         this.serviceFactory = serviceFactory;
         this.dispatch = dispatch;

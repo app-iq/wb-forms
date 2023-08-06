@@ -8,15 +8,15 @@ import {FieldValue} from '../../Data/State';
 import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
 
 export class DefaultFileChangeHandler implements ChangeHandler {
-    private readonly defaultValueSelector: ValueSelector;
+    protected readonly defaultValueSelector: ValueSelector;
 
     constructor(
-        private dispatch: DispatchFunction,
-        private fieldName: string,
-        private fieldValidator: FieldValidator,
-        private fileUploader: FileUploader,
-        private fieldConfiguration: FieldConfiguration,
-        private uploadOptions?: UploadOptions,
+        protected dispatch: DispatchFunction,
+        protected fieldName: string,
+        protected fieldValidator: FieldValidator,
+        protected fileUploader: FileUploader,
+        protected fieldConfiguration: FieldConfiguration,
+        protected uploadOptions?: UploadOptions,
         valueSelector?: ValueSelector,
     ) {
         this.defaultValueSelector = valueSelector ?? filesValueSelector;

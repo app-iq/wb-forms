@@ -7,11 +7,11 @@ import {FieldActions} from '../../main';
 
 export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
     constructor(
-        private readonly fieldName: string,
-        private readonly state: FieldState,
-        private readonly dispatch: DispatchFunction,
-        private readonly fieldValidator: FieldValidator,
-        private readonly fieldConfiguration: FieldConfiguration,
+        protected readonly fieldName: string,
+        protected readonly state: FieldState,
+        protected readonly dispatch: DispatchFunction,
+        protected readonly fieldValidator: FieldValidator,
+        protected readonly fieldConfiguration: FieldConfiguration,
     ) {}
 
     add(defaultValue: FieldValue): void {

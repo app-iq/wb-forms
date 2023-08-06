@@ -7,21 +7,13 @@ import {textValueSelector, ValueSelector} from '../../Field/ValueSelector';
 import {FieldValue} from '../../Data/State';
 
 export class DefaultChangeHandler implements ChangeHandler {
-    private readonly fieldValidator: FieldValidator;
-
-    private readonly dispatch: DispatchFunction;
-
-    private readonly fieldConfiguration: FieldConfiguration;
-
-    private readonly fieldName: string;
-
-    private readonly defaultValueSelector: ValueSelector;
+    protected readonly defaultValueSelector: ValueSelector;
 
     constructor(
-        dispatch: DispatchFunction,
-        fieldName: string,
-        fieldValidator: FieldValidator,
-        fieldConfiguration: FieldConfiguration,
+        protected readonly dispatch: DispatchFunction,
+        protected readonly fieldName: string,
+        protected readonly fieldValidator: FieldValidator,
+        protected readonly fieldConfiguration: FieldConfiguration,
         valueSelector?: ValueSelector,
     ) {
         this.fieldValidator = fieldValidator;
