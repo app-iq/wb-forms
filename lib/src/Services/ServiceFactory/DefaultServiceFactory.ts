@@ -18,8 +18,12 @@ import { DefaultFileChangeHandler } from '../DefaultImplementation/DefaultFileCh
 import { DefaultFileUploader } from '../DefaultImplementation/DefaultFileUploader';
 import { ArrayFieldChangeHandler } from '../Protocol/ArrayFieldChangeHandler';
 import { DefaultArrayFieldChangeHandler } from '../DefaultImplementation/DefaultArrayFieldChangeHandler';
+import {DataCollector} from '../Protocol/DataCollector';
+import {DataCollectorOptions, DefaultDataCollector} from '../DefaultImplementation/DefaultDataCollector';
 
 export class DefaultServiceFactory implements ServiceFactory {
+    public static readonly DATA_COLLECTOR_SERVICE_OPTION_KEY = 'collector';
+
     private readonly state: State;
     private readonly dispatch: DispatchFunction;
     private readonly formProps: FormProps;
@@ -108,5 +112,10 @@ export class DefaultServiceFactory implements ServiceFactory {
             this.createFieldValidator(fieldName),
             fieldConfiguration ?? {}
         );
+    }
+
+    createDataCollector(): DataCollector {
+        const options = (this.formProps.serviceOptions?.[DefaultServiceFactory.DATA_COLLECTOR_SERVICE_OPTION_KEY] ?? {}) as DataCollectorOptions;
+        return new DefaultDataCollector(this.state, options);
     }
 }

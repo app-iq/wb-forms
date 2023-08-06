@@ -4,6 +4,7 @@ import { buildMockFieldState } from '../Utils/TestHelpers';
 import { DefaultChangeHandler } from '../../Services/DefaultImplementation/DefaultChangeHandler';
 import { RegexBasedFieldValidator } from '../../Services/DefaultImplementation/RegexBasedFieldValidator';
 import { DefaultHttpSubmitService } from '../../Services/DefaultImplementation/DefaultHttpSubmitService';
+import {DefaultDataCollector} from '../../Services/DefaultImplementation/DefaultDataCollector';
 
 describe('DefaultServiceFactory', () => {
     it('should create onChangeHandler from field', function () {
@@ -80,4 +81,13 @@ describe('DefaultServiceFactory', () => {
         const submitter = serviceFactory.createSubmitService();
         expect(submitter).toBeInstanceOf(DefaultHttpSubmitService);
     });
+
+    it('should create DefaultDataCollector', function () {
+        const rootState: State = { fields: {}, form: { loading: false } };
+        const serviceFactory = new DefaultServiceFactory(rootState, jest.fn(), { children: [] });
+        const collector = serviceFactory.createDataCollector();
+        expect(collector).toBeInstanceOf(DefaultDataCollector);
+    });
+
+
 });

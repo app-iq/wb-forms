@@ -1,7 +1,11 @@
+- gitignore setup
+- DataCollector Service collecting data to submit
+- Mapper Service mapping fields to names that will be used for submit
+- use eslint-config-wb-config
+- change private to protected in services files
+- service factory from props
 - IMPROVE TESTING COVERAGE AND QUALITY
 - docs
-- service factory from props
-- DataCollector Service collecting data to submit
-- MapperService Service mapping fields to names that will be used for submit
-- use eslint-config-wb-config
 - prepare for 1.0.0 version
+- improve examples app
+- setup github pages for examples app and docs
