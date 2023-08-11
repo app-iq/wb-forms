@@ -3,7 +3,7 @@ import {
     filesValueSelector,
     singleFileSelector,
     textValueSelector,
-} from '../../Field/ValueSelector';
+} from '../../../Field/ValueSelector';
 
 describe('Value Selector', () => {
     it('should select value from input (textValueSelector)', () => {

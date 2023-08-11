@@ -6,7 +6,7 @@ import {textValueSelector, ValueSelector} from './ValueSelector';
 export function withField<Props extends FieldProps = FieldProps>(
     Component: React.ComponentType<Props & WithFieldProps>,
     defaultValueSelector: ValueSelector = textValueSelector,
-    defaultProps: Partial<FieldProps> = {},
+    defaultProps: Partial<Props> = {},
 ) {
     return createBaseFieldComponent<Props, Partial<FieldProps>>(
         Component,
@@ -17,5 +17,6 @@ export function withField<Props extends FieldProps = FieldProps>(
             valid: props.initialValid ?? true,
             ready: true,
         }),
+        (changeHandler, props) => e => changeHandler.handle(e, props.onValueChange),
     );
 }

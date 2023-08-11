@@ -2,53 +2,67 @@ import {DispatchFunction} from 'wb-core-provider';
 import {ChangeHandler} from '../Protocol/ChangeHandler';
 import {FieldActions} from '../../Data/Field/FieldActions';
 import {FieldValidator} from '../Protocol/FieldValidator';
-import {FieldConfiguration} from '../../Field/FieldProps';
-import {filesValueSelector, ValueSelector} from '../../Field/ValueSelector';
-import {FieldValue} from '../../Data/State';
+import {ValueSelector} from '../../Field/ValueSelector';
+import {FieldValue, State} from '../../Data/State';
 import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
+import {BaseFieldService} from '../Base/BaseFieldService';
+import {FormProps} from '../../Form/FormProps';
+import {ServiceFactory} from '../ServiceFactory/ServiceFactory';
 
-export class DefaultFileChangeHandler implements ChangeHandler {
-    protected readonly defaultValueSelector: ValueSelector;
+export class DefaultFileChangeHandler extends BaseFieldService implements ChangeHandler {
+    public static readonly FILE_VALUE_KEY = 'fileValue';
+
+    protected readonly fileUploader: FileUploader;
+
+    protected readonly fieldValidator: FieldValidator;
 
     constructor(
-        protected dispatch: DispatchFunction,
-        protected fieldName: string,
-        protected fieldValidator: FieldValidator,
-        protected fileUploader: FileUploader,
-        protected fieldConfiguration: FieldConfiguration,
-        protected uploadOptions?: UploadOptions,
-        valueSelector?: ValueSelector,
+        fieldName: string,
+        state: State,
+        dispatch: DispatchFunction,
+        formProps: FormProps,
+        serviceFactory: ServiceFactory,
+        protected readonly valueSelector: ValueSelector,
+        protected readonly uploadOptions?: UploadOptions,
     ) {
-        this.defaultValueSelector = valueSelector ?? filesValueSelector;
+        super(fieldName, state, dispatch, formProps, serviceFactory);
+        this.fileUploader = this.serviceFactory.createFileUploader();
+        this.fieldValidator = this.serviceFactory.createFieldValidator(fieldName);
     }
 
     handle(e: FieldValue): void {
-        // TODO: return(break) if field is not ready
-        if (this.fieldConfiguration.readonly) {
+        const fieldConfiguration = this.getFieldConfiguration();
+        if (!this.getFieldState().ready) {
+            return;
+        }
+        if (fieldConfiguration.readonly) {
             return;
         }
 
         if (this.shouldValidate()) {
-            const valid = this.fieldValidator.validate(e, this.fieldConfiguration.validationRules);
+            const valid = this.fieldValidator.validate(e, fieldConfiguration.validationRules);
             const validateAction = FieldActions.changeValidationState(this.fieldName, valid);
             this.dispatch(validateAction);
 
             if (!valid) {
                 this.dispatch(FieldActions.changeValue(this.fieldName, ''));
-                FieldActions.setCustomValue(this.fieldName, 'filValue', undefined);
+                FieldActions.setCustomValue(this.fieldName, DefaultFileChangeHandler.FILE_VALUE_KEY, undefined);
                 return;
             }
         }
 
-        const valueSelector = this.fieldConfiguration.valueSelector ?? this.defaultValueSelector;
+        const valueSelector = fieldConfiguration.valueSelector ?? this.valueSelector;
         const fileValue = valueSelector(e);
-        this.dispatch(FieldActions.setCustomValue(this.fieldName, 'filValue', fileValue));
+        this.dispatch(FieldActions.setCustomValue(this.fieldName, DefaultFileChangeHandler.FILE_VALUE_KEY, fileValue));
         if (this.uploadOptions) {
             this.dispatch(FieldActions.setReady(this.fieldName, false));
             this.fileUploader
                 .uploadFile(e, this.uploadOptions)
                 .then(value => {
                     this.dispatch(FieldActions.changeValue(this.fieldName, value));
+                })
+                .catch(error => {
+                    this.uploadOptions?.onUploadFailed?.(error);
                 })
                 .finally(() => {
                     this.dispatch(FieldActions.setReady(this.fieldName, true));
@@ -59,10 +73,11 @@ export class DefaultFileChangeHandler implements ChangeHandler {
     }
 
     private shouldValidate(): boolean {
+        const fieldConfiguration = this.getFieldConfiguration();
         return (
-            Boolean(this.fieldConfiguration.validateOnChange) &&
-            !this.fieldConfiguration.skipValidation &&
-            Boolean(this.fieldConfiguration.validationRules)
+            Boolean(fieldConfiguration.validateOnChange) &&
+            !fieldConfiguration.skipValidation &&
+            Boolean(fieldConfiguration.validationRules)
         );
     }
 }

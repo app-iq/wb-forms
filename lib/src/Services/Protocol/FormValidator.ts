@@ -1,6 +1,6 @@
 export interface ValidationResult {
     valid: boolean;
-    errors: string[];
+    failedFields: string[];
 }
 
 export interface FormValidator {

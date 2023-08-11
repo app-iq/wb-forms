@@ -36,7 +36,13 @@ export class DefaultServiceFactory implements ServiceFactory {
 
     createChangeHandler(fieldName: string, defaultValueSelector?: ValueSelector): ChangeHandler {
         if (this.formProps.customServiceFactory?.changeHandler) {
-            return this.formProps.customServiceFactory.changeHandler(this.state, this.dispatch, this.formProps, this);
+            return this.formProps.customServiceFactory.changeHandler(
+                fieldName,
+                this.state,
+                this.dispatch,
+                this.formProps,
+                this,
+            );
         }
 
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
@@ -55,11 +61,12 @@ export class DefaultServiceFactory implements ServiceFactory {
 
     createFileChangeHandler(
         fieldName: string,
+        defaultValueSelector: ValueSelector,
         uploadOptions?: UploadOptions,
-        defaultValueSelector?: ValueSelector,
     ): ChangeHandler {
         if (this.formProps.customServiceFactory?.fileChangeHandler) {
             return this.formProps.customServiceFactory.fileChangeHandler(
+                fieldName,
                 this.state,
                 this.dispatch,
                 this.formProps,
@@ -73,19 +80,25 @@ export class DefaultServiceFactory implements ServiceFactory {
         }
 
         return new DefaultFileChangeHandler(
-            this.dispatch,
             fieldName,
-            this.createFieldValidator(fieldName),
-            this.createFileUploader(),
-            fieldConfiguration ?? {},
-            uploadOptions,
+            this.state,
+            this.dispatch,
+            this.formProps,
+            this,
             defaultValueSelector,
+            uploadOptions,
         );
     }
 
     createFieldValidator(fieldName: string): FieldValidator {
         if (this.formProps.customServiceFactory?.fieldValidator) {
-            return this.formProps.customServiceFactory.fieldValidator(this.state, this.dispatch, this.formProps, this);
+            return this.formProps.customServiceFactory.fieldValidator(
+                fieldName,
+                this.state,
+                this.dispatch,
+                this.formProps,
+                this,
+            );
         }
 
         const fieldConfiguration = this.getFieldConfiguration(fieldName);
@@ -133,6 +146,7 @@ export class DefaultServiceFactory implements ServiceFactory {
     createArrayFieldChangeHandler(fieldName: string, fieldState: FieldState): ArrayFieldChangeHandler {
         if (this.formProps.customServiceFactory?.arrayFieldChangeHandler) {
             return this.formProps.customServiceFactory.arrayFieldChangeHandler(
+                fieldName,
                 this.state,
                 this.dispatch,
                 this.formProps,

@@ -18,6 +18,7 @@ export function createBaseFieldComponent<Props extends {name: string}, TDefaultP
     defaultProps: TDefaultProps,
     createChangeHandler: (props: Omit<Props, keyof WithFieldProps>, serviceFactory: ServiceFactory) => ChangeHandler,
     createInitialFieldState: (props: Omit<Props, keyof WithFieldProps>) => FieldState,
+    buildOnChange?: (changeHandler: ChangeHandler, props: Props) => (e: unknown) => void,
 ) {
     return function Wrapper(props: Omit<Props, keyof WithFieldProps>) {
         const propsWithDefaults = useMemo(() => ({...props, ...defaultProps}) as unknown as Props, [props]);
@@ -43,7 +44,9 @@ export function createBaseFieldComponent<Props extends {name: string}, TDefaultP
             return <></>;
         }
 
-        const onChange = (e: unknown) => changeHandler.handle(e);
+        const onChange = buildOnChange
+            ? buildOnChange(changeHandler, propsWithDefaults)
+            : (e: unknown) => changeHandler.handle(e);
 
         const toInjectProps: WithFieldProps = {
             handleChange: onChange,

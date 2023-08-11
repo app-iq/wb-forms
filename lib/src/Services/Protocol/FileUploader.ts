@@ -8,5 +8,6 @@ export interface UploadOptions {
     url: string;
     httpMethod: string;
     paramName: string;
-    valueExtractor: (response: Record<string, string> | unknown[]) => string;
+    valueExtractor: (response: unknown) => string;
+    onUploadFailed?: (error: unknown) => void;
 }

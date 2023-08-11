@@ -65,11 +65,8 @@ export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
 
     private getValidationRules(index: number): unknown {
         const {validationRules} = this.fieldConfiguration;
-        if (Array.isArray(validationRules)) {
-            return validationRules[index];
-        }
         if (typeof validationRules === 'function') {
-            return validationRules(index, this.state);
+            return validationRules(index);
         }
         return validationRules;
     }

@@ -18,11 +18,15 @@ export class DefaultFormValidator implements FormValidator {
 
     validate(): ValidationResult {
         const fieldsNames = Object.keys(this.fields);
+        const failedFields: string[] = [];
         const valid = fieldsNames.reduce((v, fieldName) => {
             const isFieldValid = this.handleValidation(fieldName);
+            if (!isFieldValid) {
+                failedFields.push(fieldName);
+            }
             return v && isFieldValid;
         }, true);
-        return {valid, errors: []};
+        return {valid, failedFields};
     }
 
     private handleValidation(fieldName: string) {
@@ -44,7 +48,9 @@ export class DefaultFormValidator implements FormValidator {
     }
 
     private validateArrayField(validator: FieldValidator, values: FieldValue[], validationRules: unknown) {
-        return values.map(value => validator.validate(value, validationRules));
+        return values.map((value, index) =>
+            validator.validate(value, typeof validationRules === 'function' ? validationRules(index) : validationRules),
+        );
     }
 
     private validateField(validator: FieldValidator, value: FieldValue, validationRules: unknown) {

@@ -18,19 +18,27 @@ type CustomServiceFactory<TService> = (
     self: ServiceFactory,
 ) => TService;
 
+type CustomFieldServiceFactory<TService> = (
+    fieldName: string,
+    state: State,
+    dispatch: DispatchFunction,
+    props: PropsWithChildren<FormProps>,
+    self: ServiceFactory,
+) => TService;
+
 export interface FormProps {
     serviceProvider?: (dispatch: DispatchFunction, state: State, props: PropsWithChildren<FormProps>) => ServiceFactory;
     reducers?: Reducer<State, Action<unknown, unknown>>[];
     serviceOptions?: Record<string, unknown>;
     fieldConfiguration?: Record<string, FieldConfiguration>;
     customServiceFactory?: {
-        fieldValidator: CustomServiceFactory<FieldValidator>;
-        formValidator: CustomServiceFactory<FormValidator>;
-        changeHandler: CustomServiceFactory<ChangeHandler>;
-        fileChangeHandler: CustomServiceFactory<ChangeHandler>;
-        arrayFieldChangeHandler: CustomServiceFactory<ArrayFieldChangeHandler>;
-        submitService: CustomServiceFactory<SubmitService>;
-        fileUploader: CustomServiceFactory<FileUploader>;
-        dataCollector: CustomServiceFactory<DataCollector>;
+        fieldValidator?: CustomFieldServiceFactory<FieldValidator>;
+        formValidator?: CustomServiceFactory<FormValidator>;
+        changeHandler?: CustomFieldServiceFactory<ChangeHandler>;
+        fileChangeHandler?: CustomFieldServiceFactory<ChangeHandler>;
+        arrayFieldChangeHandler?: CustomFieldServiceFactory<ArrayFieldChangeHandler>;
+        submitService?: CustomServiceFactory<SubmitService>;
+        fileUploader?: CustomServiceFactory<FileUploader>;
+        dataCollector?: CustomServiceFactory<DataCollector>;
     };
 }

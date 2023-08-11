@@ -18,8 +18,8 @@ export interface ServiceFactory {
 
     createFileChangeHandler(
         fieldName: string,
-        autoUploadOptions?: UploadOptions,
         defaultValueSelector?: ValueSelector,
+        autoUploadOptions?: UploadOptions,
     ): ChangeHandler;
 
     createArrayFieldChangeHandler(fieldName: string, fieldState: FieldState): ArrayFieldChangeHandler;
