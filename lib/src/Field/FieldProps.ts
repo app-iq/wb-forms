@@ -6,11 +6,7 @@ import {FieldValue, State} from '../Data/State';
 import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
 import {ArrayFieldChangeHandler} from '../Services/Protocol/ArrayFieldChangeHandler';
 
-export type ServiceCallback<TService> = (
-    dispatch: DispatchFunction,
-    state: State,
-    serviceFactory: ServiceFactory,
-) => TService;
+type ServiceCallback<TService> = (dispatch: DispatchFunction, state: State, serviceFactory: ServiceFactory) => TService;
 
 export interface FieldProps {
     name: string;
