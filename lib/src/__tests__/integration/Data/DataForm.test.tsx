@@ -38,19 +38,32 @@ function ClearButton() {
     );
 }
 function Field({name, field, handleChange}: FieldProps & WithFieldProps) {
-    return <input placeholder={name} value={field.value} onChange={e => handleChange(e.target.value)} />;
+    const isValid = field.valid as boolean;
+    return (
+        <input
+            className={isValid ? 'valid' : 'invalid'}
+            placeholder={name}
+            value={field.value}
+            onChange={e => handleChange(e.target.value)}
+        />
+    );
 }
 
 function ArrayField({name, field, handleChange}: FieldProps & WithArrayFieldProps) {
+    const valid = field.valid as boolean[];
     return (
         <div>
             {field.value.map((value: string, index: number) => (
-                <input
-                    key={index}
-                    placeholder={`${name}-${index}`}
-                    value={value}
-                    onChange={e => handleChange(index, e.target.value)}
-                />
+                <div key={index}>
+                    <span>
+                        {`${name}-${index}`}: {valid[index] ? 'true' : 'false'}
+                    </span>
+                    <input
+                        placeholder={`${name}-${index}`}
+                        value={value}
+                        onChange={e => handleChange(index, e.target.value)}
+                    />
+                </div>
             ))}
         </div>
     );
@@ -66,7 +79,7 @@ test('clear value', async () => {
                     clearValue: '@wb.com',
                 },
                 phones: {
-                    clearValue: ['123'],
+                    clearValue: ['1', '2'],
                 },
             }}
         >
@@ -79,6 +92,7 @@ test('clear value', async () => {
     );
     expect(screen.getByPlaceholderText('name')).toHaveValue('ali');
     expect(screen.getByPlaceholderText('email')).toHaveValue('ali@wb.com');
+    expect(screen.getByPlaceholderText('email')).toHaveClass('valid');
     expect(screen.getByPlaceholderText('phones-0')).toHaveValue('123');
     expect(screen.getByPlaceholderText('phones-1')).toHaveValue('789');
     expect(screen.getByPlaceholderText('list-0')).toHaveValue('item 1');
@@ -87,7 +101,10 @@ test('clear value', async () => {
     await act(() => fireEvent.click(screen.getByText('Clear')));
     expect(screen.getByPlaceholderText('name')).toHaveValue('');
     expect(screen.getByPlaceholderText('email')).toHaveValue('@wb.com');
-    expect(screen.getByPlaceholderText('phones-0')).toHaveValue('123');
+    expect(screen.getByPlaceholderText('phones-0')).toHaveValue('1');
+    expect(screen.getByPlaceholderText('phones-1')).toHaveValue('2');
+    expect(screen.getByText('phones-0: true')).toBeInTheDocument();
+    expect(screen.getByText('phones-1: true')).toBeInTheDocument();
     expect(screen.queryByPlaceholderText('list-0')).not.toBeInTheDocument();
 });
 

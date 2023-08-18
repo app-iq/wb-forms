@@ -7,8 +7,6 @@ import {WithFieldProps} from '../../../Field/BaseFieldComponent';
 import {Form} from '../../../Form/Form';
 import {withFileField} from '../../../Field/WithFileField';
 import {ChangeHandler} from '../../../Services/Protocol/ChangeHandler';
-import {withField} from '../../../Field/WithField';
-import {textValueSelector} from '../../../Field/ValueSelector';
 
 function Field({handleChange, name, field}: FieldProps & WithFieldProps) {
     return (

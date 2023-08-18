@@ -7,13 +7,14 @@ function clearFormValues(state: State, fieldsConfiguration: Record<string, Field
     const keys = Object.keys(state.fields);
     const updatedFields = keys.reduce((newFields: FieldsState, key) => {
         const defaultClearValue = Array.isArray(state.fields[key].value) ? [] : '';
-        const defaultClearValidationState = Array.isArray(state.fields[key].valid) ? [] : true;
+        const newValue = fieldsConfiguration[key]?.clearValue ?? defaultClearValue;
+        const newValid = Array.isArray(newValue) ? Array(newValue.length).fill(true) : true;
         return {
             ...newFields,
             [key]: {
                 ...state.fields[key],
-                value: fieldsConfiguration[key]?.clearValue ?? defaultClearValue,
-                valid: defaultClearValidationState,
+                value: newValue,
+                valid: newValid,
             },
         };
     }, {});
