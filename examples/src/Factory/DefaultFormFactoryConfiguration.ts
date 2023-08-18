@@ -1,5 +1,5 @@
-import {FormProps} from '../Form/FormProps';
-import {FieldProps} from '../Field/FieldProps';
+import {FormProps} from '../../../lib/src/Form/FormProps.ts';
+import {FieldProps} from '../../../lib/src/Field/FieldProps.ts';
 
 export interface FieldOptions {
     type: string;

@@ -6,7 +6,6 @@ import {FormActions} from './Data/Form/FormActions';
 import {SubmitActions} from './Data/Form/SubmitActions';
 import {SetupActions} from './Data/Setup/SetupActions';
 import {FieldState, FieldValue, FieldsState, State} from './Data/State';
-import {DefaultFormFactory} from './Factory/DefaultFormFactory';
 import {FieldConfiguration, FieldProps} from './Field/FieldProps';
 import {
     checkboxValueSelector,
@@ -24,11 +23,9 @@ import {DefaultHttpSubmitService} from './Services/DefaultImplementation/Default
 import {RegexBasedFieldValidator} from './Services/DefaultImplementation/RegexBasedFieldValidator';
 import {ServiceFactory} from './Services/ServiceFactory/ServiceFactory';
 import {DefaultServiceFactory} from './Services/ServiceFactory/DefaultServiceFactory';
-import {FormFactory} from './Factory/FormFactory';
 import {useFieldConfiguration} from './Field/FieldConfigurationContext';
 import {FormValidator} from './Services/Protocol/FormValidator';
 import {DefaultFormValidator} from './Services/DefaultImplementation/DefaultFormValidator';
-import {FormOptions, FieldOptions} from './Factory/DefaultFormFactoryConfiguration';
 import {useField} from './Field/Hooks';
 import {FileFieldProps} from './Field/FileFieldProps';
 import {withFileField} from './Field/WithFileField';
@@ -42,7 +39,6 @@ export {
     FormActions,
     SubmitActions,
     SetupActions,
-    DefaultFormFactory,
     withField,
     withFileField,
     useField,
@@ -67,7 +63,6 @@ export type {
     FieldsState,
     State,
     FieldValue,
-    FormFactory,
     FieldProps,
     WithFieldProps,
     FieldConfiguration,
@@ -78,8 +73,6 @@ export type {
     SubmitService,
     ServiceFactory,
     FormValidator,
-    FormOptions,
-    FieldOptions,
     FileFieldProps,
     ArrayFieldChangeHandler,
     WithArrayFieldProps,

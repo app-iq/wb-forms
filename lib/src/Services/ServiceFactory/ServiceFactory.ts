@@ -5,9 +5,9 @@ import {FieldConfiguration} from '../../Field/FieldProps';
 import {ValueSelector} from '../../Field/ValueSelector';
 import {FormValidator} from '../Protocol/FormValidator';
 import {FileUploader, UploadOptions} from '../Protocol/FileUploader';
-import {FieldState} from '../../main';
 import {ArrayFieldChangeHandler} from '../Protocol/ArrayFieldChangeHandler';
 import {DataCollector} from '../Protocol/DataCollector';
+import {FieldState} from '../../Data/State';
 
 export interface ServiceFactory {
     createFieldValidator(fieldName: string): FieldValidator;

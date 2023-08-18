@@ -1,5 +1,9 @@
-- IMPROVE TESTING COVERAGE AND QUALITY
+- prepare for 1.0.0 version + prepare main.ts
+
+LATER:
 - docs
-- prepare for 1.0.0 version
 - improve examples app
 - setup github pages for examples app and docs
+- consider remove response from form state
+- move upload options to field configuration
+- refactor services to use BaseService and BaseFieldService

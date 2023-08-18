@@ -3,7 +3,7 @@ import {FieldState, FieldValue} from '../../Data/State';
 import {ArrayFieldChangeHandler} from '../Protocol/ArrayFieldChangeHandler';
 import {FieldValidator} from '../Protocol/FieldValidator';
 import {FieldConfiguration} from '../../Field/FieldProps';
-import {FieldActions} from '../../main';
+import {FieldActions} from '../../Data/Field/FieldActions';
 
 export class DefaultArrayFieldChangeHandler implements ArrayFieldChangeHandler {
     constructor(

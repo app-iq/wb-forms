@@ -1,10 +1,10 @@
 import React, {ReactElement, useCallback} from 'react';
 import {useServiceFactory} from 'wb-core-provider';
-import {FormFactory} from './FormFactory';
-import {FormOptions} from './DefaultFormFactoryConfiguration';
-import {FieldProps} from '../Field/FieldProps';
-import {Form} from '../Form/Form';
-import {ServiceFactory} from '../Services/ServiceFactory/ServiceFactory';
+import {FormFactory} from './FormFactory.ts';
+import {FormOptions} from './DefaultFormFactoryConfiguration.ts';
+import {FieldProps} from '../../../lib/src/Field/FieldProps';
+import {Form} from '../../../lib/src/Form/Form.tsx';
+import {ServiceFactory} from '../../../lib/src/Services/ServiceFactory/ServiceFactory.ts';
 
 function SubmitButton() {
     const serviceFactory = useServiceFactory<ServiceFactory>();
