@@ -1,6 +1,6 @@
 {
     "name": "wb-forms",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0-alpha.1",
     "private": false,
     "main": "build/main.js",
     "types": "build/main.d.ts",
